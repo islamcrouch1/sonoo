@@ -13,12 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', 'login');
 
-Route::get('/dashboard', function () {
-    return view('Dashboard.home');
-})->middleware(['auth'])->name('dashboard');
+
+Route::get('/setlocale', function () {
+    setLocaleBySession();
+    return redirect()->back();
+})->name('setlocale');
+
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/dashboard.php';

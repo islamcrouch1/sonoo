@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('country_id');
             $table->string('phone');
-            $table->string('status')->default("inactive");
+            $table->integer('status')->default(0);
             $table->string('verification_code')->unique()->nullable();
             $table->timestamp('phone_verified_at')->nullable();
             $table->string('gender');

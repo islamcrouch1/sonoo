@@ -17,15 +17,16 @@
                                 <!--/.bg-holder-->
 
                                 <div class="z-index-1 position-relative"><a
-                                        class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder"
-                                        href="../../../index.html">falcon</a>
+                                        class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" href="#">
+                                        <img style="width:150px" src="{{ asset('assets/img/logo.png') }}" alt="">
+                                    </a>
                                     <p class="opacity-75 text-white">With the power of Falcon, you can now focus only on
                                         functionaries for your digital products, while leaving the UI design on us!</p>
                                 </div>
                             </div>
                             <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
                                 <p class="pt-3 text-white">Have an account?<br><a class="btn btn-outline-light mt-2 px-4"
-                                        href="../../../pages/authentication/card/login.html">Log In</a></p>
+                                        href="{{ route('login') }}">Log In</a></p>
                             </div>
                         </div>
                         <div class="col-md-7 d-flex flex-center">
@@ -73,7 +74,8 @@
 
                                         <select class="form-select @error('country') is-invalid @enderror" aria-label=""
                                             name="country" id="country" required>
-                                            <option value="1" {{ old('country') == '1' ? 'selected' : '' }}>Egypt</option>
+                                            <option value="1" {{ old('country') == '1' ? 'selected' : '' }}>Egypt
+                                            </option>
                                         </select>
                                         @error('country')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -94,8 +96,8 @@
                                     <div class="row gx-2">
                                         <div class="mb-3 col-sm-6">
                                             <label class="form-label" for="password">Password</label>
-                                            <input class="form-control @error('phone') is-invalid @enderror" type="password"
-                                                autocomplete="on" id="password" name="password" required />
+                                            <input class="form-control @error('password') is-invalid @enderror"
+                                                type="password" autocomplete="on" id="password" name="password" required />
                                             @error('password')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -103,9 +105,9 @@
                                         <div class="mb-3 col-sm-6">
                                             <label class="form-label" for="password_confirmation">Confirm
                                                 Password</label>
-                                            <input class="form-control @error('phone') is-invalid @enderror" type="password"
-                                                autocomplete="on" id="password_confirmation" name="password_confirmation"
-                                                required />
+                                            <input class="form-control @error('password_confirmation') is-invalid @enderror"
+                                                type="password" autocomplete="on" id="password_confirmation"
+                                                name="password_confirmation" required />
                                             @error('password_confirmation')
                                                 <div class="alert alert-danger">{{ $message }}</div>
                                             @enderror
@@ -137,8 +139,9 @@
 
                                     <div class="mb-3">
                                         <label class="form-label" for="profile">Profile picture</label>
-                                        <input name="profile" class="form-control @error('profile') is-invalid @enderror"
-                                            type="file" id="profile" />
+                                        <input name="profile"
+                                            class="img form-control @error('profile') is-invalid @enderror" type="file"
+                                            id="profile" />
                                         @error('profile')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -149,7 +152,7 @@
 
                                         <div class="col-md-10">
                                             <img src="{{ asset('assets/img/avatar/avatarmale.png') }}"
-                                                style="width:100px" class="img-thumbnail img-prev">
+                                                style="width:100px; border: 1px solid #999" class="img-thumbnail img-prev">
                                         </div>
 
                                     </div>

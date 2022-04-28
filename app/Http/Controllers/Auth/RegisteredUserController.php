@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Balance;
+use App\Models\Cart;
+use App\Models\Country;
 use App\Models\User;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Auth\Events\Registered;
@@ -36,6 +39,11 @@ class RegisteredUserController extends Controller
     public function store(Request $request)
     {
 
+
+        $phone = getPhoneWithCode($request->phone, $request->country);
+        $request->merge(['phone' => $phone]);
+
+
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
@@ -45,27 +53,16 @@ class RegisteredUserController extends Controller
             'gender' => ['required', 'string'],
             'profile' => ['image'],
             'check' => ['required'],
+            'role' => ['required', 'string'],
         ]);
 
 
+        // check if role exist
 
-        if (isset($request->phone)) {
 
-            $phone = $request->phone;
-
-            $phone = str_replace(' ', '', $phone);
-
-            if ($phone[0] == '0') {
-                $phone[0] = ' ';
-
-                $phone = str_replace(' ', '', $phone);
-            }
-
-            $phone = '+20' . $phone;
+        if ($request->role != '3' && $request->role != '4') {
+            return redirect()->back();
         }
-
-        $request->merge(['phone' => $phone]);
-
 
         $profile = $request->profile;
 
@@ -76,8 +73,6 @@ class RegisteredUserController extends Controller
                 $profile = 'avatarfemale.png';
             }
         } else {
-
-
             Image::make($request->profile)->resize(300, null, function ($constraint) {
                 $constraint->aspectRatio();
             })->save(public_path('storage/images/users/' . $request->profile->hashName()), 80);
@@ -101,9 +96,26 @@ class RegisteredUserController extends Controller
             'profile' => $profile,
         ]);
 
+
+        $user->attachRole($request->role);
+
+        Cart::create([
+            'user_id' => $user->id,
+        ]);
+
+        Balance::create([
+            'user_id' => $user->id,
+            'available_balance' => 0,
+            'outstanding_balance' => 0,
+            'pending_withdrawal_requests' => 0,
+            'completed_withdrawal_requests' => 0,
+            'bonus' => $user->hasRole('affiliate') ?  100 : 0,
+        ]);
+
         event(new Registered($user));
 
         Auth::login($user);
+        callToVerify($user);
 
         return redirect(RouteServiceProvider::HOME);
     }

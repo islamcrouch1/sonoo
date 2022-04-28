@@ -4,22 +4,22 @@
         data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false"
         aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span
                 class="toggle-line"></span></span></button>
-    <a class="navbar-brand me-1 me-sm-3" href="index.html">
-        <div class="d-flex align-items-center"><img class="me-2"
-                src="assets/img/icons/spot-illustrations/falcon.png" alt="" width="40" /><span
-                class="font-sans-serif">falcon</span>
+    <a class="navbar-brand me-1 me-sm-3" href="{{ route('home') }}">
+        <div class="d-flex align-items-center"><img class="me-2" src="{{ asset('assets/img/logo-blue.png') }}"
+                alt="" width="150" />
         </div>
     </a>
     <ul class="navbar-nav align-items-center d-none d-lg-block">
         <li class="nav-item">
             <div class="search-box" data-list='{"valueNames":["title"]}'>
                 <form class="position-relative" data-bs-toggle="search" data-bs-display="static">
-                    <input class="form-control search-input fuzzy-search" type="search" placeholder="Search..."
+                    <input class="form-control search-input fuzzy-search" type="search"
+                        value="{{ request()->search }}" name="search" autofocus placeholder="Search..."
                         aria-label="Search" />
                     <span class="fas fa-search search-box-icon"></span>
 
                 </form>
-                <div class="btn-close-falcon-container position-absolute end-0 top-50 translate-middle shadow-none"
+                {{-- <div class="btn-close-falcon-container position-absolute end-0 top-50 translate-middle shadow-none"
                     data-bs-dismiss="search">
                     <div class="btn-close-falcon" aria-label="Close"></div>
                 </div>
@@ -135,11 +135,23 @@
                     <div class="text-center mt-n3">
                         <p class="fallback fw-bold fs-1 d-none">No Result Found.</p>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </li>
     </ul>
     <ul class="navbar-nav navbar-nav-icons ms-auto flex-row align-items-center">
+        <li class="nav-item">
+            <div class="theme-control-toggle fa-icon-wait px-2">
+                <a style="text-decoration: none" href="{{ route('setlocale') }}">
+                    <div
+                        style="background-color:#d8e2ef; align-items: center; display: flex; justify-content: center; padding:5px ; border-radius:50% ; width:30px; height:30px">
+                        <span data-bs-toggle="tooltip" data-bs-placement="left" title="Switch language"
+                            style="color:#2c7be5 !important" class="material-icons text-secondary fs-2">language</span>
+                    </div>
+                </a>
+
+            </div>
+        </li>
         <li class="nav-item">
             <div class="theme-control-toggle fa-icon-wait px-2">
                 <input class="form-check-input ms-0 theme-control-toggle-input" id="themeControlToggle" type="checkbox"
@@ -277,7 +289,7 @@
             </div>
 
         </li>
-        <li class="nav-item dropdown">
+        {{-- <li class="nav-item dropdown">
             <a class="nav-link fa-icon-wait nine-dots p-1" id="navbarDropdownMenu" role="button"
                 data-hide-on-body-scroll="data-hide-on-body-scroll" data-bs-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
@@ -427,11 +439,16 @@
                 </div>
             </div>
 
-        </li>
+        </li> --}}
+
+
+
+
         <li class="nav-item dropdown"><a class="nav-link pe-0 ps-2" id="navbarDropdownUser" role="button"
                 data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <div class="avatar avatar-xl">
-                    <img class="rounded-circle" src="assets/img/team/3-thumb.png" alt="" />
+                    <img class="rounded-circle" src="{{ asset('storage/images/users/' . Auth::user()->profile) }}"
+                        alt="" />
 
                 </div>
             </a>
@@ -447,16 +464,16 @@
 
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="pages/user/settings.html">Settings</a>
-                    <a class="dropdown-item" href="pages/authentication/card/logout.html">
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
 
-                            <x-dropdown-link :href="route('logout')" onclick="event.preventDefault();
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+
+                        <x-dropdown-link :href="route('logout')" class="dropdown-item"
+                            style="padding-left:1rem !important; padding-left:1rem !important" onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Logout') }}
-                            </x-dropdown-link>
-                        </form>
-                    </a>
+                            {{ __('Logout') }}
+                        </x-dropdown-link>
+                    </form>
                 </div>
             </div>
         </li>

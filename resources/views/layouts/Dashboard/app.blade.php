@@ -10,7 +10,7 @@
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>Falcon | Dashboard &amp; Web App Template</title>
+    <title>Sonoo - Affiliate Platform</title>
 
 
 
@@ -18,12 +18,12 @@
     <!-- ===============================================-->
     <!--    Favicons-->
     <!-- ===============================================-->
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/favicons/apple-touch-icon.png') }}">
-    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/favicons/favicon-32x32.png') }}">
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/favicons/favicon-16x16.png') }}">
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/favicons/favicon.ico') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('assets/img/fevicon.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('assets/img/fevicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('assets/img/fevicon.png') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/img/fevicon.png') }}">
     <link rel="manifest" href="{{ asset('assets/img/favicons/manifest.json') }}">
-    <meta name="msapplication-TileImage" content="{{ asset('assets/img/favicons/mstile-150x150.png') }}">
+    <meta name="msapplication-TileImage" content="{{ asset('assets/img/fevicon.png') }}">
     <meta name="theme-color" content="#ffffff">
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <script src="{{ asset('vendors/overlayscrollbars/OverlayScrollbars.min.js') }}"></script>
@@ -41,21 +41,55 @@
     <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" id="style-default">
     <link href="{{ asset('assets/css/user-rtl.min.css') }}" rel="stylesheet" id="user-style-rtl">
     <link href="{{ asset('assets/css/user.min.css') }}" rel="stylesheet" id="user-style-default">
-    <script>
-        var isRTL = JSON.parse(localStorage.getItem('isRTL'));
-        if (isRTL) {
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+
+
+    @if (app()->getLocale() == 'ar')
+        <script>
             var linkDefault = document.getElementById('style-default');
             var userLinkDefault = document.getElementById('user-style-default');
             linkDefault.setAttribute('disabled', true);
             userLinkDefault.setAttribute('disabled', true);
             document.querySelector('html').setAttribute('dir', 'rtl');
-        } else {
+        </script>
+    @else
+        <script>
             var linkRTL = document.getElementById('style-rtl');
             var userLinkRTL = document.getElementById('user-style-rtl');
             linkRTL.setAttribute('disabled', true);
             userLinkRTL.setAttribute('disabled', true);
+        </script>
+    @endif
+
+
+    <style>
+        .text-muted {
+            display: none;
         }
-    </script>
+
+        .page-item.disabled .page-link {
+            border-color: #edf2f9 !important;
+        }
+
+        .page-link:hover {
+            z-index: 2;
+            color: #0056b3;
+            text-decoration: none;
+            background-color: #e9ecef;
+            border-color: #edf2f9;
+        }
+
+        .page-link {
+            padding: .35rem .65rem
+        }
+
+        .page-item.active .page-link {
+            background-color: #e9ecef;
+            color: #0056b3;
+            border-color: #edf2f9;
+        }
+
+    </style>
 </head>
 
 
@@ -86,6 +120,8 @@
 
                 @include('layouts.Dashboard._header')
 
+                @include('layouts.Dashboard._flash')
+
                 @yield('adminContent')
 
                 @include('layouts.Dashboard._footer')
@@ -115,6 +151,11 @@
     <script src="https://polyfill.io/v3/polyfill.min.js?features=window.scroll"></script>
     <script src="{{ asset('vendors/list.js/list.min.js') }}"></script>
     <script src="{{ asset('assets/js/theme.js') }}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="{{ asset('assets/js/custom.js') }}"></script>
+
+
 
 </body>
 
