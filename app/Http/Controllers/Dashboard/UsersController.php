@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic as Image;
@@ -112,7 +113,7 @@ class UsersController extends Controller
             })->save(public_path('storage/images/users/' . $request->profile->hashName()), 80);
         }
 
-        if ($profile !== 'avatarmale.png' || $profile !== 'avatarfemale.png') {
+        if ($profile !== 'avatarmale.png' && $profile !== 'avatarfemale.png') {
             $profile = $request->profile->hashName();
         }
 
@@ -250,9 +251,7 @@ class UsersController extends Controller
      */
     public function destroy($user)
     {
-
         $user = User::withTrashed()->where('id', $user)->first();
-
         if ($user->trashed() && auth()->user()->hasPermission('users-delete')) {
             Storage::disk('public')->delete('/images/users/' . $user->profile);
             $user->forceDelete();
@@ -312,6 +311,42 @@ class UsersController extends Controller
         $user->forceFill([
             'status' => $user->status == 0 ? 1 : 0,
         ])->save();
+        return redirect()->route('users.index');
+    }
+
+
+    public function bonus(Request $request, User $user)
+    {
+
+
+        $request->validate([
+            'bonus' => "required|numeric",
+        ]);
+
+
+        if ($request->bonus == 0 || $request->bonus < 0) {
+            alertError('Can not make this action', 'نأسف , لا يمكن إتمام هذا الإجؤاء');
+            return redirect()->route('users.index');
+        }
+
+        $user->balance->update([
+            'bonus' => $user->balance->bonus + intval($request->bonus)
+        ]);
+
+        $ar = 'تم اضافة بونص الى حسابك من الادارة';
+        $en = 'A bonus has been added to your account from the administration';
+        addFinanceRequest($user, $request->bonus, $en, $ar);
+
+        $title_ar = 'اشعار من الإدارة';
+        $body_ar = 'تم اضافة بونص الى حسابك من الادارة';
+        $title_en = 'New notification from admin';
+        $body_en = 'A bonus has been added to your account from the administration';
+        $url = route('withdrawals.index');
+
+        addNoty($user, Auth::user(), $url, $title_en, $title_ar, $body_en, $body_ar);
+
+
+        alertSuccess('Bonus added successfully to the user', 'تم إضافة رصيد البونص بنجاح');
         return redirect()->route('users.index');
     }
 

@@ -5,6 +5,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+
 
 
     <!-- ===============================================-->
@@ -27,6 +30,8 @@
     <meta name="theme-color" content="#ffffff">
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <script src="{{ asset('vendors/overlayscrollbars/OverlayScrollbars.min.js') }}"></script>
+    <script src="https://js.pusher.com/7.0/pusher.min.js"></script>
+
 
 
     <!-- ===============================================-->
@@ -41,7 +46,13 @@
     <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" id="style-default">
     <link href="{{ asset('assets/css/user-rtl.min.css') }}" rel="stylesheet" id="user-style-rtl">
     <link href="{{ asset('assets/css/user.min.css') }}" rel="stylesheet" id="user-style-default">
+    <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" id="user-style-custom">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/css/bootstrap-colorpicker.min.css"
+        rel="stylesheet">
+    <link href="{{ asset('vendors/choices/choices.min.css') }}" rel="stylesheet" />
+
+
 
 
     @if (app()->getLocale() == 'ar')
@@ -52,6 +63,12 @@
             userLinkDefault.setAttribute('disabled', true);
             document.querySelector('html').setAttribute('dir', 'rtl');
         </script>
+        <style>
+            .colorpicker.colorpicker-with-alpha {
+                left: 150px !important;
+            }
+
+        </style>
     @else
         <script>
             var linkRTL = document.getElementById('style-rtl');
@@ -59,37 +76,13 @@
             linkRTL.setAttribute('disabled', true);
             userLinkRTL.setAttribute('disabled', true);
         </script>
+        <style>
+            .colorpicker.colorpicker-with-alpha {
+                left: 300px !important;
+            }
+
+        </style>
     @endif
-
-
-    <style>
-        .text-muted {
-            display: none;
-        }
-
-        .page-item.disabled .page-link {
-            border-color: #edf2f9 !important;
-        }
-
-        .page-link:hover {
-            z-index: 2;
-            color: #0056b3;
-            text-decoration: none;
-            background-color: #e9ecef;
-            border-color: #edf2f9;
-        }
-
-        .page-link {
-            padding: .35rem .65rem
-        }
-
-        .page-item.active .page-link {
-            background-color: #e9ecef;
-            color: #0056b3;
-            border-color: #edf2f9;
-        }
-
-    </style>
 </head>
 
 
@@ -153,8 +146,47 @@
     <script src="{{ asset('assets/js/theme.js') }}"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/js/bootstrap-colorpicker.min.js">
+    </script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/js/notification.js') }}"></script>
+    <script src="{{ asset('vendors/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('vendors/choices/choices.min.js') }}"></script>
 
+
+
+
+
+
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+
+        // Enable pusher logging - don't include this in production
+        Pusher.logToConsole = true;
+        var pusher = new Pusher('eafcb3adf9234ab2c05d', {
+            cluster: 'mt1'
+        });
+    </script>
+
+    <!--Start of Tawk.to Script-->
+    <script type="text/javascript">
+        var Tawk_API = Tawk_API || {},
+            Tawk_LoadStart = new Date();
+        (function() {
+            var s1 = document.createElement("script"),
+                s0 = document.getElementsByTagName("script")[0];
+            s1.async = true;
+            s1.src = 'https://embed.tawk.to/61c9ab94c82c976b71c3ab10/1fntscfdk';
+            s1.charset = 'UTF-8';
+            s1.setAttribute('crossorigin', '*');
+            s0.parentNode.insertBefore(s1, s0);
+        })();
+    </script>
+    <!--End of Tawk.to Script-->
 
 
 </body>

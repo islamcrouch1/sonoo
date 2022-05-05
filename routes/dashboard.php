@@ -1,19 +1,23 @@
 <?php
 
+use App\Http\Controllers\Dashboard\ProductsController;
+use App\Http\Controllers\Dashboard\CategoriesController;
+use App\Http\Controllers\Dashboard\ColorsController;
 use App\Http\Controllers\Dashboard\CountriesController;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\PasswordResetController;
-use App\Http\Controllers\Dashboard\PhoneVerificationController;
+use App\Http\Controllers\Dashboard\RoleController;
+use App\Http\Controllers\Dashboard\SettingController;
+use App\Http\Controllers\Dashboard\ShippingRatesController;
+use App\Http\Controllers\Dashboard\SizesController;
+use App\Http\Controllers\Dashboard\SlidesController;
+use App\Http\Controllers\Dashboard\UserNotificationsController;
 use App\Http\Controllers\Dashboard\UsersController;
+use App\Http\Controllers\Dashboard\WithdrawalsController;
 use Illuminate\Support\Facades\Route;
 
 
-Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator|administrator|affiliate|vendor']], function () {
-
-    // verification routes
-    Route::get('phone/verify', [PhoneVerificationController::class, 'show'])->name('phoneverification.notice')->middleware('auth', 'checkstatus');
-    Route::post('phone/verify', [PhoneVerificationController::class, 'verify'])->name('phoneverification.verify')->middleware('auth', 'checkstatus');
-    Route::get('/resend-code', [PhoneVerificationController::class, 'resend'])->name('resend-code')->middleware('auth', 'checkstatus');
+Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator|administrator']], function () {
 
     // home view route - dashboard
     Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth', 'checkverified', 'checkstatus');
@@ -25,12 +29,74 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
     Route::get('/trashed-users/{user}', [UsersController::class, 'restore'])->name('users.restore')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('/activate-users/{user}', [UsersController::class, 'activate'])->name('users.activate')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('/block-users/{user}', [UsersController::class, 'block'])->name('users.block')->middleware('auth', 'checkverified', 'checkstatus');
-
+    Route::post('/add-bonus/{user}', [UsersController::class, 'bonus'])->name('users.bonus')->middleware('auth', 'checkverified', 'checkstatus');
 
     // countries routes
     Route::resource('countries', CountriesController::class)->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('/trashed-countries', [CountriesController::class, 'trashed'])->name('countries.trashed')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('/trashed-countries/{country}', [CountriesController::class, 'restore'])->name('countries.restore')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // withdrawal routes
+    Route::get('/withdrawals', [WithdrawalsController::class, 'index'])->name('withdrawals.index')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/withdrawals/request', [WithdrawalsController::class, 'create'])->name('withdrawals.request')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('/withdrawals', [WithdrawalsController::class, 'store'])->name('withdrawals.affiliate.store')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // user notification routes
+    Route::get('/notification/change', [UserNotificationsController::class, 'changeStatus'])->name('notifications.change')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/notifications', [UserNotificationsController::class, 'index'])->name('notifications.index')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/notifications/change', [UserNotificationsController::class, 'changeStatusAll'])->name('notifications.change.all')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // roles routes
+    Route::resource('roles',  RoleController::class)->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-roles', [RoleController::class, 'trashed'])->name('roles.trashed')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-roles/{role}', [RoleController::class, 'restore'])->name('roles.restore')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // categories routes
+    Route::resource('categories', CategoriesController::class)->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-categories', [CategoriesController::class, 'trashed'])->name('categories.trashed')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-categories/{category}', [CategoriesController::class, 'restore'])->name('categories.restore')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // settings route
+    Route::get('/settings', [SettingController::class, 'index'])->name('settings.index')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('/settings', [SettingController::class, 'store'])->name('settings.store')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // products routes
+    Route::resource('products', ProductsController::class)->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-products', [ProductsController::class, 'trashed'])->name('products.trashed')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-products/{product}', [ProductsController::class, 'restore'])->name('products.restore')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/products/stock/{product}', [ProductsController::class, 'stockCreate'])->name('products.stock.create')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('/products/stock-store/{product}', [ProductsController::class, 'stockStore'])->name('products.stock.store')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/products/color/{product}', [ProductsController::class, 'colorCreate'])->name('products.color.create')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('/products/color-store/{product}', [ProductsController::class, 'colorStore'])->name('products.color.store')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/stock/color-remove/{stock}', [ProductsController::class, 'colorDestroy'])->name('products.color.destroy')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // product color routes
+    Route::resource('colors', ColorsController::class)->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-colors', [ColorsController::class, 'trashed'])->name('colors.trashed')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-colors/{color}', [ColorsController::class, 'restore'])->name('colors.restore')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // product size routes
+    Route::resource('sizes', SizesController::class)->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-sizes', [SizesController::class, 'trashed'])->name('sizes.trashed')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-sizes/{size}', [SizesController::class, 'restore'])->name('sizes.restore')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // shipping rates routes
+    Route::resource('shipping_rates', ShippingRatesController::class)->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-shipping_rates', [ShippingRatesController::class, 'trashed'])->name('shipping_rates.trashed')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-shipping_rates/{shipping_rate}', [ShippingRatesController::class, 'restore'])->name('shipping_rates.restore')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // slider routes
+    Route::resource('slides', SlidesController::class)->middleware('auth', 'verifiedphone', 'checkstatus');
+    Route::get('/trashed-slides', [SlidesController::class, 'trashed'])->name('slides.trashed')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-slides/{slide}', [SlidesController::class, 'restore'])->name('slides.restore')->middleware('auth', 'checkverified', 'checkstatus');
+
+
+
+
+    // --------------------------------------------- Vendors Routes ---------------------------------------------
+
+    // vendor product routes
+    Route::resource('vendor-products', ProductsController::class)->middleware('auth', 'checkverified', 'checkstatus');
 });
 
 

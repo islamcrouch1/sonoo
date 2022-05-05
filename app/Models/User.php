@@ -49,6 +49,48 @@ class User extends Authenticatable
     ];
 
 
+    public function vendorProducts()
+    {
+        return $this->belongsTo(Product::class, 'vendor_id');
+    }
+
+
+    public function balance()
+    {
+        return $this->hasOne(Balance::class);
+    }
+
+    public function cart()
+    {
+        return $this->hasOne(Cart::class);
+    }
+
+    public function fav()
+    {
+        return $this->hasMany(Fav::class);
+    }
+
+    public function logs()
+    {
+        return $this->hasMany(Log::class);
+    }
+
+    public function requests()
+    {
+        return $this->hasMany(Request::class);
+    }
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
+    }
+
+
 
     public function scopeWhenSearch($query, $search)
     {
@@ -71,7 +113,11 @@ class User extends Authenticatable
     public function scopeWhenStatus($query, $status)
     {
         return $query->when($status, function ($q) use ($status) {
-            return $q->where('status', 'like', $status);
+            if ($status == 'active' || $status == 'inactive') {
+                return $status == 'active' ? $q->whereNotNull('phone_verified_at') : $q->whereNull('phone_verified_at');
+            } else {
+                return $q->where('status', 'like', $status);
+            }
         });
     }
 

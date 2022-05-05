@@ -17,10 +17,21 @@ class CountriesController extends Controller
      */
 
 
+    public function __construct()
+    {
+        $this->middleware('role:superadministrator|administrator');
+        $this->middleware('permission:countries-read')->only('index', 'show');
+        $this->middleware('permission:countries-create')->only('create', 'store');
+        $this->middleware('permission:countries-update')->only('edit', 'update');
+        $this->middleware('permission:countries-delete|countries-trash')->only('destroy', 'trashed');
+        $this->middleware('permission:countries-restore')->only('restore');
+    }
+
 
     public function index()
     {
         $countries = Country::whenSearch(request()->search)
+            ->latest()
             ->paginate(100);
         return view('dashboard.countries.index')->with('countries', $countries);
     }
@@ -139,9 +150,7 @@ class CountriesController extends Controller
      */
     public function destroy($country)
     {
-
         $country = Country::withTrashed()->where('id', $country)->first();
-
         if ($country->trashed() && auth()->user()->hasPermission('countries-delete')) {
             Storage::disk('public')->delete('/images/countries/' . $country->image);
             $country->forceDelete();

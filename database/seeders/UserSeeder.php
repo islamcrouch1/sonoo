@@ -50,7 +50,7 @@ class UserSeeder extends Seeder
             'name_en' => 'Egypt',
             'code' => '+20',
             'currency' => 'EGP',
-            'image' => 'images/countries/dSroDy5KlCP8nU4H5eowlWxDuabJrVrBx47Jrdkf.png',
+            'image' => 'rR24VxxvUqZZYfg2PabsWAno3fXoov04dRGvupwZ.png',
         ]);
     }
 }

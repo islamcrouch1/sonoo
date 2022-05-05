@@ -46,7 +46,7 @@ class AuthenticatedSessionController extends Controller
         if ($user != null) {
             $country_id = $user->country_id;
 
-            $country = Country::find($country_id);
+            $country = Country::findOrFail($country_id);
             $phone = $country->code . $phone;
 
             $request->merge(['phone' =>  $phone]);
@@ -56,7 +56,13 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        if (Auth::user()->hasRole('affiliate')) {
+            return redirect()->intended(RouteServiceProvider::HOME_FOR_AFFILIATE);
+        } elseif (Auth::user()->hasRole('vandor')) {
+            return redirect()->intended(RouteServiceProvider::HOME_FOR_VENDOR);
+        } elseif (Auth::user()->hasRole('administrator|superadministrator')) {
+            return redirect()->intended(RouteServiceProvider::HOME_FOR_ADMIN);
+        }
     }
 
     /**

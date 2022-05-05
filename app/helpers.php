@@ -1,10 +1,19 @@
 <?php
 
+use App\Events\NewNotification;
+use App\Models\Category;
 use App\Models\Country;
 use App\Models\Log;
+use App\Models\Notification;
+use App\Models\Request;
+use App\Models\Setting;
+use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Twilio\Rest\Client;
 use Twilio\Exceptions\TwilioException;
+use Illuminate\Validation\ValidationException;
+
 
 
 
@@ -77,7 +86,7 @@ if (!function_exists('markUserBlocked')) {
 if (!function_exists('interval')) {
     function interval($old)
     {
-        $date = Carbon\Carbon::now();
+        $date = Carbon::now();
         return $interval = $old->diffForHumans();
     }
 }
@@ -120,7 +129,7 @@ if (!function_exists('getPhoneWithoutCode')) {
 
 // alert success
 if (!function_exists('alertSuccess')) {
-    function alertSuccess($ar, $en)
+    function alertSuccess($en, $ar)
     {
         app()->getLocale() == 'ar' ?
             session()->flash('success', $ar) :
@@ -131,7 +140,7 @@ if (!function_exists('alertSuccess')) {
 
 // alert error
 if (!function_exists('alertError')) {
-    function alertError($ar, $en)
+    function alertError($en, $ar)
     {
         app()->getLocale() == 'ar' ?
             session()->flash('error', $ar) :
@@ -160,13 +169,11 @@ if (!function_exists('addLog')) {
 if (!function_exists('checkUserForTrash')) {
     function checkUserForTrash($user)
     {
-        // if ($user->orders->count() > '0' || $user->messages->count() > '0' || $user->vorders->count() > '0') {
-        //     return false;
-        // } else {
-        //     return true;
-        // }
-
-        return true;
+        if ($user->vendorProducts->count() > '0') {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
 
@@ -180,6 +187,225 @@ if (!function_exists('checkCountryForTrash')) {
             return false;
         } else {
             return true;
+        }
+    }
+}
+
+
+// check role for trash
+
+if (!function_exists('checkRoleForTrash')) {
+    function checkRoleForTrash($role)
+    {
+        if ($role->users()->withTrashed()->count() > '0') {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+
+// check role for trash
+
+if (!function_exists('checkProductForTrash')) {
+    function checkProductForTrash($product)
+    {
+        // if ($product->users()->withTrashed()->count() > '0') {
+        //     return false;
+        // } else {
+        //     return true;
+        // }
+
+        return true;
+    }
+}
+
+
+// check shipping rate for trash
+
+if (!function_exists('checkShippingRateForTrash')) {
+    function checkShippingRateForTrash($product)
+    {
+        // if ($product->users()->withTrashed()->count() > '0') {
+        //     return false;
+        // } else {
+        //     return true;
+        // }
+
+        return true;
+    }
+}
+
+
+
+
+
+
+// check category for trash
+
+if (!function_exists('checkCategoryForTrash')) {
+    function checkCategoryForTrash($category)
+    {
+        if ($category->products()->withTrashed()->count() > '0' || $category->children()->withTrashed()->count()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+if (!function_exists('checkColorForTrash')) {
+    function checkColorForTrash($color)
+    {
+        if ($color->stocks()->count() > '0' || $color->affiliate_stocks()->count()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+if (!function_exists('checkSizeForTrash')) {
+    function checkSizeForTrash($size)
+    {
+        if ($size->stocks()->count() > '0' || $size->affiliate_stocks()->count()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+
+if (!function_exists('productQuantity')) {
+    function productQuantity($product)
+    {
+        $quantity = 0;
+        foreach ($product->stocks as $stock) {
+            $quantity += $stock->quantity;
+        }
+        return $quantity;
+    }
+}
+
+
+
+if (!function_exists('addFinanceRequest')) {
+    function addFinanceRequest($user, $amount, $en, $ar)
+    {
+        Request::create([
+            'user_id' => $user->id,
+            'balance_id' => $user->balance->id,
+            'order_id' => '0',
+            'request_ar' => $ar,
+            'request_en' => $en,
+            'balance' => '+ ' . $amount,
+        ]);
+    }
+}
+
+
+
+if (!function_exists('addNoty')) {
+    function addNoty($user, $sender, $url, $tEn, $tAr, $bEn, $bAr)
+    {
+        $notification = Notification::create([
+            'user_id' => $user->id,
+            'sender_id' => $sender->id,
+            'sender_name'  => $sender->name,
+            'sender_image' => asset('storage/images/users/' . $sender->profile),
+            'title_ar' => $tAr,
+            'body_ar' => $bAr,
+            'title_en' => $tEn,
+            'body_en' => $bEn,
+            'date' => Carbon::now(),
+            'status' => 0,
+            'url' =>  $url
+        ]);
+
+        $date =  Carbon::now();
+        $interval = $notification->created_at->diffForHumans($date);
+
+        $data = [
+
+            'notification_id' => $notification->id,
+            'user_id' => $user->id,
+            'sender_id' => $sender->id,
+            'sender_name'  => $sender->name,
+            'sender_image' => asset('storage/images/users/' . $sender->profile),
+            'title_ar' => $tAr,
+            'body_ar' => $bAr,
+            'title_en' => $tEn,
+            'body_en' => $bEn,
+            'date' => $interval,
+            'status' => $notification->status,
+            'url' =>  $url,
+            'change_status' => route('notifications.change', ['notification' => $notification->id]),
+
+        ];
+
+
+
+        try {
+            event(new NewNotification($data));
+        } catch (Exception $e) {
+            alertError('There was an error sending notifications', 'حدث خطأ في ارسال الإشعارات');
+        }
+    }
+}
+
+
+if (!function_exists('setting')) {
+    function setting($type)
+    {
+        $setting = Setting::where('type', $type)->first();
+        return $setting ? $setting->value : null;
+    }
+}
+
+
+if (!function_exists('CalculateProductPrice')) {
+    function CalculateProductPrice($product)
+    {
+
+        $CategoriesProfitAverage = 0;
+        $categoriesCount = 0;
+
+        foreach ($product->categories as $category) {
+
+            $CategoriesProfitAverage += $category->profit;
+            $categoriesCount++;
+        }
+
+        $CategoriesProfitAverage = $CategoriesProfitAverage / $categoriesCount;
+        $profitFromVendorPrice =  $product->vendor_price *  $CategoriesProfitAverage / 100;
+        $profitWithExtraFee = $profitFromVendorPrice + $product->extra_fee;
+        $tax = $profitWithExtraFee * setting('tax') / 100;
+        $totalProfit = $profitWithExtraFee + $tax;
+        $producPrice = $totalProfit + $product->vendor_price;
+        $maxPrice = $producPrice * setting('max_price') / 100;
+
+        $product->update([
+            'max_price' => ceil($maxPrice),
+            'total_profit' => ceil($totalProfit),
+            'price' => ceil($producPrice),
+        ]);
+    }
+
+
+
+    if (!function_exists('checkVendor')) {
+        function checkVendor($vendor_id)
+        {
+            $vendor = User::find($vendor_id);
+            if ($vendor == null) {
+                return false;
+            } elseif (!$vendor->hasRole('vendor')) {
+                return false;
+            } else {
+                return true;
+            }
         }
     }
 }

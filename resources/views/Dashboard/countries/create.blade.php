@@ -64,7 +64,7 @@
                             <div class="mb-3">
                                 <label class="form-label" for="image">Country flag</label>
                                 <input name="image" class="img form-control @error('image') is-invalid @enderror"
-                                    type="file" id="image" />
+                                    type="file" id="image" required />
                                 @error('image')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

@@ -30,7 +30,20 @@
                         <form style="display: inline-block" action="">
 
                             <div class="d-inline-block">
-                                <select name="role_id" class="form-select form-select-sm" id="autoSizingSelect">
+                                {{-- <label class="form-label" for="from">{{ __('From') }}</label> --}}
+                                <input type="date" id="from" name="from" class="form-control form-select-sm"
+                                    value="{{ request()->from }}">
+                            </div>
+
+                            <div class="d-inline-block">
+                                {{-- <label class="form-label" for="to">{{ __('To') }}</label> --}}
+                                <input type="date" id="to" name="to" class="form-control form-select-sm sonoo-search"
+                                    value="{{ request()->to }}">
+                            </div>
+
+                            <div class="d-inline-block">
+                                <select name="role_id" class="form-select form-select-sm sonoo-search"
+                                    id="autoSizingSelect">
                                     <option value="" selected>{{ __('All Roles') }}</option>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->id }}"
@@ -40,19 +53,20 @@
                                 </select>
                             </div>
                             <div class="d-inline-block">
-                                <select name="status" class="form-select form-select-sm" id="autoSizingSelect">
+                                <select name="status" class="form-select form-select-sm sonoo-search" id="autoSizingSelect">
                                     <option value="" selected>{{ __('All Status') }}</option>
                                     <option value="active" {{ request()->status == 'active' ? 'selected' : '' }}>
                                         {{ __('avtive') }}</option>
                                     <option value="inactive" {{ request()->status == 'inactive' ? 'selected' : '' }}>
                                         {{ __('inactive') }}</option>
-                                    <option value="blocked" {{ request()->status == 'blocked' ? 'selected' : '' }}>
+                                    <option value="1" {{ request()->status == '1' ? 'selected' : '' }}>
                                         {{ __('blocked') }}</option>
                                 </select>
                             </div>
 
                             <div class="d-inline-block">
-                                <select name="country_id" class="form-select form-select-sm" id="autoSizingSelect">
+                                <select name="country_id" class="form-select form-select-sm sonoo-search"
+                                    id="autoSizingSelect">
                                     <option value="" selected>{{ __('All Countries') }}</option>
                                     @foreach ($countries as $country)
                                         <option value="{{ $country->id }}"
@@ -73,9 +87,6 @@
                         <a href="{{ route('users.trashed') }}" class="btn btn-falcon-default btn-sm" type="button"><span
                                 class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
                                 class="d-none d-sm-inline-block ms-1">Trash</span></a>
-                        <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-filter"
-                                data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Filter</span></button>
                         <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
                                 class="d-none d-sm-inline-block ms-1">Export</span></button>
@@ -145,7 +156,7 @@
                                         @if (hasVerifiedPhone($user))
                                             <span class='badge badge-soft-success'>{{ __('Active') }}</span>
                                         @elseif (!hasVerifiedPhone($user))
-                                            <span class='badge badge-soft-danger'>{{ __('Not Active') }}</span>
+                                            <span class='badge badge-soft-danger'>{{ __('Inactive') }}</span>
                                         @endif
                                         @if ($user->status == 1)
                                             <span class='badge badge-soft-danger'>{{ __('blocked') }}</span>
@@ -177,6 +188,8 @@
                                                             href="{{ route('users.activate', ['user' => $user->id]) }}">{{ hasVerifiedPhone($user) ? __('Deactivate') : __('Activate') }}</a>
                                                         <a class="dropdown-item"
                                                             href="{{ route('users.block', ['user' => $user->id]) }}">{{ $user->status == 0 ? __('Block') : __('Unblock') }}</a>
+                                                        <a href="" class="dropdown-item" data-bs-toggle="modal"
+                                                            data-bs-target="#bonus-modal-{{ $user->id }}">{{ __('Add bonus') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('users-delete') ||
     auth()->user()->hasPermission('users-trash'))
@@ -193,6 +206,52 @@
                                         </div>
                                     </td>
                                 </tr>
+
+                                <!-- start bonus modal for each user -->
+                                <div class="modal fade" id="bonus-modal-{{ $user->id }}" tabindex="-1"
+                                    role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document"
+                                        style="max-width: 500px">
+                                        <div class="modal-content position-relative">
+                                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                <button
+                                                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <form method="POST"
+                                                action="{{ route('users.bonus', ['user' => $user->id]) }}">
+                                                @csrf
+                                                <div class="modal-body p-0">
+                                                    <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                                                        <h4 class="mb-1" id="modalExampleDemoLabel">
+                                                            {{ __('Add bonus') . ' - ' . $user->name }}</h4>
+                                                    </div>
+                                                    <div class="p-4 pb-0">
+
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="bonus">Enter bonus
+                                                                amount</label>
+                                                            <input name="bonus"
+                                                                class="form-control @error('bonus') is-invalid @enderror"
+                                                                value="{{ old('bonus') }}" type="number"
+                                                                autocomplete="on" id="bonus" autofocus required />
+                                                            @error('bonus')
+                                                                <div class="alert alert-danger">{{ $message }}</div>
+                                                            @enderror
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button class="btn btn-secondary" type="button"
+                                                        data-bs-dismiss="modal">Close</button>
+                                                    <button class="btn btn-primary"
+                                                        type="submit">{{ __('Add') }}</button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end bonus modal for each user -->
                             @endforeach
                         </tbody>
 

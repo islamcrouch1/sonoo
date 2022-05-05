@@ -36,9 +36,6 @@
                         <a href="{{ route('countries.trashed') }}" class="btn btn-falcon-default btn-sm"
                             type="button"><span class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
                                 class="d-none d-sm-inline-block ms-1">Trash</span></a>
-                        <button class="btn btn-falcon-default btn-sm mx-2" type="button"><span class="fas fa-filter"
-                                data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Filter</span></button>
                         <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
                                 class="d-none d-sm-inline-block ms-1">Export</span></button>
@@ -60,7 +57,7 @@
                                 </th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Name</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Code</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Currencye</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Currency</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                     data-sort="joined">Created at</th>
                                 @if ($countries->count() > 0 && $countries[0]->trashed())
@@ -88,7 +85,7 @@
                                             </div>
                                             <div class="flex-1">
                                                 <h5 class="mb-0 fs--1">
-                                                    {{ app()->getLocale() == 'ar' ? $country->name : $country->name_en }}
+                                                    {{ app()->getLocale() == 'ar' ? $country->name_ar : $country->name_en }}
                                                 </h5>
                                             </div>
                                         </div>

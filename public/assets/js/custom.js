@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+
+    $('.colorpicker').colorpicker();
+
     $('.btn').on('click' , function(e){
 
         e.preventDefault
@@ -22,6 +25,12 @@ $(document).ready(function(){
     });
 
 
+    $('.sonoo-search').change(function(){
+        $(this).closest('form').submit();
+    });
+
+
+
 
     $(".img").change(function() {
         if (this.files && this.files[0]) {
@@ -30,6 +39,25 @@ $(document).ready(function(){
                 $('.img-prev').attr('src', e.target.result);
             }
             reader.readAsDataURL(this.files[0]); // convert to base64 string
+        }
+    });
+
+
+
+    $(".imgs").change(function() {
+        if (this.files) {
+            var filesAmount = this.files.length;
+            $('#gallery').empty();
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    var image = `
+                                <img src="` + event.target.result + `" style="width:100px"  class="img-thumbnail img-prev">
+                           `;
+                    $('#gallery').append(image);
+                }
+                reader.readAsDataURL(this.files[i]);
+            }
         }
     });
 
