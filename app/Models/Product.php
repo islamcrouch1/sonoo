@@ -44,7 +44,7 @@ class Product extends Model
 
     public function fav()
     {
-        return $this->hasMany(Fav::class);
+        return $this->hasMany(Favorite::class);
     }
 
     public function limits()
@@ -62,7 +62,7 @@ class Product extends Model
     public function carts()
     {
         return $this->belongsToMany(Cart::class)
-            ->withPivot('stock_id', 'price', 'stock', 'vendor_price', 'product_type')
+            ->withPivot('stock_id', 'price', 'quantity', 'vendor_price', 'product_type')
             ->withTimestamps();
     }
 
@@ -88,7 +88,7 @@ class Product extends Model
     public function vorders()
     {
         return $this->belongsToMany(Vorder::class)
-            ->withPivot('stock_id', 'price', 'stock', 'total', 'vorder_id')
+            ->withPivot('stock_id', 'price', 'quantity', 'total', 'vorder_id')
             ->withTimestamps();
     }
 

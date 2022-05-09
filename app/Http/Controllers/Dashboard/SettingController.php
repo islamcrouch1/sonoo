@@ -48,6 +48,19 @@ class SettingController extends Controller
             ]);
         }
 
+
+        $setting = Setting::where('type', 'commission')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'commission',
+                'value' => $request['commission'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['commission'],
+            ]);
+        }
+
         // Image::make($request->image)->resize(300, null, function ($constraint) {
         //     $constraint->aspectRatio();
         // })->save(public_path('storage/images/countries/' . $request->image->hashName()), 80);

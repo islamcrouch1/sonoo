@@ -39,6 +39,16 @@
                                 @enderror
                             </div>
 
+                            <div class="mb-3">
+                                <label class="form-label" for="commission">{{ __('Suggested commission %') }}</label>
+                                <input name="commission" class="form-control @error('commission') is-invalid @enderror"
+                                    value="{{ setting('commission') }}" type="number" autocomplete="on" id="commission"
+                                    required />
+                                @error('commission')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
 
                             {{-- <div class="mb-3">
                                 <label class="form-label" for="image">Country flag</label>

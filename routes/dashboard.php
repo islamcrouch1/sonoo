@@ -91,6 +91,9 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
     Route::get('/trashed-slides/{slide}', [SlidesController::class, 'restore'])->name('slides.restore')->middleware('auth', 'checkverified', 'checkstatus');
 
 
+    // orders routes
+    Route::resource('orders', OrdersController::class)->middleware('auth', 'checkverified', 'checkstatus');
+
 
 
     // --------------------------------------------- Vendors Routes ---------------------------------------------

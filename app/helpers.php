@@ -1,6 +1,7 @@
 <?php
 
 use App\Events\NewNotification;
+use App\Models\Balance;
 use App\Models\Category;
 use App\Models\Country;
 use App\Models\Log;
@@ -240,8 +241,6 @@ if (!function_exists('checkShippingRateForTrash')) {
 
 
 
-
-
 // check category for trash
 
 if (!function_exists('checkCategoryForTrash')) {
@@ -407,5 +406,64 @@ if (!function_exists('CalculateProductPrice')) {
                 return true;
             }
         }
+    }
+}
+
+
+
+// calculate price with commission
+if (!function_exists('priceWithCommission')) {
+    function priceWithCommission($product)
+    {
+        $price = ($product->price * setting('commission') / 100);
+        $price = $price + $product->price;
+        return ceil($price);
+    }
+}
+
+
+// calculate price with commission
+if (!function_exists('productImagesCount')) {
+    function productImagesCount($product)
+    {
+        $count = 0;
+        $count += $product->images->count();
+
+        $stocks = $product->stocks->unique('color_id');
+
+        foreach ($stocks as $stock) {
+            if ($stock->image != null) {
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+}
+
+// calculate price with commission
+if (!function_exists('calculateCartTotal')) {
+    function calculateCartTotal($cart)
+    {
+        $total = 0;
+        foreach ($cart->products as $product) {
+            $total += $product->pivot->price * $product->pivot->quantity;
+        }
+        return $total;
+    }
+}
+
+
+// calculate price with commission
+if (!function_exists('addOutStandingBalance')) {
+    function addOutStandingBalance($user, $amount)
+    {
+        $balance = Balance::where('user_id', $user->id)->first();
+        $balance->update([
+            'outstanding_balance' => $balance->outstanding_balance  + $amount,
+        ]);
+        $ar =  'إضافة الى الرصيد المعلق';
+        $en =  'add to outstanding balance';
+        addFinanceRequest($user, $amount, $en, $ar);
     }
 }

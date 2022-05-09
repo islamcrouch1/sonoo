@@ -203,7 +203,7 @@
                             <div class="mb-3">
                                 <div class="col-md-12" id="gallery">
                                     @foreach ($product->images as $image)
-                                        <img src="{{ asset('storage/images/products/' . ($product->images->count() == 0 ? 'place-holder.png' : $product->images[0]->image)) }}"
+                                        <img src="{{ asset('storage/images/products/' . $image->image) }}"
                                             style="width:100px; border: 1px solid #999" class="img-thumbnail img-prev">
                                     @endforeach
 

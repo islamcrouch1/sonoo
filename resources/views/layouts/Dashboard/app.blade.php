@@ -42,6 +42,7 @@
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap"
         rel="stylesheet">
     <link href="{{ asset('vendors/overlayscrollbars/OverlayScrollbars.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('vendors/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/theme-rtl.min.css') }}" rel="stylesheet" id="style-rtl">
     <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" id="style-default">
     <link href="{{ asset('assets/css/user-rtl.min.css') }}" rel="stylesheet" id="user-style-rtl">
@@ -149,9 +150,12 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.5.1/js/bootstrap-colorpicker.min.js">
     </script>
     <script src="{{ asset('assets/js/custom.js') }}"></script>
+    <script src="{{ asset('assets/js/cart.js') }}"></script>
     <script src="{{ asset('assets/js/notification.js') }}"></script>
     <script src="{{ asset('vendors/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('vendors/choices/choices.min.js') }}"></script>
+    <script src="{{ asset('vendors/swiper/swiper-bundle.min.js') }}"></script>
+
 
 
 

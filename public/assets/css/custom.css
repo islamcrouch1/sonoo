@@ -84,3 +84,21 @@ input:checked+.slider:before {
 .slider.round:before {
     border-radius: 50%;
 }
+
+.cat-title {
+    height: 45px;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.cat-title a {
+    color: #000000 !important;
+    text-decoration: none;
+}
+
+
+@media only screen and (min-width: 1000px) {
+    .sonoo .col-md-2 {
+        max-width: 12.5% !important;
+    }
+}

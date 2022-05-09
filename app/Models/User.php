@@ -67,7 +67,7 @@ class User extends Authenticatable
 
     public function fav()
     {
-        return $this->hasMany(Fav::class);
+        return $this->hasMany(Favorite::class);
     }
 
     public function logs()
@@ -90,6 +90,15 @@ class User extends Authenticatable
         return $this->hasMany(Notification::class);
     }
 
+    public function vendor_orders()
+    {
+        return $this->hasMany(VendorOrder::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 
 
     public function scopeWhenSearch($query, $search)

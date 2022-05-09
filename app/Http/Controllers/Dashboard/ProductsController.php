@@ -729,42 +729,7 @@ class ProductsController extends Controller
         return redirect()->route('stock.orders', app()->getLocale());
     }
 
-    public function affiliateProductsCat($lang, $category)
-    {
 
-        $scountry = Country::findOrFail(Auth()->user()->country_id);
-        $scategory = Category::find($category);
-
-
-        $slides1 = Slide::where('slide_id', 1)->get();
-        $slides2 = Slide::where('slide_id', 2)->get();
-        $slides3 = Slide::where('slide_id', 3)->get();
-
-
-        $cat = $scategory->id;
-
-
-        $products = Product::
-            // where('category_id', $scategory->id)
-            whereHas('categories', function ($query) use ($cat) {
-                $query->where('category_id', 'like', $cat);
-            })
-            ->where('status', "active")
-            ->whenSearch(request()->search)
-            ->paginate(20);
-
-
-
-
-        $categories = Category::with('products')
-            ->where('country_id', $scountry->id)
-            ->where('parent', $scategory->id)
-            ->get();
-
-
-
-        return view('dashboard.aff-prod.index', compact('categories', 'products', 'scategory', 'slides1', 'slides2', 'slides3'));
-    } //end of products
 
     public function updateStatusAll($lang, Request $request)
     {
