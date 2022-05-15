@@ -100,6 +100,48 @@
                             </a>
                         @endif
 
+                        @if (auth()->user()->hasPermission('logs-read'))
+                            <!-- parent pages--><a class="nav-link {{ Route::is('logs*') ? 'active' : '' }}"
+                                href="{{ route('logs.index') }}" role="button" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-file"></span></span><span
+                                        class="nav-link-text ps-1">{{ __('Logs') }}</span>
+                                </div>
+                            </a>
+                        @endif
+
+                        @if (auth()->user()->hasPermission('bonus-read'))
+                            <!-- parent pages--><a class="nav-link {{ Route::is('bonus*') ? 'active' : '' }}"
+                                href="{{ route('bonus.index') }}" role="button" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-money-bill"></span></span><span
+                                        class="nav-link-text ps-1">{{ __('Bonus') }}</span>
+                                </div>
+                            </a>
+                        @endif
+
+                        @if (auth()->user()->hasPermission('messages-read'))
+                            <!-- parent pages--><a class="nav-link {{ Route::is('messages*') ? 'active' : '' }}"
+                                href="{{ route('messages.admin.index') }}" role="button" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-comments"></span></span><span
+                                        class="nav-link-text ps-1">{{ __('Messages') }}</span>
+                                </div>
+                            </a>
+                        @endif
+
+                        <a class="nav-link {{ Route::is('notifications*') ? 'active' : '' }}"
+                            href="{{ route('notifications.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-bell"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Notification') }}</span>
+                            </div>
+                        </a>
+
                     </li>
                     <li class="nav-item">
                         <!-- label-->
@@ -168,6 +210,77 @@
                         @endif
 
                     </li>
+
+
+                    <li class="nav-item">
+                        <!-- label-->
+                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                            <!-- Orders -  -->
+                            <div class="col-auto navbar-vertical-label">{{ __('Orders') }}
+                            </div>
+                            <div class="col ps-0">
+                                <hr class="mb-0 navbar-vertical-divider" />
+                            </div>
+                        </div>
+                        @if (auth()->user()->hasPermission('orders-read'))
+                            <!-- parent pages--><a class="nav-link {{ Route::is('orders*') ? 'active' : '' }}"
+                                href="{{ route('orders.index') }}" role="button" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-receipt"></span></span><span
+                                        class="nav-link-text ps-1">{{ __('Orders') }}</span>
+                                </div>
+                            </a>
+                        @endif
+
+                        @if (auth()->user()->hasPermission('orders-read'))
+                            <!-- parent pages--><a
+                                class="nav-link {{ Route::is('orders-vendor*') ? 'active' : '' }}"
+                                href="{{ route('orders-vendor') }}" role="button" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-receipt"></span></span><span
+                                        class="nav-link-text ps-1">{{ __('Vendors Orders') }}</span>
+                                </div>
+                            </a>
+                        @endif
+
+                    </li>
+
+
+                    <li class="nav-item">
+                        <!-- label-->
+                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                            <!-- Orders -  -->
+                            <div class="col-auto navbar-vertical-label">{{ __('Finance') }}
+                            </div>
+                            <div class="col ps-0">
+                                <hr class="mb-0 navbar-vertical-divider" />
+                            </div>
+                        </div>
+                        @if (auth()->user()->hasPermission('withdrawals-read'))
+                            <!-- parent pages--><a class="nav-link {{ Route::is('withdrawals*') ? 'active' : '' }}"
+                                href="{{ route('withdrawals.index') }}" role="button" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-credit-card"></span></span><span
+                                        class="nav-link-text ps-1">{{ __('Withdrawals Requests') }}</span>
+                                </div>
+                            </a>
+                        @endif
+
+                        @if (auth()->user()->hasPermission('finances-read'))
+                            <!-- parent pages--><a class="nav-link {{ Route::is('finances*') ? 'active' : '' }}"
+                                href="{{ route('finances.index') }}" role="button" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-credit-card"></span></span><span
+                                        class="nav-link-text ps-1">{{ __('Finances') }}</span>
+                                </div>
+                            </a>
+                        @endif
+
+                    </li>
                 @endif
 
                 @if (Auth::user()->hasRole('affiliate'))
@@ -181,8 +294,8 @@
                                 <hr class="mb-0 navbar-vertical-divider" />
                             </div>
                         </div>
-                        <!-- parent pages--><a
-                            class="nav-link {{ Route::is('affiliate.products*') ? 'active' : '' }}"
+                        <!-- parent pages-->
+                        <a class="nav-link {{ Route::is('affiliate.products*') ? 'active' : '' }}"
                             href="{{ route('affiliate.products.index') }}" role="button" data-bs-toggle=""
                             aria-expanded="false">
                             <div class="d-flex align-items-center"><span class="nav-link-icon"><span
@@ -191,6 +304,95 @@
                             </div>
                         </a>
 
+                        <a class="nav-link {{ Route::is('favorite*') ? 'active' : '' }}"
+                            href="{{ route('favorite') }}" role="button" data-bs-toggle="" aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-heart"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Favorite') }}</span>
+                            </div>
+                        </a>
+
+                        <a class="nav-link {{ Route::is('cart.*') ? 'active' : '' }}" href="{{ route('cart') }}"
+                            role="button" data-bs-toggle="" aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-cart-plus"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Shopping Cart') }}</span>
+                            </div>
+                        </a>
+
+                        <a class="nav-link {{ Route::is('shipping_rates.affiliate.*') ? 'active' : '' }}"
+                            href="{{ route('shipping_rates.affiliate') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-truck"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Shipping Rates') }}</span>
+                            </div>
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <!-- label-->
+                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                            <!-- users - roles - countries - settings -->
+                            <div class="col-auto navbar-vertical-label">{{ __('Orders') }}
+                            </div>
+                            <div class="col ps-0">
+                                <hr class="mb-0 navbar-vertical-divider" />
+                            </div>
+                        </div>
+                        <!-- parent pages-->
+                        <a class="nav-link {{ Route::is('orders.affiliate*') ? 'active' : '' }}"
+                            href="{{ route('orders.affiliate.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-receipt"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Orders') }}</span>
+                            </div>
+                        </a>
+
+
+
+                    </li>
+
+                    <li class="nav-item">
+                        <!-- label-->
+                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                            <!-- users - roles - countries - settings -->
+                            <div class="col-auto navbar-vertical-label">{{ __('Settings') }}
+                            </div>
+                            <div class="col ps-0">
+                                <hr class="mb-0 navbar-vertical-divider" />
+                            </div>
+                        </div>
+                        <!-- parent pages-->
+
+                        <a class="nav-link {{ Route::is('withdrawals.user*') ? 'active' : '' }}"
+                            href="{{ route('withdrawals.user.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-wallet"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Wallet') }}</span>
+                            </div>
+                        </a>
+
+                        <a class="nav-link {{ Route::is('notifications*') ? 'active' : '' }}"
+                            href="{{ route('notifications.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-bell"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Notification') }}</span>
+                            </div>
+                        </a>
+
+                        <a class="nav-link {{ Route::is('messages*') ? 'active' : '' }}"
+                            href="{{ route('messages.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-comments"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Messages') }}</span>
+                            </div>
+                        </a>
                     </li>
                 @endif
 

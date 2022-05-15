@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Affiliate;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
+use App\Models\Refund;
 use App\Models\ShippingRate;
 use App\Models\Stock;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -65,7 +68,7 @@ class OrdersController extends Controller
 
         $this->attach_order($request, $user);
         alertSuccess('Order added successfully', 'تم عمل الطلب بنجاح');
-        return url('/');
+        return redirect()->route('orders.affiliate.index');
     }
 
     private function attach_order($request, $user)
@@ -92,8 +95,20 @@ class OrdersController extends Controller
         ]);
 
 
+
+
+
         foreach ($user->cart->products as $product) {
-            $order->products()->attach($product->id, ['stock_id' => $product->pivot->stock_id, 'quantity' => $product->pivot->quantity, 'selling_price' => $product->pivot->price, 'vendor_price' => $product->vendor_price, 'commission_per_item' => $product->pivot->price - $product->price, 'profit_per_item' => $product->price - $product->vendor_price, 'total_selling_price' => ($product->pivot->price * $product->pivot->quantity), 'total_commission' => ($product->pivot->price - $product->price) * $product->pivot->quantity, 'product_type' => $product->pivot->product_type]);
+
+            if ($product->pivot->product_type == '0') {
+                $av_stock = Stock::find($product->pivot->stock_id);
+            }
+
+            // else {
+            //     $av_stock = Astock::find($product->pivot->stock_id);
+            // }
+
+            $order->products()->attach($product->id, ['stock_id' => $product->pivot->stock_id, 'quantity' => $product->pivot->quantity, 'selling_price' => $product->pivot->price, 'vendor_price' => $product->vendor_price, 'commission_per_item' => $product->pivot->price - $product->price, 'profit_per_item' => $product->price - $product->vendor_price, 'total_selling_price' => ($product->pivot->price * $product->pivot->quantity), 'total_commission' => ($product->pivot->price - $product->price) * $product->pivot->quantity, 'product_type' => $product->pivot->product_type, 'size_ar' => $av_stock->size->size_ar, 'size_en' => $av_stock->size->size_en, 'color_en' => $av_stock->color->color_en, 'color_ar' => $av_stock->color->color_ar]);
             $vendor_order = $product->vendor->vendor_orders()->create([
                 'total_price' => $product->vendor_price * $product->pivot->quantity,
                 'order_id' => $order->id,
@@ -101,8 +116,8 @@ class OrdersController extends Controller
                 'user_id' => $product->vendor->id,
                 'user_name' => $product->vendor->name,
             ]);
-            $vendor_order->products()->attach($product->id, ['stock_id' => $product->pivot->stock_id, 'quantity' => $product->pivot->quantity, 'vendor_price' => $product->vendor_price, 'total_vendor_price' => ($product->vendor_price * $product->pivot->quantity)]);
-            addOutStandingBalance($product->vendor, $vendor_order->total_price);
+            $vendor_order->products()->attach($product->id, ['stock_id' => $product->pivot->stock_id, 'quantity' => $product->pivot->quantity, 'vendor_price' => $product->vendor_price, 'total_vendor_price' => ($product->vendor_price * $product->pivot->quantity), 'product_type' => $product->pivot->product_type, 'size_ar' => $av_stock->size->size_ar, 'size_en' => $av_stock->size->size_en, 'color_en' => $av_stock->color->color_en, 'color_ar' => $av_stock->color->color_ar]);
+            changeOutStandingBalance($product->vendor, $vendor_order->total_price, $vendor_order->id, $vendor_order->status, 'add');
             $total_price = 0;
         }
 
@@ -142,7 +157,7 @@ class OrdersController extends Controller
         //     }
         // }
 
-        addOutStandingBalance($user, $order->total_commission);
+        changeOutStandingBalance($user, $order->total_commission, $order->id, $order->status, 'add');
 
         foreach ($user->cart->products as $product) {
 
@@ -162,5 +177,110 @@ class OrdersController extends Controller
             $url = route('orders.index');
             addNoty($admin, $user, $url, $title_en, $title_ar, $body_en, $body_ar);
         }
-    } //end of attach order
+    }
+
+
+    public function index(Request $request)
+    {
+
+        if (!$request->has('from') || !$request->has('to')) {
+            $request->merge(['from' => Carbon::now()->subDay(365)->toDateString()]);
+            $request->merge(['to' => Carbon::now()->toDateString()]);
+        }
+
+        $orders = Order::whereDate('created_at', '>=', request()->from)
+            ->whereDate('created_at', '<=', request()->to)->where('user_id', Auth::id())
+            ->whenSearch(request()->search)
+            ->whenStatus(request()->status)
+            ->latest()
+            ->paginate(100);
+
+        $user = Auth::user();
+        return view('affiliate.orders.index')->with('orders', $orders)->with('user', $user);
+    }
+
+    public function cancelOrder(Order $order)
+    {
+
+
+        foreach ($order->products as $product) {
+            if ($product->pivot->product_type == '0') {
+                $product->stocks->find($product->pivot->stock_id)->update([
+                    'stock' => $product->stocks->find($product->pivot->stock_id)->quantity + $product->pivot->quantity
+                ]);
+            }
+            // else {
+
+            //     $product->astocks->find($product->pivot->stock_id)->update([
+            //         'stock' => $product->astocks->find($product->pivot->stock_id)->stock + $product->pivot->stock
+            //     ]);
+            // }
+        }
+
+        foreach ($order->vendor_orders as $vendor_order) {
+            changeOutStandingBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, 'canceled', 'sub');
+        }
+
+        $order->update([
+            'status' => 'canceled',
+        ]);
+
+
+        $description_ar = "تم تغيير حالة الطلب الى ملغي" . ' طلب رقم ' . ' #' . $order->id;
+        $description_en  = "order status has been changed to cancelled" . ' order No ' . ' #' . $order->id;
+
+        addLog('affiliate', 'orders', $description_ar, $description_en);
+
+        // $mystock_price = 0;
+
+        // foreach ($order->products as $product) {
+        //     if ($product->pivot->product_type != '0') {
+        //         $mystock_price += ($product->min_price * $product->pivot->stock);
+        //     }
+        // }
+
+        changeOutStandingBalance($order->user, $order->total_commission, $order->id, $order->status, 'sub');
+
+        alertSuccess('Order canceled successfully', 'تم إلغاء الطلب بنجاح');
+        return redirect()->route('orders.affiliate.index');
+    }
+
+    public function show(Order $order)
+    {
+        return view('affiliate.orders.show')->with('order', $order);
+    }
+
+    public function storeRefund(Request $request, Order $order)
+    {
+
+        $request->validate([
+            'reason' => "required|string",
+        ]);
+
+        $user = Auth::user();
+
+        $rerturn = Refund::create([
+            'user_id' => $user->id,
+            'order_id' => $order->id,
+            'reason' => $request->reason,
+        ]);
+
+
+        $users = User::whereHas('roles', function ($query) {
+            $query->where('name', '!=', 'vendor')
+                ->where('name', '!=', 'affiliate');
+        })->get();
+
+        foreach ($users as $admin) {
+            $title_ar = 'يوجد طلب مرتجع جديد';
+            $body_ar = 'تم اضافة طلب مرتجع جديد من  : ' . $user->name;
+            $title_en = 'There is a new refund request';
+            $body_en  = 'A new refund request has been added from : ' . $user->name;
+            $url = route('orders.refunds');
+            addNoty($admin, $user, $url, $title_en, $title_ar, $body_en, $body_ar);
+        }
+
+        alertSuccess('Request sent successfully', 'تم ارسال الطلب بنجاح');
+        return redirect()->route('orders.affiliate.index');
+    }
 }

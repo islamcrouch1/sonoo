@@ -5,9 +5,17 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Balance;
 use App\Models\Cart;
+use App\Models\Category;
 use App\Models\Country;
+use App\Models\Message;
+use App\Models\Note;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\Request as ModelsRequest;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\VendorOrder;
+use App\Models\Withdrawal;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -318,11 +326,9 @@ class UsersController extends Controller
     public function bonus(Request $request, User $user)
     {
 
-
         $request->validate([
             'bonus' => "required|numeric",
         ]);
-
 
         if ($request->bonus == 0 || $request->bonus < 0) {
             alertError('Can not make this action', 'نأسف , لا يمكن إتمام هذا الإجؤاء');
@@ -341,10 +347,14 @@ class UsersController extends Controller
         $body_ar = 'تم اضافة بونص الى حسابك من الادارة';
         $title_en = 'New notification from admin';
         $body_en = 'A bonus has been added to your account from the administration';
-        $url = route('withdrawals.index');
+        $url = route('withdrawals.user.index');
 
         addNoty($user, Auth::user(), $url, $title_en, $title_ar, $body_en, $body_ar);
 
+        $description_ar = "اضافة رصيد بونص";
+        $description_en  = "Add bonus balance";
+
+        addLog('admin', 'bonus', $description_ar, $description_en);
 
         alertSuccess('Bonus added successfully to the user', 'تم إضافة رصيد البونص بنجاح');
         return redirect()->route('users.index');
@@ -356,9 +366,8 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($lang, User $user)
+    public function show(User $user)
     {
-
 
         $withdrawals = Withdrawal::where('user_id', $user->id)
             ->whenSearch(request()->search)
@@ -375,16 +384,16 @@ class UsersController extends Controller
             ->latest()
             ->paginate(100);
 
-        $vorders = Vorder::where('user_id', $user->id)
+        $vendor_orders = VendorOrder::where('user_id', $user->id)
             ->whenSearch(request()->search)
             ->whenStatus(request()->status)
             ->latest()
             ->paginate(100);
 
-        $requests = AppRequest::where('user_id', $user->id)->latest()
+        $requests = ModelsRequest::where('user_id', $user->id)->latest()
             ->paginate(50);
 
-        $products = Product::where('user_id', $user->id)
+        $products = Product::where('vendor_id', $user->id)
             ->whenSearch(request()->search)
             ->whenCategory(request()->category_id)
             ->whenCountry(request()->country_id)
@@ -392,11 +401,21 @@ class UsersController extends Controller
             ->latest()
             ->paginate(100);
 
+        $messages = Message::where('user_id', $user->id)
+            ->whenSearch(request()->search)
+            ->latest()
+            ->paginate(20);
+
+
+        $notes = Note::where('user_id', $user->id)
+            ->latest()
+            ->paginate(20);
+
         $countries = Country::all();
 
         $categories = Category::all();
 
-        return view('dashboard.users.show', compact('user', 'withdrawals', 'orders', 'countries', 'vorders', 'requests', 'products', 'categories'));
+        return view('dashboard.users.show', compact('user', 'withdrawals', 'orders', 'countries', 'vendor_orders', 'requests', 'products', 'categories', 'notes', 'messages'));
     }
 
 
@@ -451,298 +470,5 @@ class UsersController extends Controller
         } else {
             return back();
         }
-    }
-
-
-
-
-
-
-
-
-
-
-
-    public function addBalance($lang, Request $request, User $user)
-    {
-
-        $request->validate([
-
-            'balance' => "required|string",
-
-        ]);
-
-
-
-
-        $wallet = Wallet::whare('user_id', $user->id)->first();
-
-        $balance = $request->balance;
-
-
-        if ($balance > 0) {
-
-            $orderid = time() . rand(999, 9999);
-
-            $request_ar = 'لقد ربحت رصيد مجاني في محفظتك بقيمة : ' . $request->balance . ' ' . $user->country->currency;
-            $request_en = 'You have earned free wallet credit with a value : ' . $request->balance . ' ' . $user->country->currency;
-
-
-            $wallet_request = WalletRequest::create([
-                'user_id' => $user->id,
-                'wallet_id' => $wallet->id,
-                'status' => 'done',
-                'request_ar' => $request_ar,
-                'request_en' => $request_en,
-                'balance' => $request->balance,
-                'orderid' => $orderid,
-            ]);
-
-
-
-            $wallet->update([
-
-                'balance' => $wallet->balance + $wallet_request->balance,
-
-            ]);
-
-            $title_ar = 'اشعار من الإدارة';
-            $body_ar = 'لقد ربحت رصيد مجاني في محفظتك بقيمة : ' . $request->balance . ' ' . $user->country->currency;
-            $title_en = 'Notification From Admin';
-            $body_en  = 'You have earned free wallet credit with a value : ' . $request->balance . ' ' . $user->country->currency;
-
-
-            $notification = Notification::create([
-                'user_id' => $user->id,
-                'user_name'  => Auth::user()->name,
-                'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                'title_ar' => $title_ar,
-                'body_ar' => $body_ar,
-                'title_en' => $title_en,
-                'body_en' => $body_en,
-                'date' => $wallet_request->created_at,
-                'url' =>  route('wallet', ['lang' => app()->getLocale(), 'user' => $user->id,  'country' => $user->country->id]),
-            ]);
-
-
-
-            $data = [
-                'notification_id' => $notification->id,
-                'user_id' => $user->id,
-                'user_name'  => Auth::user()->name,
-                'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                'title_ar' => $title_ar,
-                'body_ar' => $body_ar,
-                'title_en' => $title_en,
-                'body_en' => $body_en,
-                'date' => $wallet_request->created_at->format('Y-m-d H:i:s'),
-                'status' => $notification->status,
-                'url' =>  route('wallet', ['lang' => app()->getLocale(), 'user' => $user->id,  'country' => $user->country->id]),
-                'change_status' => route('notification-change', ['lang' => app()->getLocale(), 'user' => $user->id, 'country' => $user->country->id, 'notification' => $notification->id]),
-
-            ];
-
-
-            try {
-                event(new NewNotification($data));
-            } catch (Exception $e) {
-            }
-
-
-
-            session()->flash('success', 'Ballace Added successfully');
-        } else {
-            session()->flash('success', 'Can not add 0 balance to user wallet');
-        }
-
-
-        return redirect()->route('users.index', app()->getLocale());
-    }
-
-
-
-    public function addBalanceAll($lang, Request $request)
-    {
-
-        $request->validate([
-
-            'balance_students' => "required|string",
-            'balance_teachers' => "required|string",
-            'country_id' => "required|string",
-
-
-        ]);
-
-        $balance_students = $request->balance_students;
-        $balance_teachers = $request->balance_teachers;
-
-
-
-        if ($balance_students > 0) {
-
-
-            $users = User::where('type', 'student')
-                ->where('country_id', $request->country_id)
-                ->get();
-
-            foreach ($users as $user) {
-
-                $wallet = Wallet::whare('user_id', $user->id)->first();
-
-
-                $orderid = time() . rand(999, 9999);
-
-                $request_ar = 'لقد ربحت رصيد مجاني في محفظتك بقيمة : ' . $request->balance_students . ' ' . $user->country->currency;
-                $request_en = 'You have earned free wallet credit with a value : ' . $request->balance_students . ' ' . $user->country->currency;
-
-
-                $wallet_request = WalletRequest::create([
-                    'user_id' => $user->id,
-                    'wallet_id' => $wallet->id,
-                    'status' => 'done',
-                    'request_ar' => $request_ar,
-                    'request_en' => $request_en,
-                    'balance' => $request->balance_students,
-                    'orderid' => $orderid,
-                ]);
-
-
-
-                $wallet->update([
-
-                    'balance' => $wallet->balance + $wallet_request->balance,
-
-                ]);
-
-                $title_ar = 'اشعار من الإدارة';
-                $body_ar = 'لقد ربحت رصيد مجاني في محفظتك بقيمة : ' . $request->balance_students . ' ' . $user->country->currency;
-                $title_en = 'Notification From Admin';
-                $body_en  = 'You have earned free wallet credit with a value : ' . $request->balance_students . ' ' . $user->country->currency;
-
-
-                $notification = Notification::create([
-                    'user_id' => $user->id,
-                    'user_name'  => Auth::user()->name,
-                    'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                    'title_ar' => $title_ar,
-                    'body_ar' => $body_ar,
-                    'title_en' => $title_en,
-                    'body_en' => $body_en,
-                    'date' => $wallet_request->created_at,
-                    'url' =>  route('wallet', ['lang' => app()->getLocale(), 'user' => $user->id,  'country' => $user->country->id]),
-                ]);
-
-
-
-                $data = [
-                    'notification_id' => $notification->id,
-                    'user_id' => $user->id,
-                    'user_name'  => Auth::user()->name,
-                    'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                    'title_ar' => $title_ar,
-                    'body_ar' => $body_ar,
-                    'title_en' => $title_en,
-                    'body_en' => $body_en,
-                    'date' => $wallet_request->created_at->format('Y-m-d H:i:s'),
-                    'status' => $notification->status,
-                    'url' =>  route('wallet', ['lang' => app()->getLocale(), 'user' => $user->id,  'country' => $user->country->id]),
-                    'change_status' => route('notification-change', ['lang' => app()->getLocale(), 'user' => $user->id, 'country' => $user->country->id, 'notification' => $notification->id]),
-
-                ];
-
-
-                try {
-                    event(new NewNotification($data));
-                } catch (Exception $e) {
-                }
-            }
-        }
-
-
-        if ($balance_teachers > 0) {
-
-
-            $users = User::where('type', 'teacher')
-                ->where('country_id', $request->country_id)
-                ->get();
-
-            foreach ($users as $user) {
-
-                $wallet = Wallet::whare('user_id', $user->id)->first();
-
-
-                $orderid = time() . rand(999, 9999);
-
-                $request_ar = 'لقد ربحت رصيد مجاني في محفظتك بقيمة : ' . $request->balance_teachers . ' ' . $user->country->currency;
-                $request_en = 'You have earned free wallet credit with a value : ' . $request->balance_teachers . ' ' . $user->country->currency;
-
-
-                $wallet_request = WalletRequest::create([
-                    'user_id' => $user->id,
-                    'wallet_id' => $wallet->id,
-                    'status' => 'done',
-                    'request_ar' => $request_ar,
-                    'request_en' => $request_en,
-                    'balance' => $request->balance_teachers,
-                    'orderid' => $orderid,
-                ]);
-
-
-
-                $wallet->update([
-
-                    'balance' => $wallet->balance + $wallet_request->balance,
-
-                ]);
-
-                $title_ar = 'اشعار من الإدارة';
-                $body_ar = 'لقد ربحت رصيد مجاني في محفظتك بقيمة : ' . $request->balance_teachers . ' ' . $user->country->currency;
-                $title_en = 'Notification From Admin';
-                $body_en  = 'You have earned free wallet credit with a value : ' . $request->balance_teachers . ' ' . $user->country->currency;
-
-
-                $notification = Notification::create([
-                    'user_id' => $user->id,
-                    'user_name'  => Auth::user()->name,
-                    'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                    'title_ar' => $title_ar,
-                    'body_ar' => $body_ar,
-                    'title_en' => $title_en,
-                    'body_en' => $body_en,
-                    'date' => $wallet_request->created_at,
-                    'url' =>  route('wallet', ['lang' => app()->getLocale(), 'user' => $user->id,  'country' => $user->country->id]),
-                ]);
-
-
-
-                $data = [
-                    'notification_id' => $notification->id,
-                    'user_id' => $user->id,
-                    'user_name'  => Auth::user()->name,
-                    'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                    'title_ar' => $title_ar,
-                    'body_ar' => $body_ar,
-                    'title_en' => $title_en,
-                    'body_en' => $body_en,
-                    'date' => $wallet_request->created_at->format('Y-m-d H:i:s'),
-                    'status' => $notification->status,
-                    'url' =>  route('wallet', ['lang' => app()->getLocale(), 'user' => $user->id,  'country' => $user->country->id]),
-                    'change_status' => route('notification-change', ['lang' => app()->getLocale(), 'user' => $user->id, 'country' => $user->country->id, 'notification' => $notification->id]),
-
-                ];
-
-
-                try {
-                    event(new NewNotification($data));
-                } catch (Exception $e) {
-                }
-            }
-        }
-
-
-
-
-        session()->flash('success', 'Ballace Added successfully');
-        return redirect()->route('users.index', app()->getLocale());
     }
 }

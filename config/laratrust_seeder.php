@@ -32,6 +32,7 @@ return [
             'slides' => 'c,r,u,d,t,s',
             'orders_notes' => 'c,r,u,d,t,s',
             'logs' => 'c,r,u,d,t,s',
+            'bonus' => 'c,r,u,d,t,s',
         ],
         'administrator' => [],
         'vendor' => [],

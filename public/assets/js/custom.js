@@ -83,23 +83,15 @@ $(document).ready(function(){
     setInterval(updateCountdown , 1000);
 
     function updateCountdown(){
-
-    var minutes = Math.floor(time / 60);
-    var seconds = time % 60 ;
-
-    seconds < startMinute ? '0' + seconds : seconds;
-
-    $('.counter_down').html(minutes + ':' + seconds)
-
-
-    if(minutes == 0 && seconds == 0){
-
-        $('.resend').css('pointer-events' , 'auto');
-
-
-    }else{
-        time--;
-    }
+        var minutes = Math.floor(time / 60);
+        var seconds = time % 60 ;
+        seconds < startMinute ? '0' + seconds : seconds;
+        $('.counter_down').html(minutes + ':' + seconds)
+        if(minutes == 0 && seconds == 0){
+            $('.resend').css('pointer-events' , 'auto');
+        }else{
+            time--;
+        }
     }
 
 

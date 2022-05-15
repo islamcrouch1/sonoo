@@ -87,9 +87,10 @@
                         <a href="{{ route('users.trashed') }}" class="btn btn-falcon-default btn-sm" type="button"><span
                                 class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
                                 class="d-none d-sm-inline-block ms-1">Trash</span></a>
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
+                        <a href="{{ route('users.export', ['role_id' => request()->role_id, 'from' => request()->from, 'to' => request()->to]) }}"
+                            class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Export</span></button>
+                                class="d-none d-sm-inline-block ms-1">Export</span></a>
                     </div>
                 </div>
             </div>
@@ -178,7 +179,7 @@
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
                                                     @if ($user->trashed() &&
-    auth()->user()->hasPermission('users-restore'))
+                                                        auth()->user()->hasPermission('users-restore'))
                                                         <a class="dropdown-item"
                                                             href="{{ route('users.restore', ['user' => $user->id]) }}">Restore</a>
                                                     @elseif(auth()->user()->hasPermission('users-update'))
@@ -192,7 +193,7 @@
                                                             data-bs-target="#bonus-modal-{{ $user->id }}">{{ __('Add bonus') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('users-delete') ||
-    auth()->user()->hasPermission('users-trash'))
+                                                        auth()->user()->hasPermission('users-trash'))
                                                         <form method="POST"
                                                             action="{{ route('users.destroy', ['user' => $user->id]) }}">
                                                             @csrf

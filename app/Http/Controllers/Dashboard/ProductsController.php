@@ -111,7 +111,7 @@ class ProductsController extends Controller
             'description_en' => $request['description_en'],
             'vendor_price' => $request['vendor_price'],
             'extra_fee' => $request['extra_fee'],
-            'country_id' => $request->categories[0],
+            'country_id' => 1,
             'status' => $request['status'],
             'admin_id' => Auth::id(),
         ]);

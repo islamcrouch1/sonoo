@@ -38,9 +38,9 @@ class Order extends Model
         return $this->hasMany(Request::class);
     }
 
-    public function onotes()
+    public function order_notes()
     {
-        return $this->hasMany(Onotes::class);
+        return $this->hasMany(OrderNote::class);
     }
 
 
@@ -48,7 +48,7 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class)
-            ->withPivot('stock_id', 'selling_price', 'quantity', 'total_selling_price', 'total_commission', 'commission_per_item', 'profit_per_item', 'product_type', 'vendor_price')
+            ->withPivot('stock_id', 'selling_price', 'quantity', 'total_selling_price', 'total_commission', 'commission_per_item', 'profit_per_item', 'product_type', 'vendor_price', 'size_ar', 'size_en', 'color_ar', 'color_en')
             ->withTimestamps();
     }
 
@@ -67,100 +67,50 @@ class Order extends Model
         return $this->belongsTo(Country::class);
     }
 
-    public function vorders()
+    public function vendor_orders()
     {
-        return $this->hasMany(Vorder::class);
+        return $this->hasMany(VendorOrder::class);
     }
 
-    public static function getOrders($status, $from, $to)
+    public static function getOrders($status = null, $from = null, $to = null)
     {
 
+        $orders = DB::table('order_product')->select('id', 'order_id', 'created_at', 'updated_at', 'product_id', 'vendor_price', 'selling_price', 'commission_per_item', 'profit_per_item', 'total_selling_price', 'total_commission', 'quantity', 'stock_id', 'product_type', 'color_en', 'size_en')
+            ->whereDate('created_at', '>=', $from)
+            ->whereDate('created_at', '<=', $to)
+            ->get()->toArray();
+
+        foreach ($orders as $index => $order) {
+
+            $product = Product::where('id', $order->product_id)->first();
+            $orders[$index]->product_name_ar = $product->name_ar;
+            $orders[$index]->product_name_en = $product->name_en;
+
+            $orders[$index]->affiliate_id = $product->orders->where('id', $order->order_id)->first()->user_id;
+            $orders[$index]->status = $product->orders->where('id', $order->order_id)->first()->status;
+            $orders[$index]->customer_name = $product->orders->where('id', $order->order_id)->first()->client_name;
+            $orders[$index]->customer_phone = $product->orders->where('id', $order->order_id)->first()->client_phone;
+            $orders[$index]->customer_phone2 = $product->orders->where('id', $order->order_id)->first()->phone2;
+            $orders[$index]->address = $product->orders->where('id', $order->order_id)->first()->address;
+            $orders[$index]->house = $product->orders->where('id', $order->order_id)->first()->house;
+            $orders[$index]->special_mark = $product->orders->where('id', $order->order_id)->first()->special_mark;
+            $orders[$index]->notes = $product->orders->where('id', $order->order_id)->first()->notes;
+
+            $orders[$index]->SKU = $product->sku;
+            $orders[$index]->vendor_id = $product->vendor_id;
 
 
-        if ($status == 'all') {
-
-            $orders = DB::table('order_product')->select('id', 'order_id', 'created_at', 'updated_at', 'product_id', 'vendor_price', 'price', 'commission_for_item', 'profit_for_item', 'total', 'stock', 'stock_id', 'product_type')
-                ->whereDate('created_at', '>=', $from)
-                ->whereDate('created_at', '<=', $to)
-                ->get()->toArray();
-
-            foreach ($orders as $index => $order) {
-                $order1 = Product::where('id', $order->product_id)->first();
-                $orders[$index]->product_name_ar = $order1->name_ar;
-                $orders[$index]->product_name_en = $order1->name_en;
-
-                // dd($order1->orders->where('id' , $order->id)->first()->status);
-
-                $orders[$index]->affiliate_id = $order1->orders->where('id', $order->order_id)->first()->user_id;
-                $orders[$index]->status = $order1->orders->where('id', $order->order_id)->first()->status;
-                $orders[$index]->customer_name = $order1->orders->where('id', $order->order_id)->first()->client_name;
-                $orders[$index]->customer_phone = $order1->orders->where('id', $order->order_id)->first()->client_phone;
-                $orders[$index]->customer_phone2 = $order1->orders->where('id', $order->order_id)->first()->phone2;
-                $orders[$index]->address = $order1->orders->where('id', $order->order_id)->first()->address;
-                $orders[$index]->house = $order1->orders->where('id', $order->order_id)->first()->house;
-                $orders[$index]->special_mark = $order1->orders->where('id', $order->order_id)->first()->special_mark;
-                $orders[$index]->notes = $order1->orders->where('id', $order->order_id)->first()->notes;
-
-
-
-                $stock = Stock::where('id', $order->stock_id)->first();
-
-                $orders[$index]->color = $stock->color->color_en;
-                $orders[$index]->size = $stock->size->size_en;
-                $orders[$index]->SKU = $order1->SKU;
-                $orders[$index]->vendor_id = $order1->user_id;
-
-
-                if ($order->product_type == '0') {
-                    $orders[$index]->product_type = 'coponoo stock';
-                } else {
-                    $orders[$index]->product_type = 'affiliate stock';
-                }
-
-
-
-                $order2 = Order::find($order->order_id);
-                $total = intval($order2->shipping_rate->cost) + $order->total;
-                $orders[$index]->total = $total;
-            }
-        } else {
-            $orders = DB::table('order_product')->select('id', 'order_id', 'created_at', 'updated_at', 'product_id', 'vendor_price', 'price', 'commission_for_item', 'profit_for_item', 'total', 'stock', 'stock_id', 'product_type')->get()->toArray();
-
-            foreach ($orders as $index => $order) {
-                $order1 = Product::where('id', $order->product_id)->first();
-                $orders[$index]->product_name_ar = $order1->name_ar;
-                $orders[$index]->product_name_en = $order1->name_en;
-
-                // dd($order1->orders->where('id' , $order->id)->first()->status);
-
-                $orders[$index]->affiliate_id = $order1->orders->where('id', $order->order_id)->first()->user_id;
-                $orders[$index]->status = $order1->orders->where('id', $order->order_id)->first()->status;
-                $orders[$index]->customer_name = $order1->orders->where('id', $order->order_id)->first()->client_name;
-                $orders[$index]->customer_phone = $order1->orders->where('id', $order->order_id)->first()->client_phone;
-
-
-                $stock = Stock::where('id', $order->stock_id)->first();
-
-                $orders[$index]->color = $stock->color->color_en;
-                $orders[$index]->size = $stock->size->size_en;
-                $orders[$index]->SKU = $order1->SKU;
-                $orders[$index]->vendor_id = $order1->user_id;
-
-
-                if ($order->product_type == '0') {
-                    $orders[$index]->product_type = 'coponoo stock';
-                } else {
-                    $orders[$index]->product_type = 'affiliate stock';
-                }
-
-
-                $order2 = Order::find($order->order_id);
-                $total = intval($order2->shipping_rate->cost) + $order->total;
-                $orders[$index]->total = $total;
+            if ($order->product_type == '0') {
+                $orders[$index]->product_type = 'Sonoo stock';
+            } else {
+                $orders[$index]->product_type = 'Affiliate stock';
             }
 
-            foreach ($orders as $index => $order) {
+            $order2 = Order::find($order->order_id);
+            $total = intval($order2->shipping_rate->cost) + $order->total_selling_price;
+            $orders[$index]->total_selling_price = $total;
 
+            if ($status != null) {
                 if ($orders[$index]->status != $status) {
 
                     unset($orders[$index]);
@@ -168,24 +118,9 @@ class Order extends Model
             }
         }
 
-
-
-
-        $description_ar =  'تم تنزيل شيت الطلبات  ';
-        $description_en  = ' Orders file has been downloaded ';
-
-        $log = Log::create([
-
-            'user_id' => Auth::id(),
-            'user_type' => 'admin',
-            'log_type' => 'exports',
-            'description_ar' => $description_ar,
-            'description_en' => $description_en,
-
-        ]);
-
-
-
+        $description_ar =  'تم تنزيل شيت الطلبات';
+        $description_en  = 'Orders file has been downloaded ';
+        addLog('admin', 'exports', $description_ar, $description_en);
 
         return $orders;
     }

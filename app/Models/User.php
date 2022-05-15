@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Laratrust\Traits\LaratrustUserTrait;
 use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable
 {
@@ -85,10 +85,17 @@ class User extends Authenticatable
         return $this->belongsTo(Country::class);
     }
 
+
     public function notifications()
     {
         return $this->hasMany(Notification::class);
     }
+
+    public function order_notes()
+    {
+        return $this->hasMany(OrderNote::class);
+    }
+
 
     public function vendor_orders()
     {
@@ -98,6 +105,16 @@ class User extends Authenticatable
     public function orders()
     {
         return $this->hasMany(Order::class);
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
     }
 
 
@@ -151,5 +168,33 @@ class User extends Authenticatable
             return $q->whereNotIn('name', (array)$role_name)
                 ->WhereNotIn('id', (array)$role_name);
         });
+    }
+
+
+    public static function getUsers($role_id = null, $from = null, $to = null)
+    {
+
+
+
+        $users = self::select('id', 'created_at', 'name', 'phone', 'email', 'gender')
+            ->whereDate('created_at', '>=', $from)
+            ->whereDate('created_at', '<=', $to)
+            ->whenRole($role_id)
+            ->whereRoleNot('superadministrator')
+            ->get()
+            ->toArray();
+
+
+        foreach ($users as $index => $user) {
+            $user = User::find($user['id']);
+            $roles = $user->getRoles();
+            $users[$index]['type'] = $roles;
+        }
+
+        $description_ar =  'تم تنزيل شيت المستخدمين';
+        $description_en  = 'Users file has been downloaded ';
+        addLog('admin', 'exports', $description_ar, $description_en);
+
+        return $users;
     }
 }

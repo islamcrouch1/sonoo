@@ -25,7 +25,7 @@ class RedirectIfAuthenticated
             if (Auth::guard($guard)->check()) {
                 if (Auth::user()->hasRole('affiliate')) {
                     return redirect(RouteServiceProvider::HOME_FOR_AFFILIATE);
-                } elseif (Auth::user()->hasRole('vandor')) {
+                } elseif (Auth::user()->hasRole('vendor')) {
                     return redirect(RouteServiceProvider::HOME_FOR_VENDOR);
                 } elseif (Auth::user()->hasRole('administrator|superadministrator')) {
                     return redirect(RouteServiceProvider::HOME_FOR_ADMIN);

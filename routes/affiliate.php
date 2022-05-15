@@ -4,6 +4,7 @@ use App\Http\Controllers\Affiliate\AffiliateProductsController;
 use App\Http\Controllers\Affiliate\CartController;
 use App\Http\Controllers\Affiliate\FavoriteController;
 use App\Http\Controllers\Affiliate\OrdersController;
+use App\Http\Controllers\Affiliate\ShippingRatesController;
 use App\Http\Controllers\Dashboard\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,13 @@ Route::group(['prefix' => 'affiliate', 'middleware' => ['role:affiliate']], func
 
     // add new order affiliate
     Route::post('order/store', [OrdersController::class, 'store'])->name('affiliate.orders.store')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // affiliate orders routes
+    Route::get('orders', [OrdersController::class, 'index'])->name('orders.affiliate.index')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('orders/cancel/{order}', [OrdersController::class, 'cancelOrder'])->name('orders.affiliate.cancel')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('orders/show/{order}', [OrdersController::class, 'show'])->name('orders.affiliate.show')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('orders/refund/{order}', [OrdersController::class, 'storeRefund'])->name('orders.affiliate.refund')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // shipping rates routes
+    Route::get('shipping-rates', [ShippingRatesController::class, 'index'])->name('shipping_rates.affiliate')->middleware('auth', 'checkverified', 'checkstatus');
 });

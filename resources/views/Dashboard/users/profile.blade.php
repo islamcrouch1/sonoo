@@ -1,216 +1,165 @@
 @extends('layouts.dashboard.app')
 
 @section('adminContent')
-
-
-
-
-<div class="container">
-    <div class="row justify-content-center ">
-        <div class="col-md-8">
-            <div class="card mt-4">
-                <div class="card-header">{{ __('My Profile') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{route('profile.update' , ['lang'=>app()->getLocale()])}}" enctype="multipart/form-data">
-                        @csrf
-                        @method('Post')
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-2 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-10">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ $user->name }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-2 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-10">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ $user->email }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        {{-- <div class="form-group row">
-                            <label for="type" class="col-md-2 col-form-label text-md-right">{{ __('Account Type') }}</label>
-
-                            <div class="col-md-10">
-
-                                <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref"  type="type" class="form-control @error('type') is-invalid @enderror" name="type"  required>
-                                    @php
-                                        $types = ['student','teacher','employee']
-                                    @endphp
-                                    @foreach ($types as $type)
-                                    <option value="{{ $type }}"  {{ ($user->type == $type) ? 'selected' : ''}}>{{ $type }}</option>
-                                    @endforeach
-                                  </select>
-                                @error('type')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div> --}}
-
-
-                        <div class="form-group row">
-                            <label for="role" class="col-md-2 col-form-label text-md-right">{{ __('Permissions') }}</label>
-
-                            <div class="col-md-10">
-
-                                <select id="role" type="role" class="form-control @error('role') is-invalid @enderror" name="role" value="{{ $user->role }}" disabled required>
-                                    @foreach ($roles as $role)
-                                    <option value="{{$role->id}}"  {{ $user->hasRole($role->name) ? 'selected' : ''}}>{{__($role->name)}}</option>
-                                    @endforeach
-
-                                </select>
-                                @error('role')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="country" class="col-md-2 col-form-label">{{ __('Country select') }}</label>
-                            <div class="col-md-10">
-                                <select class=" form-control @error('country') is-invalid @enderror" id="country" name="country" value="{{ old('country') }}" required disabled autocomplete="country">
-                                @foreach ($countries as $country)
-                                <option value="{{ $country->id }}" {{$user->country->id == $country->id ? 'selected' : ''}} >{{ app()->getLocale() == 'ar' ? $country->name_ar  : $country->name_en}}</option>
-                                @endforeach
-                                </select>
-                                @error('country')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="phone" class="col-md-2 col-form-label text-md-right">{{ __('Phone Number') }}</label>
-
-                            <div class="col-md-10">
-                                <input id="phone" type="txt" class="form-control @error('phone') is-invalid @enderror" name="phone" value="{{ $user->phone }}" required disabled autocomplete="email">
-
-                                @error('phone')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-2 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-10">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password"  autocomplete="new-password" >
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-2 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-10">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"  autocomplete="new-password" ">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="gender" class="col-md-2 col-form-label text-md-right">{{ __('Gender Select') }}</label>
-
-                            <div class="col-md-10">
-                                @if ($user->gender == "male")
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="inlineRadio1" disabled value="male" checked>
-                                    <label class="form-check-label" for="inlineRadio1">{{ __('Male') }}</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="inlineRadio2" disabled value="female">
-                                    <label class="form-check-label" for="inlineRadio2">{{ __('Female') }}</label>
-                                </div>
-                                @else
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="inlineRadio1" disabled value="male">
-                                    <label class="form-check-label" for="inlineRadio1">{{ __('Male') }}</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input @error('gender') is-invalid @enderror" type="radio" name="gender" id="inlineRadio2" disabled value="female" checked>
-                                    <label class="form-check-label" for="inlineRadio2">{{ __('Female') }}</label>
-                                </div>
-                                @endif
-
-                                @error('gender')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="profile" class="col-md-4 col-form-label text-md-right">{{ __('Change Profile Picture') }}</label>
-                            <div class="col-md-8 pt-2">
-                                <input id="profile" accept="image/*" type="file" class="form-control-file img @error('profile') is-invalid @enderror" name="profile" value="{{ old('profile') }}">
-
-                                @error('profile')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-
-                        <div class="form-group row">
-
-                            <div class="col-md-10">
-                                <img src="{{ asset('storage/images/users/' . $user->profile) }}" style="width:100px"  class="img-thumbnail img-prev">
-                            </div>
-                        </div>
-
-
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-10 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Update') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+    <div class="card mb-3" id="customersTable"
+        data-list='{"valueNames":["name","email","phone","address","joined"],"page":10,"pagination":true}'>
+        <div class="card-header">
+            <div class="row flex-between-center">
+                <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">My Profile</h5>
                 </div>
             </div>
         </div>
+        <div class="card-body p-0">
+
+            <div class="row g-0 h-100">
+                <div class="col-md-12 d-flex flex-center">
+                    <div class="p-4 p-md-5 flex-grow-1">
+                        <form method="POST" action="{{ route('user.update') }}" enctype="multipart/form-data">
+                            @csrf
+                            <div class="mb-3">
+                                <label class="form-label" for="name">Name</label>
+                                <input name="name" class="form-control @error('name') is-invalid @enderror"
+                                    value="{{ $user->name }}" type="text" autocomplete="on" id="name" autofocus
+                                    required />
+                                @error('name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="email">Email address</label>
+                                <input class="form-control @error('email') is-invalid @enderror" type="email" id="email"
+                                    name="email" autocomplete="on" value="{{ $user->email }}" required />
+                                @error('email')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label class="form-label" for="role">Account type</label>
+
+                                <select class="form-select @error('role') is-invalid @enderror" aria-label="" name="role"
+                                    id="role" disabled>
+                                    @if ($user->hasRole('vendor') || $user->hasRole('affiliate'))
+                                        <option value="{{ $user->hasRole('affiliate') ? '4' : '3' }}" selected>
+                                            {{ $user->hasRole('affiliate') ? 'affiliate' : 'vendor' }}</option>
+                                    @else
+                                        @foreach ($roles as $role)
+                                            <option value="{{ $role->id }}"
+                                                {{ $user->hasRole($role->name) ? 'selected' : '' }}>{{ $role->name }}
+                                            </option>
+                                        @endforeach
+                                    @endif
+
+                                </select>
+                                @error('role')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="country">Country</label>
+
+                                <select class="form-select @error('country') is-invalid @enderror" aria-label=""
+                                    name="country" id="country" disabled>
+                                    @foreach ($countries as $country)
+                                        <option value="{{ $country->id }}"
+                                            {{ $user->country_id == $country->id ? 'selected' : '' }}>
+                                            {{ app()->getLocale() == 'ar' ? $country->name_ar : $country->name_en }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('country')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="phone">Phone</label>
+                                <input class="form-control @error('phone') is-invalid @enderror" type="txt"
+                                    autocomplete="on" id="phone" name="phone" autocomplete="on"
+                                    value="{{ $user->phone }}" disabled />
+                                @error('phone')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
+                            <div class="row gx-2">
+                                <div class="mb-3 col-sm-6">
+                                    <label class="form-label" for="password">Password</label>
+                                    <input class="form-control @error('password') is-invalid @enderror" type="password"
+                                        autocomplete="on" id="password" name="password" />
+                                    @error('password')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="mb-3 col-sm-6">
+                                    <label class="form-label" for="password_confirmation">Confirm
+                                        Password</label>
+                                    <input class="form-control @error('password_confirmation') is-invalid @enderror"
+                                        type="password" autocomplete="on" id="password_confirmation"
+                                        name="password_confirmation" />
+                                    @error('password_confirmation')
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label class="form-label" for="gender">Gender</label>
+
+                                <br>
+                                <div class="form-check form-check-inline">
+                                    <input {{ $user->gender == 'male' ? 'checked' : '' }}
+                                        class="form-check-input @error('gender') is-invalid @enderror" id="gender1"
+                                        type="radio" name="gender" value="male" disabled />
+                                    <label class="form-check-label" for="flexRadioDefault1">Male</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input {{ $user->gender == 'female' ? 'checked' : '' }}
+                                        class="form-check-input @error('gender') is-invalid @enderror" id="gender2"
+                                        type="radio" name="gender" value="female" disabled />
+                                    <label class="form-check-label" for="flexRadioDefault2">Female</label>
+                                </div>
+
+                                @error('gender')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label" for="profile">Profile picture</label>
+                                <input name="profile" class="img form-control @error('profile') is-invalid @enderror"
+                                    type="file" id="profile" />
+                                @error('profile')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
+                            <div class="mb-3">
+
+                                <div class="col-md-10">
+                                    <img src="{{ asset('storage/images/users/' . $user->profile) }}"
+                                        style="width:100px; border: 1px solid #999" class="img-thumbnail img-prev">
+                                </div>
+
+                            </div>
+
+                            <div class="mb-3">
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Edit
+                                    My Profile</button>
+                            </div>
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
-
-
-
-
-
-
-  @endsection
+@endsection

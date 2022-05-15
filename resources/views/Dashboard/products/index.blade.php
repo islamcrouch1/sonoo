@@ -42,10 +42,7 @@
 
                                         @if ($category->children->count() > 0)
                                             @foreach ($category->children as $subCat)
-                                                @include(
-                                                    'dashboard.categories._category_options',
-                                                    ['category' => $subCat]
-                                                )
+                                                @include('dashboard.categories._category_options', ['category' => $subCat])
                                             @endforeach
                                         @endif
                                     @endforeach
@@ -89,9 +86,10 @@
                         <a href="{{ route('products.trashed') }}" class="btn btn-falcon-default btn-sm"
                             type="button"><span class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
                                 class="d-none d-sm-inline-block ms-1">Trash</span></a>
-                        <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
+                        <a href="{{ route('products.export', ['status' => request()->status, 'category' => request()->category_id]) }}"
+                            class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Export</span></button>
+                                class="d-none d-sm-inline-block ms-1">Export</span></a>
                     </div>
                 </div>
             </div>
@@ -173,8 +171,8 @@
                                                 <span class='badge badge-soft-danger'>{{ __('Rejected') }}</span>
                                             @break
 
-                                            @case('pause')
-                                                <span class='badge badge-soft-warning'>{{ __('Pause') }}</span>
+                                            @case('paused')
+                                                <span class='badge badge-soft-warning'>{{ __('Paused') }}</span>
                                             @break
 
                                             @default
@@ -196,7 +194,7 @@
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
                                                     @if ($product->trashed() &&
-    auth()->user()->hasPermission('products-restore'))
+                                                        auth()->user()->hasPermission('products-restore'))
                                                         <a class="dropdown-item"
                                                             href="{{ route('products.restore', ['product' => $product->id]) }}">Restore</a>
                                                     @elseif(auth()->user()->hasPermission('products-update'))
@@ -215,7 +213,7 @@
                                                         @endif
                                                     @endif
                                                     @if (auth()->user()->hasPermission('products-delete') ||
-    auth()->user()->hasPermission('products-trash'))
+                                                        auth()->user()->hasPermission('products-trash'))
                                                         <form method="POST"
                                                             action="{{ route('products.destroy', ['product' => $product->id]) }}">
                                                             @csrf
