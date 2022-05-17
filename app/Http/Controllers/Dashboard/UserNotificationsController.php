@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class UserNotificationsController extends Controller
 {
 
-    public function index($lang, $user)
+    public function index()
     {
-        $notifications = Notification::where('user_id', $user)
+        $notifications = Notification::where('user_id', Auth::id())
             ->whenSearch(request()->search)
-            ->paginate(50);
+            ->latest()
+            ->paginate(100);
 
         return view('dashboard.notifications.index')->with('notifications', $notifications);
     }

@@ -61,6 +61,59 @@ class SettingController extends Controller
             ]);
         }
 
+
+        $setting = Setting::where('type', 'affiliate_limit')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'affiliate_limit',
+                'value' => $request['affiliate_limit'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['affiliate_limit'],
+            ]);
+        }
+
+
+        $setting = Setting::where('type', 'vendor_limit')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'vendor_limit',
+                'value' => $request['vendor_limit'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['vendor_limit'],
+            ]);
+        }
+
+        $setting = Setting::where('type', 'mandatory_affiliate')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'mandatory_affiliate',
+                'value' => $request['mandatory_affiliate'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['mandatory_affiliate'],
+            ]);
+        }
+
+
+        $setting = Setting::where('type', 'mandatory_vendor')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'mandatory_vendor',
+                'value' => $request['mandatory_vendor'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['mandatory_vendor'],
+            ]);
+        }
+
+
+
         // Image::make($request->image)->resize(300, null, function ($constraint) {
         //     $constraint->aspectRatio();
         // })->save(public_path('storage/images/countries/' . $request->image->hashName()), 80);

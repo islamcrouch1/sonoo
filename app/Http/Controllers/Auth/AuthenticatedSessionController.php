@@ -58,7 +58,7 @@ class AuthenticatedSessionController extends Controller
 
         if (Auth::user()->hasRole('affiliate')) {
             return redirect()->intended(RouteServiceProvider::HOME_FOR_AFFILIATE);
-        } elseif (Auth::user()->hasRole('vandor')) {
+        } elseif (Auth::user()->hasRole('vendor')) {
             return redirect()->intended(RouteServiceProvider::HOME_FOR_VENDOR);
         } elseif (Auth::user()->hasRole('administrator|superadministrator')) {
             return redirect()->intended(RouteServiceProvider::HOME_FOR_ADMIN);

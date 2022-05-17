@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Country;
 use App\Models\Log;
 use App\Models\Notification;
+use App\Models\Order;
 use App\Models\Request;
 use App\Models\Setting;
 use App\Models\User;
@@ -156,8 +157,8 @@ if (!function_exists('addLog')) {
     {
         $log = Log::create([
             'user_id' => Auth::id(),
-            'user_type' => 'admin',
-            'log_type' => 'users',
+            'user_type' => $userType,
+            'log_type' => $logType,
             'description_ar' => $ar,
             'description_en' => $en,
         ]);
@@ -170,7 +171,7 @@ if (!function_exists('addLog')) {
 if (!function_exists('checkUserForTrash')) {
     function checkUserForTrash($user)
     {
-        if ($user->vendorProducts->count() > '0') {
+        if ($user->vendorProducts->count() > 0 || $user->orders->count() > 0 || $user->vendor_orders->count() > 0 || $user->notes->count() > 0 || $user->messages->count() > 0) {
             return false;
         } else {
             return true;
@@ -291,15 +292,15 @@ if (!function_exists('productQuantity')) {
 
 
 if (!function_exists('addFinanceRequest')) {
-    function addFinanceRequest($user, $amount, $en, $ar)
+    function addFinanceRequest($user, $amount, $en, $ar, $order_id = 0, $type = 'add')
     {
         Request::create([
             'user_id' => $user->id,
             'balance_id' => $user->balance->id,
-            'order_id' => '0',
+            'order_id' => $order_id,
             'request_ar' => $ar,
             'request_en' => $en,
-            'balance' => '+ ' . $amount,
+            'balance' => ($type == 'add' ? '+ ' : '- ') . $amount,
         ]);
     }
 }
@@ -454,16 +455,194 @@ if (!function_exists('calculateCartTotal')) {
 }
 
 
-// calculate price with commission
-if (!function_exists('addOutStandingBalance')) {
-    function addOutStandingBalance($user, $amount)
+// change outstanding balance
+if (!function_exists('changeOutStandingBalance')) {
+    function changeOutStandingBalance($user, $amount, $order_id = 0, $status = null, $type)
     {
         $balance = Balance::where('user_id', $user->id)->first();
         $balance->update([
-            'outstanding_balance' => $balance->outstanding_balance  + $amount,
+            'outstanding_balance' => $type == 'add' ? $balance->outstanding_balance  + $amount : $balance->outstanding_balance  - $amount,
         ]);
-        $ar =  'إضافة الى الرصيد المعلق';
-        $en =  'add to outstanding balance';
-        addFinanceRequest($user, $amount, $en, $ar);
+        if ($status == null) {
+            $ar = 'تعديل على الرصيد المعلق';
+            $en = 'Outstanding balance change';
+        } else {
+            $ar = 'تم تغيير حالة الطلب الى : ' .  getArabicStatus($status) . ' - ' . 'تعديل على الرصيد المعلق';
+            $en = 'Order status changed to : ' . $status . ' - ' . 'Outstanding balance change';
+        }
+        addFinanceRequest($user, $amount, $en, $ar, $order_id, $type == 'add' ? 'add' : 'sub');
+    }
+}
+
+
+// change available balance
+if (!function_exists('changeAvailableBalance')) {
+    function changeAvailableBalance($user, $amount, $order_id = 0, $status = null, $type)
+    {
+        $balance = Balance::where('user_id', $user->id)->first();
+        $balance->update([
+            'available_balance' => $type == 'add' ? $balance->available_balance  + $amount : $balance->available_balance  - $amount,
+        ]);
+        if ($status == null) {
+            $ar = 'تعديل على الرصيد المتاح';
+            $en = 'Available balance change';
+        } else {
+            $ar = 'تم تغيير حالة الطلب الى : ' .  getArabicStatus($status) . ' - ' . 'تعديل على الرصيد المتاح';
+            $en = 'Order status changed to : ' . $status . ' - ' . 'Available balance change';
+        }
+        addFinanceRequest($user, $amount, $en, $ar, $order_id, $type == 'add' ? 'add' : 'sub');
+    }
+}
+
+// change pending withdrawal requests balance
+if (!function_exists('changePendingWithdrawalBalance')) {
+    function changePendingWithdrawalBalance($user, $amount, $order_id = 0, $status = '', $type)
+    {
+        $balance = Balance::where('user_id', $user->id)->first();
+        $balance->update([
+            'pending_withdrawal_requests' => $type == 'add' ? $balance->pending_withdrawal_requests  + $amount : $balance->pending_withdrawal_requests  - $amount,
+        ]);
+        $ar = 'تعديل على رصيد طلبات السحب المعلقة';
+        $en = 'Pending withdrawal requests balance change';
+        addFinanceRequest($user, $amount, $en, $ar, $order_id, $type == 'add' ? 'add' : 'sub');
+    }
+}
+
+
+// change completed withdrawal requests balance
+if (!function_exists('changeCompletedWithdrawalBalance')) {
+    function changeCompletedWithdrawalBalance($user, $amount, $order_id = 0, $status = '', $type)
+    {
+        $balance = Balance::where('user_id', $user->id)->first();
+        $balance->update([
+            'completed_withdrawal_requests' => $type == 'add' ? $balance->completed_withdrawal_requests  + $amount : $balance->completed_withdrawal_requests  - $amount,
+        ]);
+        $ar = 'تعديل على رصيد طلبات السحب المكتملة';
+        $en = 'Completed withdrawal requests balance change';
+        addFinanceRequest($user, $amount, $en, $ar, $order_id, $type == 'add' ? 'add' : 'sub');
+    }
+}
+
+
+
+
+// calculate price with commission
+if (!function_exists('getArabicStatus')) {
+    function getArabicStatus($status)
+    {
+        switch ($status) {
+            case "pending":
+                $status_ar = "معلق";
+                break;
+            case "confirmed":
+                $status_ar = "مؤكد";
+                break;
+            case "on the way":
+                $status_ar = "في الطريق";
+                break;
+            case "delivered":
+                $status_ar = "تم تحرير مبلغ الطلب";
+                break;
+            case "canceled":
+                $status_ar = "ملغي";
+                break;
+            case "in the mandatory period":
+                $status_ar = "تم التسليم وفي المدة الاجبارية";
+                break;
+            case "Waiting for the order amount to be released":
+                $status_ar = "في انتظار تحرير مبلغ الطلب";
+                break;
+            case "returned":
+                $status_ar = "مرتجع";
+                break;
+            case "RTO":
+                $status_ar = "فشل في التوصيل";
+                break;
+            default:
+                break;
+        }
+        return $status_ar;
+    }
+}
+
+
+// check order status for change
+if (!function_exists('checkOrderStatus')) {
+    function checkOrderStatus($new_status, $old_status)
+    {
+        // pending
+        // confirmed
+        // on the way
+        // in the mandatory period
+        // delivered
+        // canceled
+        // returned
+        // RTO
+
+        if (($new_status == $old_status)) {
+            // can not change to same status
+            return false;
+        } elseif ($old_status != 'delivered' && $new_status == 'returned') {
+            // can not change status to returned except delivered
+            return false;
+        } elseif ($old_status == 'returned' || $old_status == 'canceled' || $old_status == 'RTO') {
+            return false;
+        } elseif ($old_status == 'delivered' && $new_status != 'returned') {
+            return false;
+        } else {
+            return true;
+        }
+    }
+}
+
+
+// Calculate total balance
+if (!function_exists('CalculateTotalBalance')) {
+    function CalculateTotalBalance($user_type, $balance_type)
+    {
+        $balance = 0;
+        $users = User::whereHas('roles', function ($query) use ($user_type) {
+            $query->where('name', $user_type);
+        })->get();
+
+        foreach ($users as $user) {
+            $balance += $user->balance->$balance_type;
+        }
+
+        return $balance;
+    }
+}
+
+// Calculate total orders prices
+if (!function_exists('CalculateTotalOrder')) {
+    function CalculateTotalOrder($orders_status)
+    {
+
+        if (!request()->has('from') || !request()->has('to')) {
+
+            request()->merge(['from' => Carbon::now()->subDay(365)->toDateString()]);
+            request()->merge(['to' => Carbon::now()->toDateString()]);
+        }
+
+        $balance = 0;
+
+        $orders = Order::whereDate('created_at', '>=', request()->from)
+            ->whereDate('created_at', '<=', request()->to)->where('status', $orders_status)->get();
+
+        foreach ($orders as $order) {
+            $balance += $order->total_price;
+        }
+
+        return $balance;
+    }
+}
+
+
+// get orders count
+if (!function_exists('ordersCount')) {
+    function ordersCount($orders_status)
+    {
+        $orders = Order::where('status', $orders_status)->get();
+        return $orders->count();
     }
 }

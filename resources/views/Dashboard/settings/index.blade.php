@@ -49,6 +49,54 @@
                                 @enderror
                             </div>
 
+                            <div class="mb-3">
+                                <label class="form-label"
+                                    for="affiliate_limit">{{ __('Affiliate withdrawal limit') }}</label>
+                                <input name="affiliate_limit"
+                                    class="form-control @error('affiliate_limit') is-invalid @enderror"
+                                    value="{{ setting('affiliate_limit') }}" type="number" autocomplete="on"
+                                    id="affiliate_limit" required />
+                                @error('affiliate_limit')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label class="form-label"
+                                    for="vendor_limit">{{ __('Vendor withdrawal limit') }}</label>
+                                <input name="vendor_limit" class="form-control @error('vendor_limit') is-invalid @enderror"
+                                    value="{{ setting('vendor_limit') }}" type="number" autocomplete="on"
+                                    id="vendor_limit" required />
+                                @error('vendor_limit')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
+                            <div class="mb-3">
+                                <label class="form-label"
+                                    for="mandatory_affiliate">{{ __('Mandatory Period For Affiliate') . __(' - in minutes') }}</label>
+                                <input name="mandatory_affiliate"
+                                    class="form-control @error('mandatory_affiliate') is-invalid @enderror"
+                                    value="{{ setting('mandatory_affiliate') }}" type="number" autocomplete="on"
+                                    id="mandatory_affiliate" required />
+                                @error('mandatory_affiliate')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label"
+                                    for="mandatory_vendor">{{ __('Mandatory Period For Vendors') . __(' - in minutes') }}</label>
+                                <input name="mandatory_vendor"
+                                    class="form-control @error('mandatory_vendor') is-invalid @enderror"
+                                    value="{{ setting('mandatory_vendor') }}" type="number" autocomplete="on"
+                                    id="mandatory_vendor" required />
+                                @error('mandatory_vendor')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
 
                             {{-- <div class="mb-3">
                                 <label class="form-label" for="image">Country flag</label>
@@ -68,9 +116,13 @@
 
                             </div> --}}
 
-                            <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Save') }}</button>
-                            </div>
+
+                            @if (auth()->user()->hasPermission('settings-update'))
+                                <div class="mb-3">
+                                    <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                        name="submit">{{ __('Save') }}</button>
+                                </div>
+                            @endif
                         </form>
 
                     </div>

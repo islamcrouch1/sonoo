@@ -97,7 +97,7 @@
                                             <div class="notification-avatar">
                                                 <div class="avatar avatar-2xl me-3">
                                                     <img class="rounded-circle"
-                                                        src="{{ Auth::user()->hasRole('administrator|superadministrator')? $notification->sender_image: asset('assets/img/fevicon.png') }}"
+                                                        src="{{ Auth::user()->hasRole('administrator|superadministrator') ? $notification->sender_image : asset('assets/img/fevicon.png') }}"
                                                         alt="" />
 
                                                 </div>
@@ -174,7 +174,10 @@
                 <div class="bg-white dark__bg-1000 rounded-2 py-2">
 
                     {{-- <div class="dropdown-divider"></div> --}}
-                    <a class="dropdown-item" href="pages/user/profile.html">Profile &amp; account</a>
+                    <a class="dropdown-item" href="{{ route('user.edit') }}">Profile &amp; account</a>
+                    <a class="dropdown-item"
+                        href="{{ route('notifications.index') }}">{{ __('Notifications') }}</a>
+                    <a class="dropdown-item" href="{{ route('messages.index') }}">{{ __('Messages') }}</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
 

@@ -66,8 +66,8 @@
 
                                                         @if ($model == 'settings')
                                                             @php
-                                                                $permissions_maps = ['create', 'update'];
-                                                                $permissions_maps_ar = ['انشاء', 'تعديل'];
+                                                                $permissions_maps = ['read', 'update'];
+                                                                $permissions_maps_ar = ['مشاهدة', 'تعديل'];
                                                             @endphp
                                                         @endif
                                                         <div class="mb-3">

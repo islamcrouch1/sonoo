@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class Product extends Model
 {
@@ -85,31 +86,27 @@ class Product extends Model
     }
 
 
-    public function vorders()
+    public function vendor_orders()
     {
         return $this->belongsToMany(Vorder::class)
-            ->withPivot('stock_id', 'price', 'quantity', 'total', 'vorder_id')
+            ->withPivot('stock_id', 'price', 'quantity', 'total', 'vendor_order_id')
             ->withTimestamps();
     }
 
 
-    public static function getProducts($status, $category)
+    public static function getProducts($status = null, $category_id = null)
     {
-
         if (Auth::user()->HasRole('vendor')) {
-
-            $products = DB::table('products')->select('id', 'SKU', 'user_id', 'status', 'category_id', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'fixed_price')->where('user_id', Auth::user()->id)->get()->toArray();
+            $products = DB::table('products')->select('id', 'sku', 'vendor_id', 'status', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'extra_fee')->where('user_id', Auth::user()->id)->get()->toArray();
         } else {
             $products = DB::table('products')->where('status', $status == null ? '!=' : '=', $status)
                 ->join('category_product', function ($q) {
                     $q->on('category_product.product_id', '=', 'products.id');
-                })->where('category_product.category_id', $category == null ? '!=' : '=', $category)
-                ->select('products.id', 'SKU', 'user_id', 'status', 'products.category_id', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'fixed_price')->get()->toArray();
+                })->where('category_product.category_id', $category_id == null ? '!=' : '=', $category_id)
+                ->select('products.id', 'sku', 'vendor_id', 'status', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'extra_fee')->get()->toArray();
         }
 
         foreach ($products as $index => $product) {
-
-
 
             $color_str = '';
             $size_str = '';
@@ -118,9 +115,9 @@ class Product extends Model
 
             $stocks = Stock::where('product_id', $product->id)->get();
 
+
             $stocks1 = $stocks->unique('color_id');
             $stocks2 = $stocks->unique('size_id');
-
 
             foreach ($stocks1 as $stock) {
                 $color_str .= $stock->color_id . ',';
@@ -130,55 +127,33 @@ class Product extends Model
                 $size_str .= $stock->size_id . ',';
             }
 
-
-
             foreach ($stocks as $stock) {
-
-                $stock_str .= $stock->stock . ',';
+                $stock_str .= $stock->quantity . ',';
             }
 
             $color_str =   substr($color_str, 0, -1);
             $size_str =   substr($size_str, 0, -1);
             $stock_str =  substr($stock_str, 0, -1);
 
-
-
-
             $products[$index]->colors = $color_str;
             $products[$index]->sizes = $size_str;
             $products[$index]->stock = $stock_str;
 
-
             $images = ProductImage::where('product_id', $product->id)->get();
 
-
             foreach ($images as $image) {
-
-                $image_str .= 'https://coponoo.com/storage/images/products/' . $image->url . ',';
+                $image_str .= 'https://sonoo.online/storage/images/products/' . $image->url . ',';
             }
 
             $image_str =  substr($image_str, 0, -1);
-
-
             $products[$index]->images = $image_str;
         }
 
+        $description_ar =  'تم تنزيل شيت المنتجات';
+        $description_en  = 'Product file has been downloaded ';
+        addLog('admin', 'exports', $description_ar, $description_en);
 
-        $description_ar =  'تم تنزيل شيت المنتجات  ';
-        $description_en  = ' Product file has been downloaded ';
-
-        $log = Log::create([
-
-            'user_id' => Auth::id(),
-            'user_type' => 'admin',
-            'log_type' => 'exports',
-            'description_ar' => $description_ar,
-            'description_en' => $description_en,
-
-        ]);
-
-
-
+        dd($products);
 
 
         return $products;

@@ -97,11 +97,13 @@ $(document).ready(function(){
 
     // not used till now --- function for send verification sms in withdrawal page
     $('#send-conf').on('click' , function(e){
+
         e.preventDefault();
-        var loader = '#loader-conf';
+        var loader = '.spinner';
         var url = $(this).data('url');
 
-        $(loader).css('display', 'inline-block');
+        $(loader).show();
+        $('.fa-plus').hide()
         $("#send-conf").attr("disabled", true);
 
         var startMinute = 1;
@@ -110,18 +112,17 @@ $(document).ready(function(){
         var intervalId = setInterval(updateCountdown , 1000);
 
         function updateCountdown(){
-        var minutes = Math.floor(time / 60);
-        var seconds = time % 60 ;
-        seconds < startMinute ? '0' + seconds : seconds;
-        $('.counter_down').html(minutes + ':' + seconds)
-        if(minutes == 0 && seconds == 0){
-            $("#send-conf").attr("disabled", false);
-            $('.counter_down').html('');
-            clearInterval(intervalId);
-        }else{
-            time--;
-        }
-
+            var minutes = Math.floor(time / 60);
+            var seconds = time % 60 ;
+            seconds < startMinute ? '0' + seconds : seconds;
+            $('.counter_down1').html(minutes + ':' + seconds)
+            if(minutes == 0 && seconds == 0){
+                $("#send-conf").attr("disabled", false);
+                $('.counter_down1').html('');
+                clearInterval(intervalId);
+            }else{
+                time--;
+            }
         }
 
         $.ajax({
@@ -132,7 +133,8 @@ $(document).ready(function(){
             cache: false,
             success: function(data) {
                 if(data == 1){
-                    $(loader).css('display', 'none');
+                    $(loader).hide();
+                    $('.fa-plus').show()
                 }
             }
         });
@@ -247,6 +249,8 @@ $(document).ready(function(){
                         success: function(data) {
 
                             $('.add-cart').prop( "disabled", false );
+
+                            console.log(data);
 
                             if(data == 1){
 

@@ -117,13 +117,10 @@
 
                                         @if ($category->children->count() > 0)
                                             @foreach ($category->children as $subCat)
-                                                @include(
-                                                    'dashboard.categories._category_options_product_edit',
-                                                    [
-                                                        'scategory' => $subCat,
-                                                        'product' => $product,
-                                                    ]
-                                                )
+                                                @include('dashboard.categories._category_options_product_edit', [
+                                                    'scategory' => $subCat,
+                                                    'product' => $product,
+                                                ])
                                             @endforeach
                                         @endif
                                     @endforeach
@@ -182,8 +179,8 @@
                                     <option value="rejected" {{ $product->status == 'rejected' ? 'selected' : '' }}>
                                         {{ __('Rejected') }}
                                     </option>
-                                    <option value="pause" {{ $product->status == 'pause' ? 'selected' : '' }}>
-                                        {{ __('Pause') }}
+                                    <option value="paused" {{ $product->status == 'paused' ? 'selected' : '' }}>
+                                        {{ __('Paused') }}
                                     </option>
                                 </select>
                                 @error('status')

@@ -1,17 +1,23 @@
 <?php
 
+use App\Http\Controllers\Dashboard\BonusController;
 use App\Http\Controllers\Dashboard\ProductsController;
 use App\Http\Controllers\Dashboard\CategoriesController;
 use App\Http\Controllers\Dashboard\ColorsController;
 use App\Http\Controllers\Dashboard\CountriesController;
+use App\Http\Controllers\Dashboard\ExportController;
+use App\Http\Controllers\Dashboard\FinancesController;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\LogsController;
+use App\Http\Controllers\Dashboard\MessagesController;
+use App\Http\Controllers\Dashboard\NotesController;
+use App\Http\Controllers\Dashboard\OrdersController;
 use App\Http\Controllers\Dashboard\PasswordResetController;
 use App\Http\Controllers\Dashboard\RoleController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\ShippingRatesController;
 use App\Http\Controllers\Dashboard\SizesController;
 use App\Http\Controllers\Dashboard\SlidesController;
-use App\Http\Controllers\Dashboard\UserNotificationsController;
 use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Dashboard\WithdrawalsController;
 use Illuminate\Support\Facades\Route;
@@ -37,14 +43,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
     Route::get('/trashed-countries/{country}', [CountriesController::class, 'restore'])->name('countries.restore')->middleware('auth', 'checkverified', 'checkstatus');
 
     // withdrawal routes
-    Route::get('/withdrawals', [WithdrawalsController::class, 'index'])->name('withdrawals.index')->middleware('auth', 'checkverified', 'checkstatus');
-    Route::get('/withdrawals/request', [WithdrawalsController::class, 'create'])->name('withdrawals.request')->middleware('auth', 'checkverified', 'checkstatus');
-    Route::post('/withdrawals', [WithdrawalsController::class, 'store'])->name('withdrawals.affiliate.store')->middleware('auth', 'checkverified', 'checkstatus');
-
-    // user notification routes
-    Route::get('/notification/change', [UserNotificationsController::class, 'changeStatus'])->name('notifications.change')->middleware('auth', 'checkverified', 'checkstatus');
-    Route::get('/notifications', [UserNotificationsController::class, 'index'])->name('notifications.index')->middleware('auth', 'checkverified', 'checkstatus');
-    Route::get('/notifications/change', [UserNotificationsController::class, 'changeStatusAll'])->name('notifications.change.all')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('withdrawals', [WithdrawalsController::class, 'index'])->name('withdrawals.index')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('withdrawals/update/{withdrawal}', [WithdrawalsController::class, 'update'])->name('withdrawals.update')->middleware('auth', 'checkverified', 'checkstatus');
 
     // roles routes
     Route::resource('roles',  RoleController::class)->middleware('auth', 'checkverified', 'checkstatus');
@@ -93,6 +93,44 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
 
     // orders routes
     Route::resource('orders', OrdersController::class)->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('orders/status/{order}', [OrdersController::class, 'updateStatus'])->name('orders.status')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('orders/status/all', [OrdersController::class, 'updateStatusAll'])->name('orders.status.all')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('orders/admin/refund/{order}', [OrdersController::class, 'rejectRefund'])->name('orders.refund.reject')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('orders/admin/refunds', [OrdersController::class, 'refundsIndex'])->name('orders.refunds')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('orders/admin/mandatory', [OrdersController::class, 'mandatoryIndex'])->name('orders.mandatory')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // vendors orders routes  orders.vendor.mandatory
+    Route::get('vendor-orders', [OrdersController::class, 'indexVendors'])->name('orders-vendor')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('vendor-orders/status/{vendor_order}', [OrdersController::class, 'updateStatusVendor'])->name('orders.vendor.status')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('vendor-orders/status', [OrdersController::class, 'updateStatusVendorAll'])->name('orders.vendor.status.all')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('vendor-orders/mandatory', [OrdersController::class, 'mandatoryIndexVendor'])->name('orders.vendor.mandatory')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // users and orders notes routes
+    Route::post('user/note/{user}', [NotesController::class, 'addUserNote'])->name('users.note')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('order/note/{order}', [NotesController::class, 'addorderNote'])->name('orders.note')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // bonus routes
+    Route::resource('bonus', BonusController::class)->middleware('auth', 'checkverified', 'checkstatus');
+
+    // logs routes
+    Route::resource('logs', LogsController::class)->middleware('auth', 'checkverified', 'checkstatus');
+
+    // finances routes
+    Route::get('finances', [FinancesController::class, 'index'])->name('finances.index')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // messages routes
+    Route::get('messages/admin', [MessagesController::class, 'index'])->name('messages.admin.index')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('messages/admin/store/{user}', [MessagesController::class, 'store'])->name('messages.admin.store')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-messages', [MessagesController::class, 'trashed'])->name('messages.admin.trashed')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('/trashed-messages/{message}', [MessagesController::class, 'restore'])->name('messages.admin.restore')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('messages/delete/{message}', [MessagesController::class, 'destroy'])->name('messages.admin.destroy')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // export and import routes
+    Route::get('orders/admin/export',  [ExportController::class, 'ordersExport'])->name('orders.export')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('withdrawals/admin/export', [ExportController::class, 'withdrawalsExport'])->name('withdrawals.export')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('products/admin/export', [ExportController::class, 'productsExport'])->name('products.export')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('products/export/vendor', 'VendorProductsController@productsexport')->name('products.export.vendor')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('users/admin/export', [ExportController::class, 'usersExport'])->name('users.export')->middleware('auth', 'checkverified', 'checkstatus');
 
 
 

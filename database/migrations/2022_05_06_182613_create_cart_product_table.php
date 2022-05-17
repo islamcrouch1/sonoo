@@ -22,6 +22,10 @@ return new class extends Migration
             $table->double('vendor_price');
             $table->integer('product_type')->default(0);
             $table->integer('quantity');
+            $table->string('size_ar');
+            $table->string('size_en');
+            $table->string('color_ar');
+            $table->string('color_en');
             $table->timestamps();
         });
     }

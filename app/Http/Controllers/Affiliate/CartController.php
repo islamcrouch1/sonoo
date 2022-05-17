@@ -18,7 +18,13 @@ class CartController extends Controller
         $user = Auth::user();
         $rates = ShippingRate::where('country_id', $user->country->id)->get();
         foreach ($user->cart->products as $product) {
-            if ($product->pivot->vendor_price != $product->vendor_price || $product->stocks->find($product->pivot->stock_id) == NULL) {
+            if ($product->pivot->product_type == 0) {
+                $stock = $product->stocks->find($product->pivot->stock_id);
+            } else {
+                // check for affiliate stock -- need to update
+                $stock = $product->stocks->find($product->pivot->stock_id);
+            }
+            if ($product->pivot->vendor_price != $product->vendor_price || $stock == NULL) {
                 $user->cart->products()->wherePivot('stock_id', $product->pivot->stock_id)->detach();
                 alertError('Some prices of the products in your cart have been updated, please check the order again', 'تم تحديث بعض أسعار المنتجات الموجودة بسلة مشترياتك يرجى مراجعة الطلب مرة أخرى');
                 return redirect()->route('cart');
@@ -39,6 +45,7 @@ class CartController extends Controller
             $av_stock = Stock::find($stock);
             $quantity = $av_stock->quantity;
         }
+
 
         // else {
         //     $av_stock = Astock::find($stock);
@@ -71,8 +78,7 @@ class CartController extends Controller
 
         $selected_price = ceil($request->selected_price);
 
-        $cart->products()->attach($product->id, ['stock_id' => $request->stock_id, 'quantity' => $request->quantity, 'price' => $selected_price, 'vendor_price' => $product->vendor_price, 'product_type' => $product_type]);
-
+        $cart->products()->attach($product->id, ['stock_id' => $request->stock_id, 'quantity' => $request->quantity, 'price' => $selected_price, 'vendor_price' => $product->vendor_price, 'product_type' => $product_type, 'size_ar' => $av_stock->size->size_ar, 'size_en' => $av_stock->size->size_en, 'color_en' => $av_stock->color->color_en, 'color_ar' => $av_stock->color->color_ar]);
 
         return 1;
     } //end of products

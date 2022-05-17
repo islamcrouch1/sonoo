@@ -26,6 +26,10 @@ return new class extends Migration
             $table->double('total_selling_price', 8, 2);
             $table->double('total_commission', 8, 2);
             $table->integer('quantity');
+            $table->string('size_ar');
+            $table->string('size_en');
+            $table->string('color_ar');
+            $table->string('color_en');
             $table->timestamps();
         });
     }
