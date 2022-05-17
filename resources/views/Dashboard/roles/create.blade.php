@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Add New role</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Add New role') }}</h5>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
                         <form method="POST" action="{{ route('roles.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label class="form-label" for="name">role name</label>
+                                <label class="form-label" for="name">{{ __('role name') }}</label>
                                 <input name="name" class="form-control @error('name') is-invalid @enderror"
                                     value="{{ old('name') }}" type="text" autocomplete="on" id="name" autofocus
                                     required />
@@ -28,7 +28,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description">role description</label>
+                                <label class="form-label" for="description">{{ __('role description') }}</label>
                                 <input name="description" class="form-control @error('description') is-invalid @enderror"
                                     value="{{ old('description') }}" type="text" autocomplete="on" id="description"
                                     autofocus required />
@@ -38,14 +38,14 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="code">Permissions</label>
+                                <label class="form-label" for="code">{{ __('Permissions') }}</label>
 
                                 <div class="table-responsive scrollbar">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Module</th>
-                                                <th scope="col">Permissions</th>
+                                                <th scope="col">{{ __('Module') }}</th>
+                                                <th scope="col">{{ __('Permissions') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -95,8 +95,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Add New
-                                    role</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
+                                    role') }}</button>
                             </div>
                         </form>
 

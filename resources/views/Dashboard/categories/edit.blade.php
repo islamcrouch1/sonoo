@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Edit Category</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Edit Category') }}</h5>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
-                                <label class="form-label" for="name_ar">category name - arabic</label>
+                                <label class="form-label" for="name_ar">{{ __('category name - arabic') }}</label>
                                 <input name="name_ar" class="form-control @error('name_ar') is-invalid @enderror"
                                     value="{{ $category->name_ar }}" type="text" autocomplete="on" id="name_ar" autofocus
                                     required />
@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="name_en">category name - english</label>
+                                <label class="form-label" for="name_en">{{ __('category name - english') }}</label>
                                 <input name="name_en" class="form-control @error('name_en') is-invalid @enderror"
                                     value="{{ $category->name_en }}" type="text" autocomplete="on" id="name_en" autofocus
                                     required />
@@ -40,7 +40,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description_ar">category description - arabic</label>
+                                <label class="form-label" for="description_ar">{{ __('category description - arabic') }}</label>
                                 <input name="description_ar"
                                     class="form-control @error('description_ar') is-invalid @enderror"
                                     value="{{ $category->description_ar }}" type="text" autocomplete="on"
@@ -51,7 +51,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description_en">category description - english</label>
+                                <label class="form-label" for="description_en">{{ __('category description - english') }}</label>
                                 <input name="description_en"
                                     class="form-control @error('description_en') is-invalid @enderror"
                                     value="{{ $category->description_en }}" type="text" autocomplete="on"
@@ -63,7 +63,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="parent_id">Parnet Category</label>
+                                <label class="form-label" for="parent_id">{{ __('Parnet Category') }}</label>
 
                                 <select class="form-select @error('parent_id') is-invalid @enderror" aria-label=""
                                     name="parent_id" id="parent_id">
@@ -94,7 +94,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="country">Country</label>
+                                <label class="form-label" for="country">{{ __('Country') }}</label>
 
                                 <select class="form-select @error('country') is-invalid @enderror" aria-label=""
                                     name="country" id="country" required>
@@ -113,7 +113,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="profit">Category Profit %</label>
+                                <label class="form-label" for="profit">{{ __('Category Profit %') }}</label>
                                 <input name="profit" class="form-control @error('profit') is-invalid @enderror"
                                     value="{{ $category->profit }}" type="number" min="0" autocomplete="on" id="profit"
                                     autofocus required />
@@ -123,7 +123,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="image">Category image</label>
+                                <label class="form-label" for="image">{{ __('Category image') }}</label>
                                 <input name="image" class="img form-control @error('image') is-invalid @enderror"
                                     type="file" id="image" />
                                 @error('image')
@@ -142,8 +142,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Edit
-                                    Category</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
+                                    Category') }}</button>
                             </div>
                         </form>
 

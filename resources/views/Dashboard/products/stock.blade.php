@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Add Product Stock</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Add Product Stock') }}</h5>
                 </div>
             </div>
         </div>
@@ -20,16 +20,16 @@
                             @csrf
 
                             <div class="mb-3">
-                                <label class="form-label" for="vendor_id">Add Product Stock</label>
+                                <label class="form-label" for="vendor_id">{{ __('Add Product Stock') }}</label>
 
                                 <div class="table-responsive scrollbar">
                                     <table class="table">
                                         <thead>
                                             <tr>
-                                                <th scope="col">Color</th>
-                                                <th scope="col">Size</th>
-                                                <th scope="col">Quantity</th>
-                                                <th class="text-end" scope="col">Actions</th>
+                                                <th scope="col">{{ __('Color') }}</th>
+                                                <th scope="col">{{ __('Size') }}</th>
+                                                <th scope="col">{{ __('Quantity') }}</th>
+                                                <th class="text-end" scope="col">{{ __('Actions') }}</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -62,7 +62,7 @@
                                             <tr>
                                                 <td>
                                                     <a href="{{ route('products.color.create', ['product' => $product->id]) }}"
-                                                        class="btn btn-falcon-primary me-1 mb-1">Add new color & size
+                                                        class="btn btn-falcon-primary me-1 mb-1">{{ __('Add new color & size') }}
                                                     </a>
                                                 </td>
                                             </tr>
@@ -73,7 +73,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="name_ar">Colors Images</label>
+                                <label class="form-label" for="name_ar">{{ __('Colors Images') }}</label>
                             </div>
 
                             @foreach ($product->stocks as $stock)
@@ -104,7 +104,7 @@
                                 @endif
                             @endforeach
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Save</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Save') }}</button>
                             </div>
                         </form>
 

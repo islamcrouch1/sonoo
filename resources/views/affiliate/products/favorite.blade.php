@@ -8,7 +8,7 @@
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
                     <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">
-                        Favorite
+                        {{ __('Favorite') }}
                     </h5>
                 </div>
             </div>
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="d-flex flex-between-center px-3">
                                     <div>
-                                        <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                                        <p class="fs--1 mb-1">Stock: <strong class="text-success">{{ __('Available') }}</strong>
                                         </p>
                                         {{-- <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong> --}}
 

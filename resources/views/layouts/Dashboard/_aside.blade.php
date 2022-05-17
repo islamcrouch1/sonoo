@@ -27,7 +27,7 @@
                         <!-- label-->
                         <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
                             <!-- users - roles - countries - settings -->
-                            <div class="col-auto navbar-vertical-label">Users & Roles
+                            <div class="col-auto navbar-vertical-label">{{ __('Users & Roles') }}
                             </div>
                             <div class="col ps-0">
                                 <hr class="mb-0 navbar-vertical-divider" />
@@ -105,7 +105,7 @@
                         <!-- label-->
                         <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
                             <!-- users - roles - countries - settings -->
-                            <div class="col-auto navbar-vertical-label">Products
+                            <div class="col-auto navbar-vertical-label">{{ __('Products') }}
                             </div>
                             <div class="col ps-0">
                                 <hr class="mb-0 navbar-vertical-divider" />

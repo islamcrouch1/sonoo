@@ -537,7 +537,7 @@
                                     </div>
                                     <div class="col-md-2">
                                         <select class="form-control" name="country_id" style="display:inline-block">
-                                            <option value="" selected>All Countries</option>
+                                            <option value="" selected>{{ __('All Countries') }}</option>
                                             @foreach ($countries as $country)
                                                 <option value="{{ $country->id }}"
                                                     {{ request()->country_id == $country->id ? 'selected' : '' }}>
@@ -631,10 +631,10 @@
                             @if (session()->has('failures'))
                                 <table class="table table-danger">
                                     <tr>
-                                        <th>Row</th>
-                                        <th>Attribute</th>
-                                        <th>Errors</th>
-                                        <th>Value</th>
+                                        <th>{{ __('Row') }}</th>
+                                        <th>{{ __('Attribute') }}</th>
+                                        <th>{{ __('Errors') }}</th>
+                                        <th>{{ __('Value') }}</th>
                                     </tr>
 
                                     @foreach (session()->get('failures') as $validation)

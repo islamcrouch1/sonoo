@@ -15,7 +15,7 @@
                             <div class="position-relative z-index-2">
                                 <div>
                                     <h3 class="text-primary mb-1">Hi, {{ $user->name }}!</h3>
-                                    <p>Here’s what happening with your dashboard today </p>
+                                    <p>{{ __('Here’s what happening with your dashboard today') }} </p>
                                 </div>
                                 <div class="d-flex py-3">
                                     <div class="pe-3">
@@ -41,7 +41,7 @@
                                             </div>
                                         </div>
                                         <div class="col-auto d-flex align-items-center"><a
-                                                class="alert-link fs--1 fw-medium" href="#!">View products<i
+                                                class="alert-link fs--1 fw-medium" href="#!">{{ __('View products') }}<i
                                                     class="fas fa-chevron-right ms-1 fs--2"></i></a></div>
                                     </div>
                                 </li>

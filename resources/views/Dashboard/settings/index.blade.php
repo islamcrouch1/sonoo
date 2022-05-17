@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Settings</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Settings') }}</h5>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="tax">Tax %</label>
+                                <label class="form-label" for="tax">{{ __('Tax %') }}</label>
                                 <input name="tax" class="form-control @error('tax') is-invalid @enderror"
                                     value="{{ setting('tax') }}" type="number" autocomplete="on" id="tax" autofocus
                                     required />
@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="max_price">Max Price %</label>
+                                <label class="form-label" for="max_price">{{ __('Max Price %') }}</label>
                                 <input name="max_price" class="form-control @error('max_price') is-invalid @enderror"
                                     value="{{ setting('max_price') }}" type="number" autocomplete="on" id="max_price"
                                     required />
@@ -69,7 +69,7 @@
                             </div> --}}
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Save</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Save') }}</button>
                             </div>
                         </form>
 

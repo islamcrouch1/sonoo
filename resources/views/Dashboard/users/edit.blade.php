@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Edit User</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Edit User') }}</h5>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
-                                <label class="form-label" for="name">Name</label>
+                                <label class="form-label" for="name">{{ __('Name') }}</label>
                                 <input name="name" class="form-control @error('name') is-invalid @enderror"
                                     value="{{ $user->name }}" type="text" autocomplete="on" id="name" autofocus
                                     required />
@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="email">Email address</label>
+                                <label class="form-label" for="email">{{__('Email address')}}</label>
                                 <input class="form-control @error('email') is-invalid @enderror" type="email" id="email"
                                     name="email" autocomplete="on" value="{{ $user->email }}" required />
                                 @error('email')
@@ -40,7 +40,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="role">Account type</label>
+                                <label class="form-label" for="role">{{ __('Account type') }}</label>
 
                                 <select class="form-select @error('role') is-invalid @enderror" aria-label="" name="role"
                                     id="role" required>
@@ -62,7 +62,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="country">Country</label>
+                                <label class="form-label" for="country">{{ __('Country') }}</label>
 
                                 <select class="form-select @error('country') is-invalid @enderror" aria-label=""
                                     name="country" id="country" required>
@@ -79,7 +79,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="phone">Phone</label>
+                                <label class="form-label" for="phone">{{ __('Phone') }}</label>
                                 <input class="form-control @error('phone') is-invalid @enderror" type="number"
                                     autocomplete="on" id="phone" name="phone" autocomplete="on"
                                     value="{{ getPhoneWithoutCode($user->phone, $user->country_id) }}" required />
@@ -91,7 +91,7 @@
 
                             <div class="row gx-2">
                                 <div class="mb-3 col-sm-6">
-                                    <label class="form-label" for="password">Password</label>
+                                    <label class="form-label" for="password">{{ __('Password') }}</label>
                                     <input class="form-control @error('password') is-invalid @enderror" type="password"
                                         autocomplete="on" id="password" name="password" />
                                     @error('password')
@@ -99,8 +99,8 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-sm-6">
-                                    <label class="form-label" for="password_confirmation">Confirm
-                                        Password</label>
+                                    <label class="form-label" for="password_confirmation">{{ __('Confirm
+                                        Password') }}</label>
                                     <input class="form-control @error('password_confirmation') is-invalid @enderror"
                                         type="password" autocomplete="on" id="password_confirmation"
                                         name="password_confirmation" />
@@ -112,20 +112,20 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="gender">Gender</label>
+                                <label class="form-label" for="gender">{{ __('Gender') }}</label>
 
                                 <br>
                                 <div class="form-check form-check-inline">
                                     <input {{ $user->gender == 'male' ? 'checked' : '' }}
                                         class="form-check-input @error('gender') is-invalid @enderror" id="gender1"
                                         type="radio" name="gender" value="male" required />
-                                    <label class="form-check-label" for="flexRadioDefault1">Male</label>
+                                    <label class="form-check-label" for="flexRadioDefault1">{{ __('Male') }}</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input {{ $user->gender == 'female' ? 'checked' : '' }}
                                         class="form-check-input @error('gender') is-invalid @enderror" id="gender2"
                                         type="radio" name="gender" value="female" required />
-                                    <label class="form-check-label" for="flexRadioDefault2">Female</label>
+                                    <label class="form-check-label" for="flexRadioDefault2">{{ __('Female') }}</label>
                                 </div>
 
                                 @error('gender')
@@ -134,7 +134,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="profile">Profile picture</label>
+                                <label class="form-label" for="profile">{{ __('Profile picture') }}</label>
                                 <input name="profile" class="img form-control @error('profile') is-invalid @enderror"
                                     type="file" id="profile" />
                                 @error('profile')
@@ -153,8 +153,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Edit
-                                    User</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
+                                    User') }}</button>
                             </div>
                         </form>
 

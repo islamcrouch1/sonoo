@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Add New Product</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Add New Product') }}</h5>
                 </div>
             </div>
         </div>
@@ -19,7 +19,7 @@
                             @csrf
 
                             <div class="mb-3">
-                                <label class="form-label" for="vendor_id">Vendor ID</label>
+                                <label class="form-label" for="vendor_id">{{ __('Vendor ID') }}</label>
                                 <input name="vendor_id" class="form-control @error('vendor_id') is-invalid @enderror"
                                     value="{{ old('vendor_id') }}" type="number" autocomplete="on" id="vendor_id"
                                     autofocus required />
@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="name_ar">product name - arabic</label>
+                                <label class="form-label" for="name_ar">{{ __('product name - arabic') }}</label>
                                 <input name="name_ar" class="form-control @error('name_ar') is-invalid @enderror"
                                     value="{{ old('name_ar') }}" type="text" autocomplete="on" id="name_ar" required />
                                 @error('name_ar')
@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="name_en">product name - english</label>
+                                <label class="form-label" for="name_en">{{ __('product name - english') }}</label>
                                 <input name="name_en" class="form-control @error('name_en') is-invalid @enderror"
                                     value="{{ old('name_en') }}" type="text" autocomplete="on" id="name_en" required />
                                 @error('name_en')
@@ -56,7 +56,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description_ar">product description - arabic</label>
+                                <label class="form-label" for="description_ar">{{ __('product description - arabic') }}</label>
                                 <textarea id="description_ar" class="form-control tinymce d-none @error('description_ar') is-invalid @enderror"
                                     name="description_ar">{{ old('description_ar') }}</textarea>
                                 @error('description_ar')
@@ -65,7 +65,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description_en">product description - english</label>
+                                <label class="form-label" for="description_en">{{ __('product description - english') }}</label>
                                 <textarea id="description_en" class="form-control tinymce d-none @error('description_en') is-invalid @enderror"
                                     name="description_en">{{ old('description_en') }}</textarea>
                                 @error('description_en')
@@ -74,7 +74,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="vendor_price">Vendor price</label>
+                                <label class="form-label" for="vendor_price">{{ __('Vendor price') }}</label>
                                 <input name="vendor_price" class="form-control @error('vendor_price') is-invalid @enderror"
                                     value="{{ old('vendor_price') }}" type="number" min="0" autocomplete="on"
                                     id="vendor_price" required />
@@ -84,7 +84,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="extra_fee">Extra fee</label>
+                                <label class="form-label" for="extra_fee">{{ __('Extra fee') }}</label>
                                 <input name="extra_fee" class="form-control @error('extra_fee') is-invalid @enderror"
                                     type="number" min="0" value="0" autocomplete="on" id="extra_fee" />
                                 @error('extra_fee')
@@ -93,7 +93,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="limited">Unlimited Quantity</label>
+                                <label class="form-label" for="limited">{{ __('Unlimited Quantity') }}</label>
                                 <div>
                                     <label class="switch">
                                         <input id="limited" class="form-control @error('limited') is-invalid @enderror"
@@ -108,7 +108,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="categories">Select Categories</label>
+                                <label class="form-label" for="categories">{{ __('Select Categories') }}</label>
 
                                 <select class="form-select js-choice @error('categories') is-invalid @enderror"
                                     multiple="multiple" name="categories[]" id="categories"
@@ -136,7 +136,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="colors">Product Colors</label>
+                                <label class="form-label" for="colors">{{ __('Product Colors') }}</label>
                                 <select class="form-select js-choice @error('colors') is-invalid @enderror" name="colors[]"
                                     multiple="multiple" data-options='{"removeItemButton":true,"placeholder":true}'
                                     required>
@@ -154,7 +154,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="sizes">Product Sizes</label>
+                                <label class="form-label" for="sizes">{{ __('Product Sizes') }}</label>
                                 <select class="form-select js-choice @error('sizes') is-invalid @enderror" name="sizes[]"
                                     multiple="multiple" data-options='{"removeItemButton":true,"placeholder":true}'
                                     required>
@@ -173,7 +173,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="status">Product Status</label>
+                                <label class="form-label" for="status">{{ __('Product Status') }}</label>
                                 <select class="form-select @error('status') is-invalid @enderror" aria-label=""
                                     name="status" id="status" required>
                                     <option value="pending">
@@ -195,7 +195,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="image">Product images</label>
+                                <label class="form-label" for="image">{{ __('Product images') }}</label>
                                 <input name="images[]" class="imgs form-control @error('image') is-invalid @enderror"
                                     type="file" accept="image/*" id="image" required multiple />
                                 @error('image')
@@ -209,8 +209,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Add New
-                                    Product</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
+                                    Product') }}</button>
                             </div>
                         </form>
 

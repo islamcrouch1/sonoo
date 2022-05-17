@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Add New Stock -
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Add New Stock -') }}
                         {{ app()->getLocale() == 'ar' ? $product->name_ar : $product->name_en }}</h5>
                 </div>
             </div>
@@ -19,7 +19,7 @@
                         <form method="POST" action="{{ route('products.color.store', ['product' => $product->id]) }}">
                             @csrf
                             <div class="mb-3">
-                                <label class="form-label" for="name_ar">Color</label>
+                                <label class="form-label" for="name_ar">{{ __('Color') }}</label>
                                 <select class=" form-control @error('color') is-invalid @enderror" id="color" name="color"
                                     value="{{ old('color') }}" required autocomplete="color">
                                     @foreach ($colors as $color)
@@ -33,7 +33,7 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="name_ar">Size</label>
+                                <label class="form-label" for="name_ar">{{ __('Size') }}</label>
                                 <select class=" form-control @error('size') is-invalid @enderror" id="size" name="size"
                                     value="{{ old('size') }}" required autocomplete="size">
                                     @foreach ($sizes as $size)
@@ -46,8 +46,8 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Add New
-                                    Stock</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
+                                    Stock') }}</button>
                             </div>
                         </form>
 

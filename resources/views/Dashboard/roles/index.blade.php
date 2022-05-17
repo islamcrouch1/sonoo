@@ -18,26 +18,26 @@
                     <div class="d-none" id="table-customers-actions">
                         <div class="d-flex">
                             <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                <option selected="">Bulk actions</option>
-                                <option value="Refund">Refund</option>
-                                <option value="Delete">Delete</option>
-                                <option value="Archive">Archive</option>
+                                <option selected="">{{ __('Bulk actions') }}</option>
+                                <option value="Refund">{{ __('Refund') }}</option>
+                                <option value="Delete">{{ __('Delete') }}</option>
+                                <option value="Archive">{{ __('Archive') }}</option>
                             </select>
-                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
+                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">{{ __('Apply') }}</button>
                         </div>
                     </div>
                     <div id="table-customers-replace-element">
                         @if (auth()->user()->hasPermission('roles-create'))
                             <a href="{{ route('roles.create') }}" class="btn btn-falcon-default btn-sm"
                                 type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span
-                                    class="d-none d-sm-inline-block ms-1">New</span></a>
+                                    class="d-none d-sm-inline-block ms-1">{{ __('New') }}</span></a>
                         @endif
                         <a href="{{ route('roles.trashed') }}" class="btn btn-falcon-default btn-sm" type="button"><span
                                 class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Trash</span></a>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Trash') }}</span></a>
                         <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Export</span></button>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Export') }}</span></button>
                     </div>
                 </div>
             </div>
@@ -54,12 +54,12 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Role Name</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Description</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Users Count</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Permissions</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Role Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Description') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Users Count') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Permissions') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Created at</th>
+                                    data-sort="joined">{{ __('Created at') }}</th>
                                 @if ($roles->count() > 0 && $roles[0]->trashed())
                                     <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                         data-sort="joined">Deleted at</th>
@@ -111,10 +111,10 @@
                                                     @if ($role->trashed() &&
     auth()->user()->hasPermission('roles-restore'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('roles.restore', ['role' => $role->id]) }}">Restore</a>
+                                                            href="{{ route('roles.restore', ['role' => $role->id]) }}">{{ __('Restore') }}</a>
                                                     @elseif(auth()->user()->hasPermission('roles-update'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('roles.edit', ['role' => $role->id]) }}">Edit</a>
+                                                            href="{{ route('roles.edit', ['role' => $role->id]) }}">{{ __('Edit') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('roles-delete') ||
     auth()->user()->hasPermission('roles-trash'))
