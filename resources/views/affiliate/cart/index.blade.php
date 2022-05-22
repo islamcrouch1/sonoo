@@ -80,11 +80,11 @@
             </div>
 
             <div class="row fw-bold gx-card mx-0">
-                <div class="col-9 col-md-8 py-2 text-end text-900">Total</div>
+                <div class="col-9 col-md-8 py-2 text-end text-900">{{ __('Total') }}</div>
                 <div class="col px-0">
                     <div class="row gx-card mx-0">
                         <div class="col-md-8 py-2 d-none d-md-block text-center">
-                            {{ Auth::user()->cart->products->count() }} (items)</div>
+                            {{ Auth::user()->cart->products->count() }} ({{ __('items') }})</div>
                         <div class="col-12 col-md-4 text-end py-2">
                             {{ calculateCartTotal($user->cart) . ' ' . $user->country->currency }}</div>
                     </div>
@@ -198,8 +198,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
-                                    Order') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New Order') }}</button>
                             </div>
                         </form>
 

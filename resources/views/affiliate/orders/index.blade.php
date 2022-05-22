@@ -64,17 +64,17 @@
                     <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
                         <thead class="bg-200 text-900">
                             <tr>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="id">Order ID</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Customer Name</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Customer phone</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">Status</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Total</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Affiliate Profit
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="id">{{ __('Order ID') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Customer Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Customer phone') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">{{ __('Status') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Total') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Affiliate Profit') }}
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Shipping</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Shipping') }}</th>
 
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Created At</th>
+                                    data-sort="joined">{{ __('Created At') }}</th>
                                 <th class="align-middle no-sort"></th>
                             </tr>
                         </thead>
@@ -183,8 +183,8 @@
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('orders.affiliate.show', ['order' => $order->id]) }}">Display
-                                                        order</a>
+                                                        href="{{ route('orders.affiliate.show', ['order' => $order->id]) }}">{{ __('Display
+                                                        order') }}</a>
                                                     @if ($order->status == 'pending')
                                                         <a class="dropdown-item"
                                                             href="{{ route('orders.affiliate.cancel', ['order' => $order->id]) }}">{{ __('Cancel') }}</a>

@@ -92,7 +92,7 @@
                                 for="options{{ $index + 1 }}"
                                 style="{{ $stock->color_id == $stocks[0]->color_id ? 'display:inline-block;' : 'display:none' }}"><span>{{ app()->getLocale() == 'ar' ? $stock->size->size_ar : $stock->size->size_en }}</span>
 
-                                <span class="d-block">{{ __('Quantity: ') }}<span
+                                <span class="d-block">{{ __('Quantity:') }}<span
                                         class="av-qu-{{ $product->id }}-{{ $stock->id }}"></span></span></label>
                         @endforeach
                     </div>
@@ -104,7 +104,7 @@
                             <div>
                                 <h4
                                     style="display: inline-block; {{ app()->getLocale() == 'ar' ? 'margin-left:12px' : 'margin-right:12px' }}">
-                                    Price: </h4>
+                                    {{ __('Price:') }} </h4>
 
                                 <input class="form-control d-inline text-center product-price" type="number" name="price"
                                     min="{{ $product->price }}" max="{{ $product->max_price }}"

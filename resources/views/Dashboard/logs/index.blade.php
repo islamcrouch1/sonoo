@@ -14,12 +14,12 @@
                     <div class="d-none" id="table-customers-actions">
                         <div class="d-flex">
                             <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                <option selected="">Bulk actions</option>
-                                <option value="Refund">Refund</option>
-                                <option value="Delete">Delete</option>
-                                <option value="Archive">Archive</option>
+                                <option selected="">{{ __('Bulk actions') }}</option>
+                                <option value="Refund">{{ __('Refund') }}</option>
+                                <option value="Delete">{{ __('Delete') }}</option>
+                                <option value="Archive">{{ __('Archive') }}</option>
                             </select>
-                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
+                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">{{ __('Apply') }}</button>
                         </div>
                     </div>
                     <div id="table-customers-replace-element">
@@ -85,7 +85,7 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">User name</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('User name') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
                                     {{ __('User Type') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
@@ -93,7 +93,7 @@
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
                                     {{ __('Description') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Created at</th>
+                                    data-sort="joined">{{ __('Created at') }}</th>
                             </tr>
                         </thead>
                         <tbody class="list" id="table-customers-body">

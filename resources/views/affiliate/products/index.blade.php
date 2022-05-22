@@ -164,7 +164,7 @@
                                 </div>
                                 <div class="d-flex flex-between-center px-3">
                                     <div>
-                                        <p class="fs--1 mb-1">Stock: <strong class="text-success">{{ __('Available') }}</strong>
+                                        <p class="fs--1 mb-1">{{ __('Stock:') }} <strong class="text-success">{{ __('Available') }}</strong>
                                         </p>
                                         {{-- <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong> --}}
 

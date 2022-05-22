@@ -5,7 +5,7 @@
         <div class="card-header bg-light">
             <div class="row flex-between-center">
                 <div class="col-sm-auto">
-                    <h5 class="mb-1 mb-md-0">Messages</h5>
+                    <h5 class="mb-1 mb-md-0">{{ __('Messages') }}</h5>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
             @else
                 <a class="border-bottom-0 notification rounded-0 border-x-0 border-300" href="#!">
                     <div class="notification-body">
-                        <p class="mb-1">{{ __('You don\'t have messages to display') }}</p>
+                        <p class="mb-1">{{ __("You don't have messages to display") }}</p>
                     </div>
                 </a>
             @endif
@@ -54,7 +54,7 @@
                         <form method="POST" action="{{ route('messages.store') }}">
                             @csrf
                             <div class="mb-3">
-                                <label class="form-label" for="message">Message</label>
+                                <label class="form-label" for="message">{{ __('Message') }}</label>
                                 <input name="message" class="form-control @error('message') is-invalid @enderror"
                                     value="{{ old('message') }}" type="text" autocomplete="on" id="message" required />
                                 @error('message')
@@ -63,8 +63,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Send
-                                    Message</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Send Message') }}</button>
                             </div>
                         </form>
 

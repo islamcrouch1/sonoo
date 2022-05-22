@@ -21,7 +21,7 @@
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">
                                     {{ __('message') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Created at</th>
+                                    data-sort="joined">{{ __('Created at') }}</th>
                                 <th class="align-middle no-sort"></th>
                             </tr>
                         </thead>

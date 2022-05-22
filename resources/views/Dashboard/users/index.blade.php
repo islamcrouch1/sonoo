@@ -87,11 +87,11 @@
                         @endif
                         <a href="{{ route('users.trashed') }}" class="btn btn-falcon-default btn-sm" type="button"><span
                                 class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Trash</span></a>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Trash') }}</span></a>
                         <a href="{{ route('users.export', ['role_id' => request()->role_id, 'from' => request()->from, 'to' => request()->to]) }}"
                             class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Export</span></a>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Export') }}</span></a>
                     </div>
                 </div>
             </div>

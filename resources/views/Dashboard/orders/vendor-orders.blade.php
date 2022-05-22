@@ -14,12 +14,12 @@
                     <div class="d-none" id="table-customers-actions">
                         <div class="d-flex">
                             <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                <option selected="">Bulk actions</option>
-                                <option value="Refund">Refund</option>
-                                <option value="Delete">Delete</option>
-                                <option value="Archive">Archive</option>
+                                <option selected="">{{ __('Bulk actions') }}</option>
+                                <option value="Refund">{{ __('Refund') }}</option>
+                                <option value="Delete">{{ __('Delete') }}</option>
+                                <option value="Archive">{{ __('Archive') }}</option>
                             </select>
-                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
+                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">{{ __('Apply') }}</button>
                         </div>
                     </div>
                     <div id="table-customers-replace-element">
@@ -96,15 +96,15 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="id">Order ID</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Vendor Name</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Product</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">Status</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Quantity</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Item Price</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Total</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="id">{{ __('Order ID') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Vendor Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Product') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">{{ __('Status') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Quantity') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Item Price') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Total') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Created At</th>
+                                    data-sort="joined">{{ __('Created At') }}</th>
                                 <th class="align-middle no-sort"></th>
                             </tr>
                         </thead>
@@ -212,11 +212,11 @@
 
                                                     @if (auth()->user()->hasPermission('orders-read'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('users.show', ['user' => $order->user_id]) }}">Vendor
-                                                            Info</a>
+                                                            href="{{ route('users.show', ['user' => $order->user_id]) }}">{{ __('Vendor
+                                                            Info') }}</a>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('orders.show', ['order' => $order->order_id]) }}">Show
-                                                            Affiliate Order</a>
+                                                            href="{{ route('orders.show', ['order' => $order->order_id]) }}">{{ __('Show
+                                                            Affiliate Order') }}</a>
                                                     @endif
 
                                                     @if (auth()->user()->hasPermission('orders-update') && $order->status == 'Waiting for the order amount to be released')
@@ -270,7 +270,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button class="btn btn-secondary" type="button"
-                                                            data-bs-dismiss="modal">Close</button>
+                                                            data-bs-dismiss="modal">{{ __('Close') }}</button>
                                                         <button class="btn btn-primary"
                                                             type="submit">{{ __('Save') }}</button>
                                                     </div>

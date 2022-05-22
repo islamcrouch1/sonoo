@@ -206,8 +206,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
-                                    Product') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add') }}</button>
                             </div>
                         </form>
 
