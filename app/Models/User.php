@@ -49,9 +49,9 @@ class User extends Authenticatable
     ];
 
 
-    public function vendorProducts()
+    public function vendor_products()
     {
-        return $this->belongsTo(Product::class, 'vendor_id');
+        return $this->hasMany(Product::class, 'vendor_id');
     }
 
 

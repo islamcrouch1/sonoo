@@ -19,6 +19,7 @@ class CheckVerification
         if (!hasVerifiedPhone($request->user())) {
             return redirect()->route('phoneverification.notice');
         }
+
         return $next($request);
     }
 }

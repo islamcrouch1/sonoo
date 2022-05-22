@@ -117,12 +117,6 @@ class RegisteredUserController extends Controller
         Auth::login($user);
         callToVerify($user);
 
-        if (Auth::user()->hasRole('affiliate')) {
-            return redirect(RouteServiceProvider::HOME_FOR_AFFILIATE);
-        } elseif (Auth::user()->hasRole('vendor')) {
-            return redirect(RouteServiceProvider::HOME_FOR_VENDOR);
-        } elseif (Auth::user()->hasRole('administrator|superadministrator')) {
-            return redirect(RouteServiceProvider::HOME_FOR_ADMIN);
-        }
+        return redirect(RouteServiceProvider::HOME);
     }
 }

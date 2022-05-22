@@ -7,6 +7,7 @@ use App\Exports\ProductsExport;
 use App\Exports\UsersExport;
 use App\Exports\WithdrawalsExport;
 use App\Http\Controllers\Controller;
+use App\Imports\ProductImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -59,25 +60,18 @@ class ExportController extends Controller
     {
         $file = $request->file('file')->store('import');
 
-
         $import = new ProductImport;
         $import->import($file);
-
 
         if ($import->failures()->isNotEmpty()) {
             return back()->withFailures($import->failures());
         }
 
-
-        if (!session('status')) {
-
-            if (app()->getLocale() == 'ar') {
-                return back()->withStatus('تم رفع الملف بنجاح.');
-            } else {
-                return back()->withStatus('The file has been uploaded successfully.');
-            }
+        if (!session('error')) {
+            alertSuccess('The file has been uploaded successfully.', 'تم رفع الملف بنجاح.');
+            return redirect()->back();
         } else {
-            return back();
+            return redirect()->back();
         }
     }
 }

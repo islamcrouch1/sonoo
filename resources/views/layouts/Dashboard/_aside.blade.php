@@ -397,6 +397,91 @@
                 @endif
 
                 @if (Auth::user()->hasRole('vendor'))
+                    <li class="nav-item">
+                        <!-- label-->
+                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                            <!-- users - roles - countries - settings -->
+                            <div class="col-auto navbar-vertical-label">{{ __('Products') }}
+                            </div>
+                            <div class="col ps-0">
+                                <hr class="mb-0 navbar-vertical-divider" />
+                            </div>
+                        </div>
+                        <!-- parent pages-->
+                        <a class="nav-link {{ Route::is('vendor-products*') ? 'active' : '' }}"
+                            href="{{ route('vendor-products.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-box-open"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Products') }}</span>
+                            </div>
+                        </a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <!-- label-->
+                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                            <!-- users - roles - countries - settings -->
+                            <div class="col-auto navbar-vertical-label">{{ __('Orders') }}
+                            </div>
+                            <div class="col ps-0">
+                                <hr class="mb-0 navbar-vertical-divider" />
+                            </div>
+                        </div>
+                        <!-- parent pages-->
+                        <a class="nav-link {{ Route::is('vendor.orders*') ? 'active' : '' }}"
+                            href="{{ route('vendor.orders.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-receipt"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Orders') }}</span>
+                            </div>
+                        </a>
+
+
+
+                    </li>
+
+                    <li class="nav-item">
+                        <!-- label-->
+                        <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
+                            <!-- users - roles - countries - settings -->
+                            <div class="col-auto navbar-vertical-label">{{ __('Settings') }}
+                            </div>
+                            <div class="col ps-0">
+                                <hr class="mb-0 navbar-vertical-divider" />
+                            </div>
+                        </div>
+                        <!-- parent pages-->
+
+                        <a class="nav-link {{ Route::is('withdrawals.user*') ? 'active' : '' }}"
+                            href="{{ route('withdrawals.user.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-wallet"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Wallet') }}</span>
+                            </div>
+                        </a>
+
+                        <a class="nav-link {{ Route::is('notifications*') ? 'active' : '' }}"
+                            href="{{ route('notifications.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-bell"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Notification') }}</span>
+                            </div>
+                        </a>
+
+                        <a class="nav-link {{ Route::is('messages*') ? 'active' : '' }}"
+                            href="{{ route('messages.index') }}" role="button" data-bs-toggle=""
+                            aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-comments"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('Messages') }}</span>
+                            </div>
+                        </a>
+                    </li>
                 @endif
 
             </ul>

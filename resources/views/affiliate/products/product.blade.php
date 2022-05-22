@@ -5,12 +5,12 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-6 mb-4 mb-lg-0">
-                    <div class="product-slider" id="galleryTop">
+                    <div style="height: 366px" class="product-slider" id="galleryTop">
                         @php
                             $count = productImagesCount($product);
                         @endphp
                         <div class="swiper-container theme-slider position-lg-absolute all-0"
-                            data-swiper='{"spaceBetween":{{ $count }},"loop":true,"loopedSlides":{{ $count }},"thumb":{"spaceBetween":{{ $count }},"slidesPerView":{{ $count }},"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":{{ $count }},"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
+                            data-swiper='{"spaceBetween":{{ $count }},"loop":true,"loopedSlides":{{ $count }},"thumb":{"spaceBetween":{{ $count }},"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":{{ $count }},"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
                             <div id="allImages" class="swiper-wrapper h-100">
                                 @foreach ($product->images as $image)
                                     <div class="swiper-slide"><a class="d-block" href="#!"><img
@@ -25,10 +25,11 @@
 
                                 @foreach ($stocks as $stock)
                                     @if ($stock->image != null)
-                                        <div class="swiper-slide" id="{{ 'slide-' . $stock->id }}"><a
-                                                class="d-block" href="#!"><img class="rounded-top img-fluid"
+                                        <div class="swiper-slide" id="{{ 'slide-' . $stock->id }}">
+                                            <a class="d-block" href="#!"><img class="rounded-top img-fluid"
                                                     src="{{ asset('storage/images/products/' . $stock->image) }}"
-                                                    alt="" /></a></div>
+                                                    alt="" /></a>
+                                        </div>
                                     @endif
                                 @endforeach
                             </div>

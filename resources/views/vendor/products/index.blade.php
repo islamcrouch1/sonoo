@@ -15,17 +15,7 @@
                     </h5>
                 </div>
                 <div class="col-8 col-sm-auto text-end ps-2">
-                    <div class="d-none" id="table-customers-actions">
-                        <div class="d-flex">
-                            <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                <option selected="">Bulk actions</option>
-                                <option value="Refund">Refund</option>
-                                <option value="Delete">Delete</option>
-                                <option value="Archive">Archive</option>
-                            </select>
-                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
-                        </div>
-                    </div>
+
                     <div id="table-customers-replace-element">
 
                         <form style="display: inline-block" action="">
@@ -62,23 +52,12 @@
                                 </select>
                             </div>
 
-                            <div class="d-inline-block">
-                                <select name="country_id" class="form-select form-select-sm sonoo-search"
-                                    id="autoSizingSelect">
-                                    <option value="" selected>{{ __('All Countries') }}</option>
-                                    @foreach ($countries as $country)
-                                        <option value="{{ $country->id }}"
-                                            {{ request()->country_id == $country->id ? 'selected' : '' }}>
-                                            {{ app()->getLocale() == 'ar' ? $country->name_ar : $country->name_en }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
+
 
 
                         </form>
 
-                        <form style="display: inline-block" action="{{ route('products.import') }}" method="POST"
+                        <form style="display: inline-block" action="{{ route('vendor-products.import') }}" method="POST"
                             enctype="multipart/form-data">
                             @csrf
                             <input class="form-control form-control-sm sonoo-search" type="file" name="file"
@@ -90,15 +69,11 @@
                                     class="d-none d-sm-inline-block ms-1">{{ __('Import') }}</span></button> --}}
                         </form>
 
-                        @if (auth()->user()->hasPermission('products-create'))
-                            <a href="{{ route('products.create') }}" class="btn btn-falcon-default btn-sm"
-                                type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span
-                                    class="d-none d-sm-inline-block ms-1">New</span></a>
-                        @endif
-                        <a href="{{ route('products.trashed') }}" class="btn btn-falcon-default btn-sm"
-                            type="button"><span class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Trash</span></a>
-                        <a href="{{ route('products.export', ['status' => request()->status, 'category_id' => request()->category_id]) }}"
+                        <a href="{{ route('vendor-products.create') }}" class="btn btn-falcon-default btn-sm"
+                            type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span
+                                class="d-none d-sm-inline-block ms-1">New</span></a>
+
+                        <a href="{{ route('vendor-products.export', ['status' => request()->status, 'category_id' => request()->category_id]) }}"
                             class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
                                 class="d-none d-sm-inline-block ms-1">Export</span></a>
@@ -112,17 +87,9 @@
                     <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
                         <thead class="bg-200 text-900">
                             <tr>
-                                <th>
-                                    <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                                        <input class="form-check-input" id="checkbox-bulk-customers-select" type="checkbox"
-                                            data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
-                                    </div>
-                                </th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Product Name</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">SKU - ID</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Vendor Price</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Price</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Max Price</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Quantity</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Status</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
@@ -137,12 +104,6 @@
                         <tbody class="list" id="table-customers-body">
                             @foreach ($products as $product)
                                 <tr class="btn-reveal-trigger">
-                                    <td class="align-middle py-2" style="width: 28px;">
-                                        <div class="form-check fs-0 mb-0 d-flex align-items-center">
-                                            <input class="form-check-input" type="checkbox" id="customer-0"
-                                                data-bulk-select-row="data-bulk-select-row" />
-                                        </div>
-                                    </td>
                                     <td class="name align-middle white-space-nowrap py-2">
                                         <div class="d-flex d-flex align-items-center">
                                             <div class="avatar avatar-xl me-2">
@@ -162,10 +123,6 @@
                                         {{ $product->sku . ' - ' . $product->id }}</td>
                                     <td class="phone align-middle white-space-nowrap py-2">
                                         {{ $product->vendor_price . ' ' . $product->country->currency }}</td>
-                                    <td class="phone align-middle white-space-nowrap py-2">
-                                        {{ $product->price . ' ' . $product->country->currency }}</td>
-                                    <td class="phone align-middle white-space-nowrap py-2">
-                                        {{ $product->max_price . ' ' . $product->country->currency }}</td>
                                     <td class="phone align-middle white-space-nowrap py-2">
                                         {{ productQuantity($product) }}
                                     </td>
@@ -205,29 +162,15 @@
                                             <div class="dropdown-menu dropdown-menu-end border py-0"
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
-                                                    @if ($product->trashed() &&
-                                                        auth()->user()->hasPermission('products-restore'))
+                                                    @if ($product->status == 'pending')
                                                         <a class="dropdown-item"
-                                                            href="{{ route('products.restore', ['product' => $product->id]) }}">Restore</a>
-                                                    @elseif(auth()->user()->hasPermission('products-update'))
+                                                            href="{{ route('vendor-products.edit', ['vendor_product' => $product->id]) }}">Edit</a>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('products.edit', ['product' => $product->id]) }}">Edit</a>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('products.stock.create', ['product' => $product->id]) }}">Edit
+                                                            href="{{ route('vendor-products.stock.create', ['product' => $product->id]) }}">Edit
                                                             Stock</a>
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('users.show', ['user' => $product->vendor_id]) }}">Vendor
-                                                            Info</a>
-                                                        @if ($product->admin_id != null)
-                                                            <a class="dropdown-item"
-                                                                href="{{ route('users.show', ['user' => $product->admin_id]) }}">Admin
-                                                                Info</a>
-                                                        @endif
-                                                    @endif
-                                                    @if (auth()->user()->hasPermission('products-delete') ||
-                                                        auth()->user()->hasPermission('products-trash'))
+
                                                         <form method="POST"
-                                                            action="{{ route('products.destroy', ['product' => $product->id]) }}">
+                                                            action="{{ route('vendor-products.destroy', ['vendor_product' => $product->id]) }}">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button class="dropdown-item text-danger"

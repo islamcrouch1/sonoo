@@ -16,7 +16,7 @@ class Product extends Model
         'name_en', 'name_ar', 'description_ar', 'description_en', 'vendor_price', 'max_price', 'extra_fee', 'price', 'total_profit', 'country_id', 'vendor_id', 'status', 'admin_id', 'sku', 'unlimited'
     ];
 
-    protected $appends = ['profit_percent'];
+    // protected $appends = ['profit_percent'];
 
     public function vendor()
     {
@@ -97,13 +97,34 @@ class Product extends Model
     public static function getProducts($status = null, $category_id = null)
     {
         if (Auth::user()->HasRole('vendor')) {
-            $products = DB::table('products')->select('id', 'sku', 'vendor_id', 'status', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'extra_fee')->where('user_id', Auth::user()->id)->get()->toArray();
+
+            if ($category_id == null) {
+                $products = Product::select('products.id', 'sku', 'vendor_id', 'status', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'extra_fee')->where('vendor_id', Auth::user()->id)->get()->toArray();
+            } else {
+                $products = Product::where('vendor_id', Auth::user()->id)
+                    ->when($category_id, function ($q) use ($category_id) {
+                        return $q->whereHas('categories', function ($query) {
+                            $query->where('category_id', 'like', request()->category_id);
+                        });
+                    })->select('products.id', 'sku', 'vendor_id', 'status', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'extra_fee')->get()->toArray();
+            }
         } else {
-            $products = DB::table('products')->where('status', $status == null ? '!=' : '=', $status)
-                ->join('category_product', function ($q) {
-                    $q->on('category_product.product_id', '=', 'products.id');
-                })->where('category_product.category_id', $category_id == null ? '!=' : '=', $category_id)
-                ->select('products.id', 'sku', 'vendor_id', 'status', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'extra_fee')->get()->toArray();
+
+            if ($category_id == null) {
+                $products = Product::select('products.id', 'sku', 'vendor_id', 'status', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'extra_fee')->get()->toArray();
+            } else {
+                $products = Product::when($category_id, function ($q) use ($category_id) {
+                    return $q->whereHas('categories', function ($query) {
+                        $query->where('category_id', 'like', request()->category_id);
+                    });
+                })->select('products.id', 'sku', 'vendor_id', 'status', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'extra_fee')->get()->toArray();
+            }
+
+            // $products = DB::table('products')->where('status', $status == null ? '!=' : '=', $status)
+            //     ->join('category_product', function ($q) {
+            //         $q->on('category_product.product_id', '=', 'products.id');
+            //     })->where('category_product.category_id', $category_id == null ? '!=' : '=', $category_id)
+            //     ->select('products.id', 'sku', 'vendor_id', 'status', 'country_id', 'name_ar', 'name_en', 'description_ar', 'description_en', 'vendor_price', 'extra_fee')->get()->toArray();
         }
 
         foreach ($products as $index => $product) {
@@ -113,7 +134,8 @@ class Product extends Model
             $stock_str = '';
             $image_str = '';
 
-            $stocks = Stock::where('product_id', $product->id)->get();
+
+            $stocks = Stock::where('product_id', $product['id'])->get();
 
 
             $stocks1 = $stocks->unique('color_id');
@@ -135,26 +157,29 @@ class Product extends Model
             $size_str =   substr($size_str, 0, -1);
             $stock_str =  substr($stock_str, 0, -1);
 
-            $products[$index]->colors = $color_str;
-            $products[$index]->sizes = $size_str;
-            $products[$index]->stock = $stock_str;
+            $products[$index]['colors'] = $color_str;
+            $products[$index]['sizes'] = $size_str;
+            $products[$index]['stock'] = $stock_str;
 
-            $images = ProductImage::where('product_id', $product->id)->get();
+            $images = ProductImage::where('product_id', $product['id'])->get();
 
             foreach ($images as $image) {
                 $image_str .= 'https://sonoo.online/storage/images/products/' . $image->url . ',';
             }
 
             $image_str =  substr($image_str, 0, -1);
-            $products[$index]->images = $image_str;
+            $products[$index]['images'] = $image_str;
+
+            if ($status != null) {
+                if ($products[$index]['status'] != $status) {
+                    unset($products[$index]);
+                }
+            }
         }
 
         $description_ar =  'تم تنزيل شيت المنتجات';
         $description_en  = 'Product file has been downloaded ';
         addLog('admin', 'exports', $description_ar, $description_en);
-
-        dd($products);
-
 
         return $products;
     }

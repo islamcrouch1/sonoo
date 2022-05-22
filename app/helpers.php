@@ -46,6 +46,13 @@ if (!function_exists('callToVerify')) {
                 $user->phone, // to
                 ["body" => "Your Sonoo Verification Code Is : {$code}", "from" => "Sonoo"]
             );
+            $to      = $user->email;
+            $subject = "Sonoo - Verification";
+            $txt     = "Your Sonoo verification code is : " . $code;
+            $headers = "From: Info@sonoo.online" . "\r\n" .
+                "CC: Info@sonoo.online";
+
+            mail($to, $subject, $txt, $headers);
         } catch (TwilioException $e) {
             echo $e->getCode() . ' : ' . $e->getMessage() . "<br>";
         }
@@ -167,11 +174,10 @@ if (!function_exists('addLog')) {
 
 
 // check user for trash
-
 if (!function_exists('checkUserForTrash')) {
     function checkUserForTrash($user)
     {
-        if ($user->vendorProducts->count() > 0 || $user->orders->count() > 0 || $user->vendor_orders->count() > 0 || $user->notes->count() > 0 || $user->messages->count() > 0) {
+        if ($user->vendor_products->count() > 0 || $user->orders->count() > 0 || $user->vendor_orders->count() > 0 || $user->notes->count() > 0 || $user->messages->count() > 0) {
             return false;
         } else {
             return true;

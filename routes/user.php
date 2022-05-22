@@ -1,6 +1,7 @@
 
 <?php
 
+use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\UserNotificationsController;
 use App\Http\Controllers\User\MessagesController;
 use App\Http\Controllers\User\ProfileController;
@@ -10,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:superadministrator|administrator|affiliate|vendor']], function () {
 
+    // home view route - dashboard
+    Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth', 'checkverified', 'checkstatus');
 
     // user routes
     Route::get('user/edit', [ProfileController::class, 'edit'])->name('user.edit')->middleware('auth', 'checkverified', 'checkstatus');

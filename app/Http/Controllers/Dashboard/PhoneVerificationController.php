@@ -34,7 +34,7 @@ class PhoneVerificationController extends Controller
 
         if (hasVerifiedPhone($request->user())) {
 
-            return redirect('/');
+            return redirect()->route('login');
         }
 
         markPhoneAsVerified($request->user());
@@ -46,7 +46,7 @@ class PhoneVerificationController extends Controller
         ])->save();
 
 
-        return redirect('/');
+        return redirect()->route('login');
     }
 
 

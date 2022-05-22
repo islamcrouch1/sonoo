@@ -167,7 +167,7 @@ class OrdersController extends Controller
             $body_ar = "تم تغيير حالة الطلب الخاص بك الى " . getArabicStatus($vendor_order->status);
             $title_en = 'Notification From Admin';
             $body_en  = "Your order status has been changed to " . $vendor_order->status;
-            $url = route('orders.vendor.index');
+            $url = route('vendor.orders.index');
             addNoty($vendor_order->user, Auth::user(), $url, $title_en, $title_ar, $body_en, $body_ar);
         }
 
@@ -299,7 +299,7 @@ class OrdersController extends Controller
             $body_ar = "تم تغيير حالة الطلب الخاص بك الى " . getArabicStatus($vendor_order->status);
             $title_en = 'Notification From Admin';
             $body_en  = "Your order status has been changed to " . $vendor_order->status;
-            $url = route('orders.vendor.index');
+            $url = route('vendor.orders.index');
 
             addNoty($vendor_order->user, Auth::user(), $url, $title_en, $title_ar, $body_en, $body_ar);
 

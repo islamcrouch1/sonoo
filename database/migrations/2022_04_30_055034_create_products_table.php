@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('vendor_id');
             $table->integer('admin_id')->nullable();
-            $table->string('status');
+            $table->string('status')->default('pending');
             $table->integer('country_id');
             $table->string('name_en');
             $table->string('name_ar');

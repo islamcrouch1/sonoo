@@ -25,9 +25,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator|administrator']], function () {
 
-    // home view route - dashboard
-    Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth', 'checkverified', 'checkstatus');
-
     // admin users routes
     Route::resource('users', UsersController::class)->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('users/export/', [UsersController::class, 'export'])->name('users.export')->middleware('auth', 'checkverified', 'checkstatus');
@@ -129,8 +126,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
     Route::get('orders/admin/export',  [ExportController::class, 'ordersExport'])->name('orders.export')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('withdrawals/admin/export', [ExportController::class, 'withdrawalsExport'])->name('withdrawals.export')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('products/admin/export', [ExportController::class, 'productsExport'])->name('products.export')->middleware('auth', 'checkverified', 'checkstatus');
-    Route::get('products/export/vendor', 'VendorProductsController@productsexport')->name('products.export.vendor')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('users/admin/export', [ExportController::class, 'usersExport'])->name('users.export')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('products/import/', [ExportController::class, 'import'])->name('products.import')->middleware('auth', 'checkverified', 'checkstatus');
 
 
 

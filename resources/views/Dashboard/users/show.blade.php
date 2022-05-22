@@ -48,7 +48,6 @@
                     <h6 class="mt-2 fw-bold">{{ __('Created At') . ': ' . $user->created_at }}</h6>
                     <h6 class="mt-2 fw-bold">{{ __('Updated At') . ': ' . $user->updated_at }}</h6>
                     <h6 class="mt-2 fw-bold">{{ __('Email') . ': ' . $user->email }}</h6>
-                    <h6 class="mt-2 fw-bold">{{ __('Email') . ': ' . $user->email }}</h6>
                     <div class="border-dashed-bottom my-3"></div>
                     <h6 class="mt-2 fw-bold"><a href="{{ route('users.edit', ['user' => $user->id]) }}"
                             class="btn btn-falcon-primary me-1 mb-1" type="button">{{ __('Edit') }}
@@ -167,7 +166,7 @@
             @if (auth()->user()->hasPermission('messages-read'))
                 <div class="card mb-3 overflow-hidden">
                     <div class="card-header">
-                        <h5 class="mb-0">User Notes</h5>
+                        <h5 class="mb-0">User Messages</h5>
                     </div>
                     <div class="card-body bg-light">
 
@@ -203,7 +202,7 @@
                                 @endforeach
                             @else
                                 <div class="notification-body">
-                                    <p>{{ __('There are currently no notes for this user') }}</p>
+                                    <p>{{ __('There are currently no messages for this user') }}</p>
                                 </div>
                             @endif
                         </div>
@@ -213,7 +212,7 @@
                                 <div class="col-md-12 d-flex flex-center">
                                     <div class="flex-grow-1">
                                         <form method="POST"
-                                            action="{{ route('messages.admin.store', ['user' => $message->user->id]) }}">
+                                            action="{{ route('messages.admin.store', ['user' => $user->id]) }}">
                                             @csrf
                                             <div class="mb-3">
                                                 <label class="form-label" for="message">Message</label>
