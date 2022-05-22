@@ -20,7 +20,7 @@
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
-                                <label class="form-label" for="color_ar">color name - arabic</label>
+                                <label class="form-label" for="color_ar">{{ __('color name - arabic') }}</label>
                                 <input name="color_ar" class="form-control @error('color_ar') is-invalid @enderror"
                                     value="{{ $color->color_ar }}" type="text" autocomplete="on" id="color_ar" autofocus
                                     required />
@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="color_en">color name - english</label>
+                                <label class="form-label" for="color_en">{{ __('color name - english') }}</label>
                                 <input name="color_en" class="form-control @error('color_en') is-invalid @enderror"
                                     value="{{ $color->color_en }}" type="text" autocomplete="on" id="color_en" required />
                                 @error('color_en')
@@ -39,7 +39,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="hex">color hex</label>
+                                <label class="form-label" for="hex">{{ __('color hex') }}</label>
                                 <div style="position: relative" class="colorpicker colorpicker-component">
                                     <input name="hex" class="form-control @error('hex') is-invalid @enderror"
                                         value="{{ $color->hex }}" type="text" autocomplete="on" id="hex" required />
@@ -53,8 +53,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Edit
-                                    color</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
+                                    color') }}</button>
                             </div>
                         </form>
 

@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Edit Country</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Edit Country') }}</h5>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
                             @csrf
                             @method('PUT')
                             <div class="mb-3">
-                                <label class="form-label" for="name_ar">Country name - arabic</label>
+                                <label class="form-label" for="name_ar">{{ __('Country name - arabic') }}</label>
                                 <input name="name_ar" class="form-control @error('name_ar') is-invalid @enderror"
                                     value="{{ $country->name_ar }}" type="text" autocomplete="on" id="name_ar" autofocus
                                     required />
@@ -30,7 +30,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="name_en">Country name - english</label>
+                                <label class="form-label" for="name_en">{{ __('Country name - english') }}</label>
                                 <input name="name_en" class="form-control @error('name_en') is-invalid @enderror"
                                     value="{{ $country->name_en }}" type="text" autocomplete="on" id="name_en" autofocus
                                     required />
@@ -40,7 +40,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="code">Country Code</label>
+                                <label class="form-label" for="code">{{ __('Country Code') }}</label>
                                 <input name="code" class="form-control @error('code') is-invalid @enderror"
                                     value="{{ $country->code }}" type="text" autocomplete="on" id="code" autofocus
                                     required />
@@ -52,7 +52,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="currency">Country Currency</label>
+                                <label class="form-label" for="currency">{{ __('Country Currency') }}</label>
                                 <input name="currency" class="form-control @error('currency') is-invalid @enderror"
                                     value="{{ $country->currency }}" type="text" autocomplete="on" id="currency" autofocus
                                     required />
@@ -64,7 +64,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="image">Country flag</label>
+                                <label class="form-label" for="image">{{ __('Country flag') }}</label>
                                 <input name="image" class="img form-control @error('image') is-invalid @enderror"
                                     type="file" id="image" />
                                 @error('image')
@@ -83,8 +83,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Edit
-                                    Country</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
+                                    Country') }}</button>
                             </div>
                         </form>
 

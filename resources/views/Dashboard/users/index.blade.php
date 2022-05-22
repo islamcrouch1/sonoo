@@ -18,12 +18,12 @@
                     <div class="d-none" id="table-customers-actions">
                         <div class="d-flex">
                             <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                <option selected="">Bulk actions</option>
-                                <option value="Refund">Refund</option>
-                                <option value="Delete">Delete</option>
-                                <option value="Archive">Archive</option>
+                                <option selected="">{{ __('Bulk actions') }}</option>
+                                <option value="Refund">{{ __('Refund') }}</option>
+                                <option value="Delete">{{ __('Delete') }}</option>
+                                <option value="Archive">{{ __('Archive') }}</option>
                             </select>
-                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
+                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">{{ __('Apply') }}</button>
                         </div>
                     </div>
                     <div id="table-customers-replace-element">
@@ -48,6 +48,7 @@
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->id }}"
                                             {{ request()->role_id == $role->id ? 'selected' : '' }}>{{ $role->name }}
+                                            {{ app()->getLocale() == 'ar' ? $role->name_ar : $role->name_en }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -56,7 +57,7 @@
                                 <select name="status" class="form-select form-select-sm sonoo-search" id="autoSizingSelect">
                                     <option value="" selected>{{ __('All Status') }}</option>
                                     <option value="active" {{ request()->status == 'active' ? 'selected' : '' }}>
-                                        {{ __('avtive') }}</option>
+                                        {{ __('active') }}</option>
                                     <option value="inactive" {{ request()->status == 'inactive' ? 'selected' : '' }}>
                                         {{ __('inactive') }}</option>
                                     <option value="1" {{ request()->status == '1' ? 'selected' : '' }}>
@@ -82,15 +83,15 @@
                         @if (auth()->user()->hasPermission('users-create'))
                             <a href="{{ route('users.create') }}" class="btn btn-falcon-default btn-sm"
                                 type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span
-                                    class="d-none d-sm-inline-block ms-1">New</span></a>
+                                    class="d-none d-sm-inline-block ms-1">{{ __('New') }}</span></a>
                         @endif
                         <a href="{{ route('users.trashed') }}" class="btn btn-falcon-default btn-sm" type="button"><span
                                 class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Trash</span></a>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Trash') }}</span></a>
                         <a href="{{ route('users.export', ['role_id' => request()->role_id, 'from' => request()->from, 'to' => request()->to]) }}"
                             class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Export</span></a>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Export') }}</span></a>
                     </div>
                 </div>
             </div>
@@ -107,15 +108,15 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Name</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Phone</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">User Type</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Status</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Phone') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('User Type') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Status') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Joined</th>
+                                    data-sort="joined">{{ __('Joined') }}</th>
                                 @if ($users->count() > 0 && $users[0]->trashed())
                                     <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                        data-sort="joined">Deleted at</th>
+                                        data-sort="joined">{{ __('Deleted at') }}</th>
                                 @endif
                                 <th class="align-middle no-sort"></th>
                             </tr>
@@ -181,10 +182,10 @@
                                                     @if ($user->trashed() &&
                                                         auth()->user()->hasPermission('users-restore'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('users.restore', ['user' => $user->id]) }}">Restore</a>
+                                                            href="{{ route('users.restore', ['user' => $user->id]) }}">{{ __('Restore') }}</a>
                                                     @elseif(auth()->user()->hasPermission('users-update'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('users.edit', ['user' => $user->id]) }}">Edit</a>
+                                                            href="{{ route('users.edit', ['user' => $user->id]) }}">{{ __('Edit') }}</a>
                                                         <a class="dropdown-item"
                                                             href="{{ route('users.activate', ['user' => $user->id]) }}">{{ hasVerifiedPhone($user) ? __('Deactivate') : __('Activate') }}</a>
                                                         <a class="dropdown-item"
@@ -230,8 +231,8 @@
                                                     <div class="p-4 pb-0">
 
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="bonus">Enter bonus
-                                                                amount</label>
+                                                            <label class="form-label" for="bonus">{{ __('Enter bonus
+                                                                amount') }}</label>
                                                             <input name="bonus"
                                                                 class="form-control @error('bonus') is-invalid @enderror"
                                                                 value="{{ old('bonus') }}" type="number"
@@ -244,7 +245,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button class="btn btn-secondary" type="button"
-                                                        data-bs-dismiss="modal">Close</button>
+                                                        data-bs-dismiss="modal">{{ __('Close') }}</button>
                                                     <button class="btn btn-primary"
                                                         type="submit">{{ __('Add') }}</button>
                                                 </div>

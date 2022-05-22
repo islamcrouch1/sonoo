@@ -36,11 +36,11 @@
                         </div>
                         <div class="col-6 col-md-4 pb-0 pt-4 ps-3">
                             <button class="btn btn-primary mb-1" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">Withdrawal Request</button>
+                                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">{{ __('Withdrawal Request') }}</button>
                             <div class="offcanvas offcanvas-end" id="offcanvasRight" tabindex="-1"
                                 aria-labelledby="offcanvasRightLabel">
                                 <div class="offcanvas-header">
-                                    <h5 id="offcanvasRightLabel">New Withdrawal Request</h5>
+                                    <h5 id="offcanvasRightLabel">{{ __('New Withdrawal Request') }}</h5>
                                     <button class="btn-close text-reset" type="button" data-bs-dismiss="offcanvas"
                                         aria-label="Close"></button>
                                 </div>

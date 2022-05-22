@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Add New Slide</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Add New Slide') }}</h5>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
                         <form method="POST" action="{{ route('slides.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label class="form-label" for="slider_id">Slider ID</label>
+                                <label class="form-label" for="slider_id">{{ __('Slider ID') }}</label>
                                 <input name="slider_id" class="form-control @error('slider_id') is-invalid @enderror"
                                     value="{{ old('slider_id') }}" type="number" autocomplete="on" id="slider_id"
                                     autofocus required />
@@ -28,7 +28,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="url">Slide URL</label>
+                                <label class="form-label" for="url">{{ __('Slide URL') }}</label>
                                 <input name="url" class="form-control @error('url') is-invalid @enderror"
                                     value="{{ old('url') }}" type="text" autocomplete="on" id="url" autofocus required />
                                 @error('url')
@@ -38,7 +38,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="image">Slide image</label>
+                                <label class="form-label" for="image">{{ __('Slide image') }}</label>
                                 <input name="image" class="img form-control @error('image') is-invalid @enderror"
                                     type="file" id="image" required />
                                 @error('image')
@@ -56,8 +56,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Add New
-                                    Slide</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
+                                    Slide') }}</button>
                             </div>
                         </form>
 

@@ -5,11 +5,11 @@
         <div class="card-body">
             <div class="row justify-content-between align-items-center">
                 <div class="col-md">
-                    <h5 class="mb-2 mb-md-0">Order #{{ $order->id }}</h5>
+                    <h5 class="mb-2 mb-md-0">{{ __('Order #') }}{{ $order->id }}</h5>
                 </div>
                 <div class="col-auto">
                     <button class="btn btn-falcon-default btn-sm me-1 mb-2 mb-sm-0" type="button"><span
-                            class="fas fa-print me-1"> </span>Print</button>
+                            class="fas fa-print me-1"> </span>{{ __('Print') }}</button>
                 </div>
             </div>
         </div>
@@ -20,7 +20,7 @@
                 <div class="col-sm-6 text-sm-start"><img src="{{ asset('assets/img/logo-blue.png') }}" alt="invoice"
                         width="150" /></div>
                 <div class="col text-sm-end mt-3 mt-sm-0">
-                    <h2 class="mb-3">Invoice</h2>
+                    <h2 class="mb-3">{{ __('Invoice') }}</h2>
                     <h5>Sonoo.online</h5>
                     <p class="fs--1 mb-0">
                         {{ __('3, 26th of July Street, second floor, Flat 25, in front of Al-Hawari, Lebanon Square, above the pharmacy, Dr. Amira, Al-Muhandseen') }}
@@ -56,19 +56,19 @@
                         <table class="table table-sm table-borderless fs--1">
                             <tbody>
                                 <tr>
-                                    <th class="text-sm-end">Order Number:</th>
+                                    <th class="text-sm-end">{{ __('Order Number:') }}</th>
                                     <td>#{{ $order->id }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-sm-end">Invoice Date:</th>
+                                    <th class="text-sm-end">{{ __('Invoice Date:') }}</th>
                                     <td>{{ $order->created_at }}</td>
                                 </tr>
                                 <tr>
-                                    <th class="text-sm-end">Shipping Cost:</th>
+                                    <th class="text-sm-end">{{ __('Shipping Cost:') }}</th>
                                     <td>{{ $order->shipping . ' ' . $order->country->currency }}</td>
                                 </tr>
                                 <tr class="alert-success fw-bold">
-                                    <th class="text-sm-end">Total Price:</th>
+                                    <th class="text-sm-end">{{ __('Total Price:') }}</th>
                                     <td>{{ $order->total_price . ' ' . $order->country->currency }}</td>
                                 </tr>
 
@@ -81,11 +81,11 @@
                 <table class="table table-striped border-bottom">
                     <thead class="light">
                         <tr class="bg-primary text-white dark__bg-1000">
-                            <th class="border-0">Products</th>
-                            <th class="border-0 text-center">Quantity</th>
-                            <th class="border-0 text-end">Item Price</th>
-                            <th class="border-0 text-end">Affiliate Profit</th>
-                            <th class="border-0 text-end">Sonoo Profit</th>
+                            <th class="border-0">{{ __('Products') }}</th>
+                            <th class="border-0 text-center">{{ __('Quantity') }}</th>
+                            <th class="border-0 text-end">{{ __('Item Price') }}</th>
+                            <th class="border-0 text-end">{{ __('Affiliate Profit') }}</th>
+                            <th class="border-0 text-end">{{ __('Sonoo Profit') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,15 +129,15 @@
                 <div class="col-auto">
                     <table class="table table-sm table-borderless fs--1 text-end">
                         <tr>
-                            <th class="text-900">Subtotal:</th>
+                            <th class="text-900">{{ __('Subtotal:') }}</th>
                             <td class="fw-semi-bold">{{ $order->total_price . ' ' . $order->country->currency }}</td>
                         </tr>
                         <tr>
-                            <th class="text-900">Shipping Cost:</th>
+                            <th class="text-900">{{ __('Shipping Cost:') }}</th>
                             <td class="fw-semi-bold">{{ $order->shipping . ' ' . $order->country->currency }}</td>
                         </tr>
                         <tr class="border-top">
-                            <th class="text-900">Total:</th>
+                            <th class="text-900">{{ __('Total:') }}</th>
                             <td class="fw-semi-bold">
                                 {{ $order->shipping + $order->total_price . ' ' . $order->country->currency }}</td>
                         </tr>

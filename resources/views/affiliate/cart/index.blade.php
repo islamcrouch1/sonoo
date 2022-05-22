@@ -5,12 +5,12 @@
         <div class="card-header">
             <div class="row justify-content-between">
                 <div class="col-md-auto">
-                    <h5 class="mb-3 mb-md-0">Shopping Cart ({{ Auth::user()->cart->products->count() }} Items)</h5>
+                    <h5 class="mb-3 mb-md-0">{{ __('Shopping Cart') }} ({{ Auth::user()->cart->products->count() }} {{ __('Items') }})</h5>
                 </div>
                 <div class="col-md-auto"><a class="btn btn-sm btn-outline-secondary border-300 me-2"
                         href="{{ route('affiliate.products.index') }}"> <span class="fas fa-chevron-left me-1"
-                            data-fa-transform="shrink-4"></span>Continue Shopping</a><a class="btn btn-sm btn-primary"
-                        href="#checkout-form">Checkout</a></div>
+                            data-fa-transform="shrink-4"></span>{{ __('Continue Shopping') }}</a><a class="btn btn-sm btn-primary"
+                        href="#checkout-form">{{ __('Checkout') }}</a></div>
             </div>
         </div>
 
@@ -19,11 +19,11 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Commission</th>
-                            <th class="text-end" scope="col">Actions</th>
+                            <th scope="col">{{ __('Name') }}</th>
+                            <th scope="col">{{ __('Quantity') }}</th>
+                            <th scope="col">{{ __('Price') }}</th>
+                            <th scope="col">{{ __('Commission') }}</th>
+                            <th class="text-end" scope="col">{{ __('Actions') }}</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -80,11 +80,11 @@
             </div>
 
             <div class="row fw-bold gx-card mx-0">
-                <div class="col-9 col-md-8 py-2 text-end text-900">Total</div>
+                <div class="col-9 col-md-8 py-2 text-end text-900">{{ __('Total') }}</div>
                 <div class="col px-0">
                     <div class="row gx-card mx-0">
                         <div class="col-md-8 py-2 d-none d-md-block text-center">
-                            {{ Auth::user()->cart->products->count() }} (items)</div>
+                            {{ Auth::user()->cart->products->count() }} ({{ __('items') }})</div>
                         <div class="col-12 col-md-4 text-end py-2">
                             {{ calculateCartTotal($user->cart) . ' ' . $user->country->currency }}</div>
                     </div>
@@ -107,7 +107,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Order Information</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Order Information') }}</h5>
                 </div>
             </div>
         </div>
@@ -198,8 +198,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Add New
-                                    Order</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New Order') }}</button>
                             </div>
                         </form>
 

@@ -6,7 +6,7 @@
         <div class="card-header">
             <div class="row flex-between-center">
                 <div class="col-4 col-sm-auto d-flex align-items-center pe-0">
-                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">Add New Shipping Rate</h5>
+                    <h5 class="fs-0 mb-0 text-nowrap py-2 py-xl-0">{{ __('Add New Shipping Rate') }}</h5>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
                         <form method="POST" action="{{ route('shipping_rates.store') }}" enctype="multipart/form-data">
                             @csrf
                             <div class="mb-3">
-                                <label class="form-label" for="city_ar">City name - arabic</label>
+                                <label class="form-label" for="city_ar">{{ __('City name - arabic') }}</label>
                                 <input name="city_ar" class="form-control @error('city_ar') is-invalid @enderror"
                                     value="{{ old('city_ar') }}" type="text" autocomplete="on" id="city_ar" autofocus
                                     required />
@@ -28,7 +28,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="city_en">City name - english</label>
+                                <label class="form-label" for="city_en">{{ __('City name - english') }}</label>
                                 <input name="city_en" class="form-control @error('city_en') is-invalid @enderror"
                                     value="{{ old('city_en') }}" type="text" autocomplete="on" id="city_en" autofocus
                                     required />
@@ -38,7 +38,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="cost">Cost</label>
+                                <label class="form-label" for="cost">{{ __('Cost') }}</label>
                                 <input name="cost" class="form-control @error('cost') is-invalid @enderror"
                                     value="{{ old('cost') }}" type="number" min="0" autocomplete="on" id="cost"
                                     required />
@@ -49,7 +49,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label" for="country">Country</label>
+                                <label class="form-label" for="country">{{ __('Country') }}</label>
 
                                 <select class="form-select @error('country') is-invalid @enderror" aria-label=""
                                     name="country" id="country" required>
@@ -66,8 +66,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Add New
-                                    Shipping Rate</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
+                                    Shipping Rate') }}</button>
                             </div>
                         </form>
 

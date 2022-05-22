@@ -14,12 +14,12 @@
                     <div class="d-none" id="table-customers-actions">
                         <div class="d-flex">
                             <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                <option selected="">Bulk actions</option>
-                                <option value="Refund">Refund</option>
-                                <option value="Delete">Delete</option>
-                                <option value="Archive">Archive</option>
+                                <option selected="">{{ __('Bulk actions') }}</option>
+                                <option value="Refund">{{ __('Refund') }}</option>
+                                <option value="Delete">{{ __('Delete') }}</option>
+                                <option value="Archive">{{ __('Archive') }}</option>
                             </select>
-                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
+                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">{{ __('Apply') }}</button>
                         </div>
                     </div>
                     <div id="table-customers-replace-element">
@@ -85,7 +85,7 @@
                         <a href="{{ route('orders.export', ['status' => request()->status, 'from' => request()->from, 'to' => request()->to]) }}"
                             class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Export</span></a>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Export') }}</span></a>
                     </div>
                 </div>
             </div>
@@ -102,17 +102,17 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="id">Order ID</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Affiliate Name</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">Status</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Total</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Affiliate Profit
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="id">{{ __('Order ID') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Affiliate Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">{{ __('Status') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Total') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Affiliate Profit') }}
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Sonoo Profit</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Shipping</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Sonoo Profit') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Shipping') }}</th>
 
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Created At</th>
+                                    data-sort="joined">{{ __('Created At') }}</th>
                                 <th class="align-middle no-sort"></th>
                             </tr>
                         </thead>
@@ -230,11 +230,11 @@
 
                                                     @if (auth()->user()->hasPermission('orders-update'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('users.show', ['user' => $order->user_id]) }}">Affiliate
-                                                            Info</a>
+                                                            href="{{ route('users.show', ['user' => $order->user_id]) }}">{{ __('Affiliate
+                                                            Info') }}</a>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('orders.show', ['order' => $order->id]) }}">Display
-                                                            order</a>
+                                                            href="{{ route('orders.show', ['order' => $order->id]) }}">{{ __('Display
+                                                            order') }}</a>
                                                         <a href="" class="dropdown-item" data-bs-toggle="modal"
                                                             data-bs-target="#status-modal-{{ $order->id }}">{{ __('Change Status') }}</a>
                                                         @if ($order->refund)
@@ -277,8 +277,8 @@
                                                         </div>
                                                         <div class="p-4 pb-0">
                                                             <div class="mb-3">
-                                                                <label class="form-label" for="bonus">Change order
-                                                                    status</label>
+                                                                <label class="form-label" for="bonus">{{ __('Change order
+                                                                    status') }}</label>
                                                                 <select
                                                                     class="form-control @error('status') is-invalid @enderror"
                                                                     name="status" required>
@@ -315,7 +315,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button class="btn btn-secondary" type="button"
-                                                            data-bs-dismiss="modal">Close</button>
+                                                            data-bs-dismiss="modal">{{ __('Close') }}</button>
                                                         <button class="btn btn-primary"
                                                             type="submit">{{ __('Save') }}</button>
                                                     </div>
@@ -384,7 +384,7 @@
                                                         </div>
                                                         <div class="modal-footer">
                                                             <button class="btn btn-secondary" type="button"
-                                                                data-bs-dismiss="modal">Close</button>
+                                                                data-bs-dismiss="modal">{{ __('Close') }}</button>
                                                             @if (auth()->user()->hasPermission('orders-update'))
                                                                 <button class="btn btn-primary"
                                                                     type="submit">{{ __('Reject the return request') }}</button>
@@ -467,7 +467,7 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button class="btn btn-secondary" type="button"
-                                                            data-bs-dismiss="modal">Close</button>
+                                                            data-bs-dismiss="modal">{{ __('Close') }}</button>
                                                         @if (auth()->user()->hasPermission('orders_notes-update'))
                                                             <button class="btn btn-primary"
                                                                 type="submit">{{ __('Save') }}</button>

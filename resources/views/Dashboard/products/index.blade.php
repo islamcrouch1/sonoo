@@ -18,12 +18,12 @@
                     <div class="d-none" id="table-customers-actions">
                         <div class="d-flex">
                             <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                <option selected="">Bulk actions</option>
-                                <option value="Refund">Refund</option>
-                                <option value="Delete">Delete</option>
-                                <option value="Archive">Archive</option>
+                                <option selected="">{{ __('Bulk actions') }}</option>
+                                <option value="Refund">{{ __('Refund') }}</option>
+                                <option value="Delete">{{ __('Delete') }}</option>
+                                <option value="Archive">{{ __('Archive') }}</option>
                             </select>
-                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
+                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">{{ __('Apply') }}</button>
                         </div>
                     </div>
                     <div id="table-customers-replace-element">
@@ -93,15 +93,15 @@
                         @if (auth()->user()->hasPermission('products-create'))
                             <a href="{{ route('products.create') }}" class="btn btn-falcon-default btn-sm"
                                 type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span
-                                    class="d-none d-sm-inline-block ms-1">New</span></a>
+                                    class="d-none d-sm-inline-block ms-1">{{ __('New') }}</span></a>
                         @endif
                         <a href="{{ route('products.trashed') }}" class="btn btn-falcon-default btn-sm"
                             type="button"><span class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Trash</span></a>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Trash') }}</span></a>
                         <a href="{{ route('products.export', ['status' => request()->status, 'category_id' => request()->category_id]) }}"
                             class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Export</span></a>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Export') }}</span></button>
                     </div>
                 </div>
             </div>
@@ -118,18 +118,25 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Product Name</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">SKU - ID</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Vendor Price</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Price</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Max Price</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Quantity</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Status</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">
+                                    {{ __('Product Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
+                                    {{ __('SKU - IDSKU - ID') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Vendor Price') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Price') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Max Price') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Quantity') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Status') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Created at</th>
+                                    data-sort="joined">{{ __('Created at') }}</th>
                                 @if ($products->count() > 0 && $products[0]->trashed())
                                     <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                        data-sort="joined">Deleted at</th>
+                                        data-sort="joined">{{ __('Deleted at') }}</th>
                                 @endif
                                 <th class="align-middle no-sort"></th>
                             </tr>
@@ -208,20 +215,20 @@
                                                     @if ($product->trashed() &&
                                                         auth()->user()->hasPermission('products-restore'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('products.restore', ['product' => $product->id]) }}">Restore</a>
+                                                            href="{{ route('products.restore', ['product' => $product->id]) }}">{{ __('Restore') }}</a>
                                                     @elseif(auth()->user()->hasPermission('products-update'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('products.edit', ['product' => $product->id]) }}">Edit</a>
+                                                            href="{{ route('products.edit', ['product' => $product->id]) }}">{{ __('Edit') }}</a>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('products.stock.create', ['product' => $product->id]) }}">Edit
-                                                            Stock</a>
+                                                            href="{{ route('products.stock.create', ['product' => $product->id]) }}">{{ __('Edit
+                                                                                                                        Stock') }}</a>
                                                         <a class="dropdown-item"
-                                                            href="{{ route('users.show', ['user' => $product->vendor_id]) }}">Vendor
-                                                            Info</a>
+                                                            href="{{ route('users.show', ['user' => $product->vendor_id]) }}">{{ __('Vendor
+                                                                                                                        Info') }}</a>
                                                         @if ($product->admin_id != null)
                                                             <a class="dropdown-item"
-                                                                href="{{ route('users.show', ['user' => $product->admin_id]) }}">Admin
-                                                                Info</a>
+                                                                href="{{ route('users.show', ['user' => $product->admin_id]) }}">{{ __('Admin
+                                                                                                                                Info') }}</a>
                                                         @endif
                                                     @endif
                                                     @if (auth()->user()->hasPermission('products-delete') ||

@@ -18,12 +18,12 @@
                     <div class="d-none" id="table-customers-actions">
                         <div class="d-flex">
                             <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                <option selected="">Bulk actions</option>
-                                <option value="Refund">Refund</option>
-                                <option value="Delete">Delete</option>
-                                <option value="Archive">Archive</option>
+                                <option selected="">{{__('Bulk actions')}}</option>
+                                <option value="Refund">{{ __('Refund') }}</option>
+                                <option value="Delete">{{ __('Delete') }}</option>
+                                <option value="Archive">{{ __('Archive') }}</option>
                             </select>
-                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
+                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">{{ __('Apply') }}</button>
                         </div>
                     </div>
                     <div id="table-customers-replace-element">
@@ -31,14 +31,14 @@
                         @if (auth()->user()->hasPermission('colors-create'))
                             <a href="{{ route('colors.create') }}" class="btn btn-falcon-default btn-sm"
                                 type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span
-                                    class="d-none d-sm-inline-block ms-1">New</span></a>
+                                    class="d-none d-sm-inline-block ms-1">{{ __('New') }}</span></a>
                         @endif
                         <a href="{{ route('colors.trashed') }}" class="btn btn-falcon-default btn-sm" type="button"><span
                                 class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Trash</span></a>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Trash') }}</span></a>
                         <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Export</span></button>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Export') }}</span></button>
                     </div>
                 </div>
             </div>
@@ -55,12 +55,12 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Name</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Created at</th>
+                                    data-sort="joined">{{ __('Created at') }}</th>
                                 @if ($colors->count() > 0 && $colors[0]->trashed())
                                     <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                        data-sort="joined">Deleted at</th>
+                                        data-sort="joined">{{ __('Deleted at') }}</th>
                                 @endif
                                 <th class="align-middle no-sort"></th>
                             </tr>
@@ -107,10 +107,10 @@
                                                     @if ($color->trashed() &&
     auth()->user()->hasPermission('colors-restore'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('colors.restore', ['color' => $color->id]) }}">Restore</a>
+                                                            href="{{ route('colors.restore', ['color' => $color->id]) }}">{{ __('Restore') }}</a>
                                                     @elseif(auth()->user()->hasPermission('colors-update'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('colors.edit', ['color' => $color->id]) }}">Edit</a>
+                                                            href="{{ route('colors.edit', ['color' => $color->id]) }}">{{ __('Edit') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('colors-delete') ||
     auth()->user()->hasPermission('colors-trash'))

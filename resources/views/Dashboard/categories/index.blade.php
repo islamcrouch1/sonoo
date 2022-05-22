@@ -18,12 +18,12 @@
                     <div class="d-none" id="table-customers-actions">
                         <div class="d-flex">
                             <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                <option selected="">Bulk actions</option>
-                                <option value="Refund">Refund</option>
-                                <option value="Delete">Delete</option>
-                                <option value="Archive">Archive</option>
+                                <option selected="">{{ __('Bulk actions') }}</option>
+                                <option value="Refund">{{ __('Refund') }}</option>
+                                <option value="Delete">{{ __('Delete') }}</option>
+                                <option value="Archive">{{ __('Archive') }}</option>
                             </select>
-                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">Apply</button>
+                            <button class="btn btn-falcon-default btn-sm ms-2" type="button">{{ __('Apply') }}</button>
                         </div>
                     </div>
                     <div id="table-customers-replace-element">
@@ -31,14 +31,14 @@
                         @if (auth()->user()->hasPermission('categories-create'))
                             <a href="{{ route('categories.create') }}" class="btn btn-falcon-default btn-sm"
                                 type="button"><span class="fas fa-plus" data-fa-transform="shrink-3 down-2"></span><span
-                                    class="d-none d-sm-inline-block ms-1">New</span></a>
+                                    class="d-none d-sm-inline-block ms-1">{{ __('New') }}</span></a>
                         @endif
                         <a href="{{ route('categories.trashed') }}" class="btn btn-falcon-default btn-sm"
                             type="button"><span class="fas fa-trash" data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Trash</span></a>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Trash') }}</span></a>
                         <button class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">Export</span></button>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Export') }}</span></button>
                     </div>
                 </div>
             </div>
@@ -55,15 +55,15 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Name</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Profit %</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Products</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">Subcatecories</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Profit %') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Products') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Subcatecories') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Created at</th>
+                                    data-sort="joined">{{ __('Created at') }}</th>
                                 @if ($categories->count() > 0 && $categories[0]->trashed())
                                     <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                        data-sort="joined">Deleted at</th>
+                                        data-sort="joined">{{ __('Deleted at') }}</th>
                                 @endif
                                 <th class="align-middle no-sort"></th>
                             </tr>
@@ -99,7 +99,7 @@
                                         </a></td>
                                     <td class="phone align-middle white-space-nowrap py-2"><a
                                             href="{{ route('categories.index', ['parent_id' => $category->id]) }}"
-                                            class="btn btn-falcon-primary btn-sm me-1 mb-1">Categories
+                                            class="btn btn-falcon-primary btn-sm me-1 mb-1">{{ __('Categories') }}
                                         </a></td>
                                     <td class="joined align-middle py-2">{{ $category->created_at }} <br>
                                         {{ interval($category->created_at) }} </td>
@@ -119,10 +119,10 @@
                                                     @if ($category->trashed() &&
     auth()->user()->hasPermission('categories-restore'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('categories.restore', ['category' => $category->id]) }}">Restore</a>
+                                                            href="{{ route('categories.restore', ['category' => $category->id]) }}">{{ __('Restore<') }}/a>
                                                     @elseif(auth()->user()->hasPermission('categories-update'))
                                                         <a class="dropdown-item"
-                                                            href="{{ route('categories.edit', ['category' => $category->id]) }}">Edit</a>
+                                                            href="{{ route('categories.edit', ['category' => $category->id]) }}">{{ __('Edit') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('categories-delete') ||
     auth()->user()->hasPermission('categories-trash'))

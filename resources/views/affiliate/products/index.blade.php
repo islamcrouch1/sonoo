@@ -30,7 +30,7 @@
     @if ($categories->count() > 0)
         <div class="card mb-3">
             <div class="card-body">
-                <h5 style="color:#344050" class="text-center mb-3">Categories</h5>
+                <h5 style="color:#344050" class="text-center mb-3">{{ __('Categories') }}</h5>
                 <div class="container">
                     <div class="row sonoo">
                         @foreach ($categories as $category)
@@ -63,18 +63,18 @@
             <div class="card-body">
                 <div class="row flex-between-center">
                     <div class="col-sm-auto mb-2 mb-sm-0">
-                        <h6 class="mb-0">Showing 1-{{ $products->count() }} of Products</h6>
+                        <h6 class="mb-0">{{ __('Showing 1-') }}{{ $products->count() }}{{ __('of Products') }} </h6>
                     </div>
                     <div class="col-sm-auto">
                         <div class="row gx-2 align-items-center">
                             <div class="col-auto">
                                 <form class="row gx-2">
-                                    <div class="col-auto"><small>Sort by:</small></div>
+                                    <div class="col-auto"><small>{{ __('Sort by:') }}</small></div>
                                     <div class="col-auto">
                                         <select class="form-select form-select-sm" aria-label="Bulk actions">
-                                            <option selected="">Best Match</option>
-                                            <option value="Refund">Newest</option>
-                                            <option value="Delete">Price</option>
+                                            <option selected="">{{ __('Best Match') }}</option>
+                                            <option value="Refund">{{ __('Newest') }}</option>
+                                            <option value="Delete">{{ __('Price') }}</option>
                                         </select>
                                     </div>
                                 </form>
@@ -164,7 +164,7 @@
                                 </div>
                                 <div class="d-flex flex-between-center px-3">
                                     <div>
-                                        <p class="fs--1 mb-1">Stock: <strong class="text-success">Available</strong>
+                                        <p class="fs--1 mb-1">{{ __('Stock:') }} <strong class="text-success">{{ __('Available') }}</strong>
                                         </p>
                                         {{-- <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong> --}}
 
