@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="offcanvas-body">
                                     <div class="alert alert-warning" role="alert">
-                                        {{ __('Minimum withdrawal amount: ') . ($user->hasrole('affiliate') ? setting('affiliate_limit') : setting('vendor_limit')) . $user->country->currency }}
+                                        {{ __('Minimum withdrawal amount: ') . ($user->hasrole('affiliate') ? setting('affiliate_limit') : setting('vender_limit')) . $user->country->currency }}
                                     </div>
                                     <div class="alert alert-primary" role="alert">
                                         {{ __('Available balance for withdrawal in your account : ') . ($user->balance->available_balance + $user->balance->bonus) . ' ' . $user->country->currency }}
@@ -65,10 +65,10 @@
                                                                     for="amount">{{ __('Amount') }}</label>
                                                                 <input name="amount"
                                                                     class="form-control @error('amount') is-invalid @enderror"
-                                                                    value="{{ $user->hasrole('affiliate') ? setting('affiliate_limit') : setting('vendor_limit') }}"
+                                                                    value="{{ $user->hasrole('affiliate') ? setting('affiliate_limit') : setting('vender_limit') }}"
                                                                     type="number"
                                                                     max="{{ $user->balance->available_balance + $user->balance->bonus }}"
-                                                                    min="{{ $user->hasrole('affiliate') ? setting('affiliate_limit') : setting('vendor_limit') }}"
+                                                                    min="{{ $user->hasrole('affiliate') ? setting('affiliate_limit') : setting('vender_limit') }}"
                                                                     autocomplete="on" id="amount" required />
                                                                 @error('amount')
                                                                     <div class="alert alert-danger">{{ $message }}</div>
@@ -170,11 +170,11 @@
                     <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
                         <thead class="bg-200 text-900">
                             <tr>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">Withdrawal ID</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">Amount</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">status</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Withdrawal ID') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Amount') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('status') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                    data-sort="joined">Created at</th>
+                                    data-sort="joined">{{ __('Created at') }}</th>
                             </tr>
                         </thead>
                         <tbody class="list" id="table-customers-body">

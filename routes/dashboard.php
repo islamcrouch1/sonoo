@@ -34,7 +34,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
     Route::get('/activate-users/{user}', [UsersController::class, 'activate'])->name('users.activate')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('/block-users/{user}', [UsersController::class, 'block'])->name('users.block')->middleware('auth', 'checkverified', 'checkstatus');
     Route::post('/add-bonus/{user}', [UsersController::class, 'bonus'])->name('users.bonus')->middleware('auth', 'checkverified', 'checkstatus');
-
+   
     // countries routes
     Route::resource('countries', CountriesController::class)->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('/trashed-countries', [CountriesController::class, 'trashed'])->name('countries.trashed')->middleware('auth', 'checkverified', 'checkstatus');
