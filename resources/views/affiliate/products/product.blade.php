@@ -50,7 +50,8 @@
                     @endforeach
                     <br>
                     <span class="fs--1">SKU: <strong class="text-success">{{ $product->sku }}</strong></span>
-                    <span class="fs--1 mr-1 ml-1">Stock: <strong class="text-success">{{ __('Available') }}</strong></span>
+                    <span class="fs--1 mr-1 ml-1">Stock: <strong
+                            class="text-success">{{ __('Available') }}</strong></span>
 
 
                     <p class="mt-2">{{ __('Available Colors') }}</p>
@@ -142,11 +143,8 @@
                             </div>
                         </div>
                         <div class="col-auto px-2 px-md-3"><button class="btn btn-sm btn-primary add-cart"
-                                data-url="{{ route('cart.store') }}" 
-                                
-                                
-                                data-locale="{{ app()->getLocale() }}"
-                                data-product_id="{{ $product->id }}" data-vendor_price="{{ $product->vendor_price }}"
+                                data-url="{{ route('cart.store') }}" data-locale="{{ app()->getLocale() }}"
+                                data-product_id="{{ $product->id }}" data-product_price="{{ $product->price }}"
                                 data-product_type="0" href="#!">
                                 <div style="display: none" class="spinner-border text-info spinner-border-sm spinner"
                                     role="status">
@@ -192,12 +190,68 @@
                             <li class="nav-item"><a class="nav-link active ps-0" id="description-tab"
                                     data-bs-toggle="tab" href="#tab-description" role="tab" aria-controls="tab-description"
                                     aria-selected="true">Description</a></li>
+                            <li class="nav-item"><a class="nav-link px-2 px-md-3" id="reviews-tab"
+                                    data-bs-toggle="tab" href="#tab-reviews" role="tab" aria-controls="tab-reviews"
+                                    aria-selected="false">Reviews</a></li>
+
                         </ul>
                         <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade show active" id="tab-description" role="tabpanel"
                                 aria-labelledby="description-tab">
                                 <div class="mt-3">
                                     {!! app()->getLocale() == 'ar' ? $product->description_ar : $product->description_en !!}
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="tab-reviews" role="tabpanel" aria-labelledby="reviews-tab">
+                                <div class="row mt-3">
+                                    <div class="col-lg-6 mb-4 mb-lg-0">
+                                        @foreach ($product->reviews as $review)
+                                            <div class="mb-1">
+
+                                                {!! getRatingWithStars($review->rating) !!}
+
+                                                <span
+                                                    class="ms-3 text-dark fw-semi-bold">{{ $review->user->name }}</span>
+                                            </div>
+                                            <p class="fs--1 mb-2 text-600">{{ interval($review->created_at) }}</p>
+                                            <p class="mb-0">{{ $review->review }}</p>
+                                            <hr class="my-4" />
+                                        @endforeach
+                                    </div>
+                                    <div class="col-lg-6 ps-lg-5">
+                                        <form method="POST"
+                                            action="{{ route('reviews.affiliate.index', ['product' => $product->id]) }}">
+                                            @csrf
+
+                                            <h5 class="mb-3">Write your Review</h5>
+                                            <div class="mb-3">
+                                                <label class="form-label">Ratting: </label>
+                                                <div class="d-block" id="rate"
+                                                    data-rater='{"starSize":32,"step":0.5}'></div>
+                                            </div>
+
+                                            <div style="display: none" class="mb-3">
+                                                <label class="form-label" for="rating">{{ __('Rating') }}</label>
+                                                <input name="rating"
+                                                    class="form-control @error('rating') is-invalid @enderror"
+                                                    value="{{ old('rating') }}" type="text" autocomplete="on" id="rating"
+                                                    required />
+                                                @error('rating')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label" for="review">Review:</label>
+                                                <textarea class="form-control @error('review') is-invalid @enderror" id="review" rows="3" name="review"
+                                                    required></textarea>
+                                                @error('review')
+                                                    <div class="alert alert-danger">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                            <button class="btn btn-primary" type="submit">Submit</button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         </div>

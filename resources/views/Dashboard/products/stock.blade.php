@@ -29,6 +29,7 @@
                                                 <th scope="col">{{ __('Color') }}</th>
                                                 <th scope="col">{{ __('Size') }}</th>
                                                 <th scope="col">{{ __('Quantity') }}</th>
+                                                <th scope="col">{{ __('Quantity limit') }}</th>
                                                 <th class="text-end" scope="col">{{ __('Actions') }}</th>
                                             </tr>
                                         </thead>
@@ -45,6 +46,15 @@
                                                             min="0" value="{{ $stock->quantity }}" type="number"
                                                             autocomplete="on" id="stock" required />
                                                         @error('stock')
+                                                            <div class="alert alert-danger">{{ $message }}</div>
+                                                        @enderror
+                                                    </td>
+                                                    <td>
+                                                        <input name="limit[]"
+                                                            class="form-control @error('limit') is-invalid @enderror"
+                                                            min="0" value="{{ $stock->limit }}" type="number"
+                                                            autocomplete="on" id="limit" required />
+                                                        @error('limit')
                                                             <div class="alert alert-danger">{{ $message }}</div>
                                                         @enderror
                                                     </td>
@@ -104,7 +114,8 @@
                                 @endif
                             @endforeach
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Save') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Save') }}</button>
                             </div>
                         </form>
 

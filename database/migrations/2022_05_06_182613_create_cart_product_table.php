@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('product_id');
             $table->integer('stock_id');
             $table->double('price');
-            $table->double('vendor_price');
+            $table->double('product_price');
             $table->integer('product_type')->default(0);
             $table->integer('quantity');
             $table->string('size_ar');

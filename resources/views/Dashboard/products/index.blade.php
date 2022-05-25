@@ -101,7 +101,7 @@
                         <a href="{{ route('products.export', ['status' => request()->status, 'category_id' => request()->category_id]) }}"
                             class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
                                 data-fa-transform="shrink-3 down-2"></span><span
-                                class="d-none d-sm-inline-block ms-1">{{ __('Export') }}</span></button>
+                                class="d-none d-sm-inline-block ms-1">{{ __('Export') }}</span></a>
                     </div>
                 </div>
             </div>
@@ -221,14 +221,14 @@
                                                             href="{{ route('products.edit', ['product' => $product->id]) }}">{{ __('Edit') }}</a>
                                                         <a class="dropdown-item"
                                                             href="{{ route('products.stock.create', ['product' => $product->id]) }}">{{ __('Edit
-                                                                                                                        Stock') }}</a>
+                                                                                                                                                                                    Stock') }}</a>
                                                         <a class="dropdown-item"
                                                             href="{{ route('users.show', ['user' => $product->vendor_id]) }}">{{ __('Vendor
-                                                                                                                        Info') }}</a>
+                                                                                                                                                                                    Info') }}</a>
                                                         @if ($product->admin_id != null)
                                                             <a class="dropdown-item"
                                                                 href="{{ route('users.show', ['user' => $product->admin_id]) }}">{{ __('Admin
-                                                                                                                                Info') }}</a>
+                                                                                                                                                                                                Info') }}</a>
                                                         @endif
                                                     @endif
                                                     @if (auth()->user()->hasPermission('products-delete') ||

@@ -155,9 +155,30 @@
     <script src="{{ asset('vendors/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('vendors/choices/choices.min.js') }}"></script>
     <script src="{{ asset('vendors/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('vendors/rater-js/index.js') }}"></script>
 
 
 
+
+    @if (setting('affiliate_modal') == 'on')
+        <script>
+            var myModal = new bootstrap.Modal(document.getElementById('affiliateModal'), {
+                keyboard: false
+            });
+
+            myModal.show()
+        </script>
+    @endif
+
+    @if (setting('vendor_modal') == 'on')
+        <script>
+            var myModal = new bootstrap.Modal(document.getElementById('vendorModal'), {
+                keyboard: false
+            });
+
+            myModal.show()
+        </script>
+    @endif
 
 
 

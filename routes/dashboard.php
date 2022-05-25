@@ -18,6 +18,7 @@ use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\ShippingRatesController;
 use App\Http\Controllers\Dashboard\SizesController;
 use App\Http\Controllers\Dashboard\SlidesController;
+use App\Http\Controllers\Dashboard\StockController;
 use App\Http\Controllers\Dashboard\UsersController;
 use App\Http\Controllers\Dashboard\WithdrawalsController;
 use Illuminate\Support\Facades\Route;
@@ -128,6 +129,10 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
     Route::get('products/admin/export', [ExportController::class, 'productsExport'])->name('products.export')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('users/admin/export', [ExportController::class, 'usersExport'])->name('users.export')->middleware('auth', 'checkverified', 'checkstatus');
     Route::post('products/import/', [ExportController::class, 'import'])->name('products.import')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // stock management routes
+    Route::get('stock/management', [StockController::class, 'index'])->name('stock.management.index')->middleware('auth', 'checkverified', 'checkstatus');
+
 
 
 

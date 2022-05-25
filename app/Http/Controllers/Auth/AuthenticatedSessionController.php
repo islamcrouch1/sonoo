@@ -56,6 +56,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        if (Auth::user()->hasRole('affiliate')) {
+            return redirect()->route('affiliate.products.index');
+        }
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 

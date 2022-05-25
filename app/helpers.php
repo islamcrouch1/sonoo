@@ -652,3 +652,80 @@ if (!function_exists('ordersCount')) {
         return $orders->count();
     }
 }
+
+
+
+// get product rating
+if (!function_exists('getRatingWithStars')) {
+    function getRatingWithStars($rating)
+    {
+        $check = str_contains($rating, '.');
+        $rating = floor($rating);
+        $stars = '';
+
+        for ($i = 0; $i < $rating; $i++) {
+            $stars .= '<span class="fa fa-star text-warning fs--1"></span>';
+        }
+
+        if ($check) {
+            $rating++;
+            $stars .= '<span class="fa fa-star-half-alt text-warning star-icon fs--1"></span>';
+        }
+
+        for ($i = 0; $i < 5 - $rating; $i++) {
+            $stars .= '<span class="fa fa-star text-300 fs--1"></span>';
+        }
+
+        return $stars;
+    }
+}
+
+
+// get product average rating
+if (!function_exists('getAverageRatingWithStars')) {
+    function getAverageRatingWithStars($product)
+    {
+
+        $count = 0;
+        $rating = 0;
+
+        foreach ($product->reviews as $review) {
+            $count++;
+            $rating += $review->rating;
+        }
+
+        $rating = $rating / $count;
+
+        $check = str_contains($rating, '.');
+        $rating = floor($rating);
+        $stars = '';
+
+        for ($i = 0; $i < $rating; $i++) {
+            $stars .= '<span class="fa fa-star text-warning"></span>';
+        }
+
+        if ($check) {
+            $rating++;
+            $stars .= '<span class="fa fa-star-half-alt text-warning star-icon"></span>';
+        }
+
+        for ($i = 0; $i < 5 - $rating; $i++) {
+            $stars .= '<span class="fa fa-star text-300"></span>';
+        }
+
+        return $stars;
+    }
+}
+
+
+// get product rating
+if (!function_exists('getRatingCount')) {
+    function getRatingCount($product)
+    {
+        $count = 0;
+        foreach ($product->reviews as $review) {
+            $count++;
+        }
+        return $count;
+    }
+}

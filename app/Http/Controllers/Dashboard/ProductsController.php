@@ -336,10 +336,12 @@ class ProductsController extends Controller
     {
         $request->validate([
             'stock' => "required|array",
+            'limit' => "required|array",
             'image' => "nullable|array"
         ]);
 
         $stock = $request->stock;
+        $limit = $request->limit;
 
         foreach ($product->stocks as $index => $product_stock) {
             if ($request->has('image')) {
@@ -352,6 +354,7 @@ class ProductsController extends Controller
             }
             $product_stock->update([
                 'quantity' => $stock[$index],
+                'limit' => $limit[$index],
             ]);
         }
 
