@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FirstController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,8 +13,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
 Route::redirect('/', '/user');
+ //front route
+ Route::get('/Home-Page', [FirstController::class, 'index'])->name('homepage.front');
 
 
 Route::get('/setlocale', function () {

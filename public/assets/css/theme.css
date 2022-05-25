@@ -29373,3 +29373,39 @@ div[data-collapse] + .kanban-item,
   padding-left: 0.5rem !important;
 }
 /*# sourceMappingURL=theme.css.map */
+/*new*/
+.first{
+  color:rgba(238, 172,1)  !important;
+
+}
+.lead{
+  opacity: 100% !important;
+  color:#d8d8d8 !important;
+
+}
+.ncolor{
+  color: #00113d !important;
+}
+.ncolorr{
+  color:#008cff !important;
+}
+.ready{
+  color:#008cff  !important;
+  border-color:#008cff !important ;
+ 
+}
+ .tcolor{
+   color:#00113d !important;
+ }
+ .last img{
+   margin-top: 0px !important;
+   padding-top: 0px !important;
+
+   
+ }
+ .excolor{
+   color:#cc00cc !important;
+ }
+ .excolorr{
+   color:#663300 !important;
+ }
