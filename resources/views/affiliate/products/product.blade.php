@@ -226,7 +226,7 @@
                                             <h5 class="mb-3">Write your Review</h5>
                                             <div class="mb-3">
                                                 <label class="form-label">Ratting: </label>
-                                                <div class="d-block" id="rate"
+                                                <div style="direction: ltr !important" class="d-block" id="rate"
                                                     data-rater='{"starSize":32,"step":0.5}'></div>
                                             </div>
 
