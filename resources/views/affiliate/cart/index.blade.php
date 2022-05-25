@@ -5,12 +5,13 @@
         <div class="card-header">
             <div class="row justify-content-between">
                 <div class="col-md-auto">
-                    <h5 class="mb-3 mb-md-0">{{ __('Shopping Cart') }} ({{ Auth::user()->cart->products->count() }} {{ __('Items') }})</h5>
+                    <h5 class="mb-3 mb-md-0">{{ __('Shopping Cart') }} ({{ Auth::user()->cart->products->count() }}
+                        {{ __('Items') }})</h5>
                 </div>
                 <div class="col-md-auto"><a class="btn btn-sm btn-outline-secondary border-300 me-2"
                         href="{{ route('affiliate.products.index') }}"> <span class="fas fa-chevron-left me-1"
-                            data-fa-transform="shrink-4"></span>{{ __('Continue Shopping') }}</a><a class="btn btn-sm btn-primary"
-                        href="#checkout-form">{{ __('Checkout') }}</a></div>
+                            data-fa-transform="shrink-4"></span>{{ __('Continue Shopping') }}</a><a
+                        class="btn btn-sm btn-primary" href="#checkout-form">{{ __('Checkout') }}</a></div>
             </div>
         </div>
 
@@ -41,16 +42,16 @@
                                                     {{ app()->getLocale() == 'ar' ? $product->name_ar : $product->name_en }}
                                                     <span class="badge badge-soft-light">
                                                         @if ($product->pivot->product_type == '0')
-                                                            {{ app()->getLocale() == 'ar'? $product->stocks->find($product->pivot->stock_id)->color->color_ar: $product->stocks->find($product->pivot->stock_id)->color->color_en }}
+                                                            {{ app()->getLocale() == 'ar' ? $product->stocks->find($product->pivot->stock_id)->color->color_ar : $product->stocks->find($product->pivot->stock_id)->color->color_en }}
                                                         @else
-                                                            {{ app()->getLocale() == 'ar'? $product->astocks->find($product->pivot->stock_id)->color->color_ar: $product->astocks->find($product->pivot->stock_id)->color->color_en }}
+                                                            {{ app()->getLocale() == 'ar' ? $product->astocks->find($product->pivot->stock_id)->color->color_ar : $product->astocks->find($product->pivot->stock_id)->color->color_en }}
                                                         @endif
                                                     </span>
                                                     <span class="badge badge-soft-light">
                                                         @if ($product->pivot->product_type == '0')
-                                                            {{ app()->getLocale() == 'ar'? $product->stocks->find($product->pivot->stock_id)->size->size_ar: $product->stocks->find($product->pivot->stock_id)->size->size_en }}
+                                                            {{ app()->getLocale() == 'ar' ? $product->stocks->find($product->pivot->stock_id)->size->size_ar : $product->stocks->find($product->pivot->stock_id)->size->size_en }}
                                                         @else
-                                                            {{ app()->getLocale() == 'ar'? $product->astocks->find($product->pivot->stock_id)->size->size_ar: $product->astocks->find($product->pivot->stock_id)->size->size_en }}
+                                                            {{ app()->getLocale() == 'ar' ? $product->astocks->find($product->pivot->stock_id)->size->size_ar : $product->astocks->find($product->pivot->stock_id)->size->size_en }}
                                                         @endif
                                                     </span>
                                                 </a>
@@ -61,7 +62,22 @@
                                         </div>
                                     </div>
                                 </td>
-                                <td>{{ $product->pivot->quantity }}</td>
+                                <td>
+
+                                    <div class="input-group input-group-sm" data-quantity="data-quantity">
+                                        <button class="btn btn-sm btn-outline-secondary border-300 cart-quantity"
+                                            data-field="input-quantity" data-type="minus"
+                                            data-stock_id="{{ $product->pivot->stock_id }}">-</button>
+                                        <input
+                                            class="form-control text-center input-spin-none quantity-{{ $product->pivot->stock_id }}"
+                                            data-url="{{ route('cart.change', ['stock_id' => $product->pivot->stock_id]) }}"
+                                            type="number" name="quantity" min="1" value="{{ $product->pivot->quantity }}"
+                                            aria-label="Amount (to the nearest dollar)" style="max-width: 50px" />
+                                        <button class="btn btn-sm btn-outline-secondary border-300 cart-quantity"
+                                            data-field="input-quantity" data-type="plus"
+                                            data-stock_id="{{ $product->pivot->stock_id }}">+</button>
+                                    </div>
+                                </td>
                                 <td>{{ $product->pivot->price . ' ' . $user->country->currency }}</td>
                                 <td>{{ $product->pivot->price - $product->price . ' ' . $user->country->currency }}</td>
                                 <td class="text-end">
@@ -198,7 +214,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New Order') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Add New Order') }}</button>
                             </div>
                         </form>
 

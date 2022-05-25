@@ -43,8 +43,6 @@ $(document).ready(function(){
         }
     });
 
-
-
     // display related sizes for each color
     $('input[type=radio].color-select').change(function(){
         // get data from color input
@@ -94,7 +92,6 @@ $(document).ready(function(){
 
     });
 
-
     // not used till now --- function for send verification sms in withdrawal page
     $('#send-conf').on('click' , function(e){
 
@@ -140,8 +137,6 @@ $(document).ready(function(){
         });
     });
 
-
-
     // add to cart function
     $('.add-cart').on('click' , function(e){
       e.preventDefault();
@@ -150,7 +145,7 @@ $(document).ready(function(){
       var loader = '.spinner';
       var locale = $(this).data('locale');
       var product_id = $(this).data('product_id');
-      var vendor_price = $(this).data('vendor_price');
+      var product_price = $(this).data('product_price');
       var product_type = $(this).data('product_type');
 
       var selected_stock = 'stock-select';
@@ -236,7 +231,7 @@ $(document).ready(function(){
                     formData.append('stock_id' , stock_id);
                     formData.append('quantity' , quantity );
                     formData.append('selected_price' , price_value );
-                    formData.append('vendor_price' , vendor_price );
+                    formData.append('product_price' , product_price );
                     formData.append('product_type' , product_type );
 
                     $.ajax({
@@ -272,13 +267,19 @@ $(document).ready(function(){
                                 $(loader).hide();
                                 $('.cart-icon').show()
 
+                                // if(locale == 'ar'){
+                                //     $(alarm_text).html("المقاس واللون المحدد موجود بالفعل في سلة المشتريات")
+                                // }else{
+                                //     $(alarm_text).html("The specified size and color is already in the cart")
+                                // }
+
                                 if(locale == 'ar'){
-                                    $(alarm_text).html("المقاس واللون المحدد موجود بالفعل في سلة المشتريات")
+                                    $(alarm_success_text).html("تم إضافة المنتج في السلة بنجاح")
                                 }else{
-                                    $(alarm_text).html("The specified size and color is already in the cart")
+                                    $(alarm_success_text).html("Product added to the cart successfully")
                                 }
 
-                                $(alarm).css('display', 'flex');
+                                $(alarm_success).css('display', 'flex');
 
                             }else if(data == 2){
 
@@ -325,129 +326,125 @@ $(document).ready(function(){
             }
         }
      }
-  });
+    });
 
+    $('body').on('keyup change', '.product-quantity', function() {
 
-  $('body').on('keyup change', '.product-quantity', function() {
+        var quantity = Number($(this).val()); //2
 
-    var quantity = Number($(this).val()); //2
+        var stock = $(this).data('stock');
 
-    var stock = $(this).data('stock');
+        if ( quantity > stock){
 
-    if ( quantity > stock){
-
-        $('#exampleModalCenter1').modal({
-            keyboard: false
-          });
-
-          $('.available-quantity').empty();
-          $('.available-quantity').html(stock);
-
-          $(this).val(stock);
-
-    }else {
-
-        var unitPrice = parseFloat($(this).data('price')); //150
-        $(this).closest('tr').find('.product-price').html((quantity * unitPrice).toFixed(2));
-        calculateTotal();
-    }
-
-
-
-});//end of product quantity change
-
-
-$('body').on('keyup change', '.product-quantity-stock', function() {
-
-    var quantity = Number($(this).val()); //2
-
-    var stock = $(this).data('stock');
-
-    var price = $(this).data('price');
-
-    var quant = document.getElementsByName('quantity[]');
-
-    var all_quan = 0;
-
-    for (var i = 0; i < quant.length; i++) {
-        all_quan += parseInt(quant[i].value);
-    }
-
-    console.log(all_quan)
-
-    var total = '#total_order';
-
-    if ( quantity > stock){
-
-          $(this).val(stock);
-
-    }else if (quantity < 0 ) {
-
-        $(this).val(0);
-
-
-    }else{
-        $(total).html(all_quan * price);
-    }
-
-});//end of product quantity change
-
-
-
-$('.order-products').on('click', function(e) {
-
-    e.preventDefault();
-
-
-
-    var url = $(this).data('url');
-
-    var method = $(this).data('method');
-
-    var loader = $(this).data('loader');
-
-    console.log(loader);
-
-    loader = '#' + loader;
-
-    console.log(loader);
-
-
-    $(loader).css('display', 'flex');
-
-
-
-    $.ajax({
-        url: url,
-        method: method,
-        success: function(data) {
-
-
-            $('#exampleModalCenter2').modal({
+            $('#exampleModalCenter1').modal({
                 keyboard: false
-              });
+            });
 
-            $(loader).css('display', 'none');
-            $('#order-product-list').empty();
-            $('#order-product-list').append(data);
+            $('.available-quantity').empty();
+            $('.available-quantity').html(stock);
 
+            $(this).val(stock);
+
+        }else {
+
+            var unitPrice = parseFloat($(this).data('price')); //150
+            $(this).closest('tr').find('.product-price').html((quantity * unitPrice).toFixed(2));
+            calculateTotal();
         }
-    })
-
-});//end of order products click
 
 
-$(".img").change(function() {
 
-    if (this.files && this.files[0]) {
-    var reader = new FileReader();
+    });//end of product quantity change
 
-    reader.onload = function(e) {
-    $('.img-prev').attr('src', e.target.result);
-    }
+    $('body').on('keyup change', '.product-quantity-stock', function() {
 
-    reader.readAsDataURL(this.files[0]); // convert to base64 string
-    }
+        var quantity = Number($(this).val()); //2
+
+        var stock = $(this).data('stock');
+
+        var price = $(this).data('price');
+
+        var quant = document.getElementsByName('quantity[]');
+
+        var all_quan = 0;
+
+        for (var i = 0; i < quant.length; i++) {
+            all_quan += parseInt(quant[i].value);
+        }
+
+        console.log(all_quan)
+
+        var total = '#total_order';
+
+        if ( quantity > stock){
+
+            $(this).val(stock);
+
+        }else if (quantity < 0 ) {
+
+            $(this).val(0);
+
+
+        }else{
+            $(total).html(all_quan * price);
+        }
+
+    });//end of product quantity change
+
+
+    $('.order-products').on('click', function(e) {
+
+        e.preventDefault();
+
+
+
+        var url = $(this).data('url');
+
+        var method = $(this).data('method');
+
+        var loader = $(this).data('loader');
+
+        console.log(loader);
+
+        loader = '#' + loader;
+
+        console.log(loader);
+
+
+        $(loader).css('display', 'flex');
+
+
+
+        $.ajax({
+            url: url,
+            method: method,
+            success: function(data) {
+
+
+                $('#exampleModalCenter2').modal({
+                    keyboard: false
+                });
+
+                $(loader).css('display', 'none');
+                $('#order-product-list').empty();
+                $('#order-product-list').append(data);
+
+            }
+        })
+
+    });//end of order products click
+
+    $(".img").change(function() {
+
+        if (this.files && this.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+        $('.img-prev').attr('src', e.target.result);
+        }
+
+        reader.readAsDataURL(this.files[0]); // convert to base64 string
+        }
 
     });
 
@@ -487,8 +484,9 @@ $(".img").change(function() {
     });//end of product quantity change
 
 
-
-
-
+    $('#rate').on('click' , function(e){
+        var rating = $(this).data('rating');
+        $('#rating').val(rating)
+    });
 
 });

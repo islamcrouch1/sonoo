@@ -33,6 +33,8 @@ return [
             'orders_notes' => 'c,r,u,d,t,s',
             'logs' => 'c,r,u,d,t,s',
             'bonus' => 'c,r,u,d,t,s',
+            'stock_management' => 'c,r,u,d,t,s',
+
         ],
         'administrator' => [],
         'vendor' => [],

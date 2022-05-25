@@ -125,6 +125,38 @@ $(document).ready(function(){
         });
     });
 
+
+    $('.cart-quantity').on('click' , function(e){
+
+        e.preventDefault();
+
+        var stock_id = $(this).data('stock_id');
+        var input = '.quantity-' + stock_id ;
+
+        var url = $(input).data('url');
+        var quantity = $(input).val();
+
+        var formData = new FormData();
+        formData.append('quantity' , quantity);
+
+        $.ajax({
+            url: url,
+            data: formData,
+            method: 'POST',
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function(data) {
+                if(data == 1){
+
+                }
+                if(data == 2){
+
+                }
+            }
+        });
+    });
+
 });
 
 

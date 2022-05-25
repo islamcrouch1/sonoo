@@ -34,8 +34,8 @@ class OrdersController extends Controller
 
         foreach ($user->cart->products as $product) {
             if ($product->pivot->product_type == 0) {
-                if ($product->pivot->quantiy > intval(Stock::find($product->pivot->stock_id)->quantity)) {
-                    $user->cart->products()->wherePivot('stock_id', $product->pivot->stock_id)->detach();
+                if ($product->pivot->quantity > intval(Stock::find($product->pivot->stock_id)->quantity)) {
+                    // $user->cart->products()->wherePivot('stock_id', $product->pivot->stock_id)->detach();
                     $count = $count + 1;
                 }
             }
@@ -59,7 +59,7 @@ class OrdersController extends Controller
         }
 
         foreach ($user->cart->products as $product) {
-            if ($product->pivot->vendor_price != $product->vendor_price) {
+            if ($product->pivot->product_price != $product->price) {
                 $user->cart->products()->wherePivot('stock_id', $product->pivot->stock_id)->detach();
                 alertError('Some prices of the products in your cart have been updated, please check the order again', 'تم تحديث بعض أسعار المنتجات الموجودة بسلة مشترياتك يرجى مراجعة الطلب مرة أخرى');
                 return redirect()->route('cart', ['lang' => app()->getLocale(), 'user' => $user->id]);
@@ -124,6 +124,7 @@ class OrdersController extends Controller
         $total_price = 0;
         $total_commission = 0;
         $total_profit = 0;
+        $stocks_limit = [];
 
         foreach ($user->cart->products as $product) {
 
@@ -131,11 +132,18 @@ class OrdersController extends Controller
             $total_commission += ($product->pivot->price - $product->price) * $product->pivot->quantity;
             $total_profit += ($product->price - $product->vendor_price) * $product->pivot->quantity;
 
+            $product_stock = $product->stocks->find($product->pivot->stock_id);
+
             if ($product->pivot->product_type == '0') {
-                $product->stocks->find($product->pivot->stock_id)->update([
-                    'quantity' => $product->stocks->find($product->pivot->stock_id)->quantity - $product->pivot->quantity
+                $product_stock->update([
+                    'quantity' => $product_stock->quantity - $product->pivot->quantity
                 ]);
             }
+
+            if ($product_stock->quantity < $product_stock->limit) {
+                array_push($stocks_limit, $product_stock->id);
+            }
+
             // else {
 
             //     $product->astocks->find($product->pivot->stock_id)->update([
@@ -176,6 +184,16 @@ class OrdersController extends Controller
             $body_en  = 'A new order has been added from : ' . $user->name;
             $url = route('orders.index');
             addNoty($admin, $user, $url, $title_en, $title_ar, $body_en, $body_ar);
+
+            foreach ($stocks_limit as $stock) {
+                $stock = Stock::find($stock);
+                $title_ar = 'تنبيه بنقص المخزون';
+                $body_ar = 'تجاوز هذا المنتج الحد المسموح في المخزون :#' . $stock->product->id;
+                $title_en = 'stock limit alert';
+                $body_en  = 'this product over the stock limit :#' . $stock->product->id;
+                $url = route('stock.management.index');
+                addNoty($admin, $user, $url, $title_en, $title_ar, $body_en, $body_ar);
+            }
         }
     }
 

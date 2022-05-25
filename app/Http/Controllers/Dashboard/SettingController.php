@@ -21,7 +21,24 @@ class SettingController extends Controller
         $request->validate([
             'max_price' => "required|numeric",
             'tax' => "required|numeric",
+            'commission' => "required|numeric",
+            'affiliate_limit' => "required|numeric",
+            'vendor_limit' => "required|numeric",
+            'mandatory_affiliate' => "required|numeric",
+            'mandatory_vendor' => "required|numeric",
+            'terms_ar' => "required|string",
+            'terms_en' => "required|string",
+            'front_modal' => "nullable",
+            'affiliate_modal' => "nullable",
+            'vendor_modal' => "nullable",
+            'front_modal_title' => "nullable|string",
+            'front_modal_body' => "nullable|string",
+            'affiliate_modal_title' => "nullable|string",
+            'affiliate_modal_body' => "nullable|string",
+            'vendor_modal_title' => "nullable|string",
+            'vendor_modal_body' => "nullable|string",
         ]);
+
 
 
         $setting = Setting::where('type', 'max_price')->first();
@@ -112,7 +129,142 @@ class SettingController extends Controller
             ]);
         }
 
+        $setting = Setting::where('type', 'terms_ar')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'terms_ar',
+                'value' => $request['terms_ar'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['terms_ar'],
+            ]);
+        }
 
+        $setting = Setting::where('type', 'terms_en')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'terms_en',
+                'value' => $request['terms_en'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['terms_en'],
+            ]);
+        }
+
+        $setting = Setting::where('type', 'front_modal')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'front_modal',
+                'value' => $request['front_modal'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['front_modal'],
+            ]);
+        }
+
+        $setting = Setting::where('type', 'affiliate_modal')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'affiliate_modal',
+                'value' => $request['affiliate_modal'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['affiliate_modal'],
+            ]);
+        }
+
+        $setting = Setting::where('type', 'vendor_modal')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'vendor_modal',
+                'value' => $request['vendor_modal'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['vendor_modal'],
+            ]);
+        }
+
+
+
+
+        $setting = Setting::where('type', 'front_modal_title')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'front_modal_title',
+                'value' => $request['front_modal_title'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['front_modal_title'],
+            ]);
+        }
+
+        $setting = Setting::where('type', 'front_modal_body')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'front_modal_body',
+                'value' => $request['front_modal_body'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['front_modal_body'],
+            ]);
+        }
+
+
+
+        $setting = Setting::where('type', 'affiliate_modal_title')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'affiliate_modal_title',
+                'value' => $request['affiliate_modal_title'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['affiliate_modal_title'],
+            ]);
+        }
+
+        $setting = Setting::where('type', 'affiliate_modal_body')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'affiliate_modal_body',
+                'value' => $request['affiliate_modal_body'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['affiliate_modal_body'],
+            ]);
+        }
+
+        $setting = Setting::where('type', 'vendor_modal_title')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'vendor_modal_title',
+                'value' => $request['vendor_modal_title'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['vendor_modal_title'],
+            ]);
+        }
+
+        $setting = Setting::where('type', 'vendor_modal_body')->first();
+        if ($setting == null) {
+            Setting::create([
+                'type' => 'vendor_modal_body',
+                'value' => $request['vendor_modal_body'],
+            ]);
+        } else {
+            $setting->update([
+                'value' => $request['vendor_modal_body'],
+            ]);
+        }
 
         // Image::make($request->image)->resize(300, null, function ($constraint) {
         //     $constraint->aspectRatio();

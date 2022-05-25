@@ -209,6 +209,18 @@
                             </a>
                         @endif
 
+                        @if (auth()->user()->hasPermission('stock_management-read'))
+                            <!-- parent pages--><a
+                                class="nav-link {{ Route::is('stock.management*') ? 'active' : '' }}"
+                                href="{{ route('stock.management.index') }}" role="button" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-layer-group"></span></span><span
+                                        class="nav-link-text ps-1">{{ __('Stock Management') }}</span>
+                                </div>
+                            </a>
+                        @endif
+
                     </li>
 
 
