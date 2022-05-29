@@ -12,7 +12,7 @@
                 data-bs-placement="left" title="Toggle Navigation"><span class="navbar-toggle-icon"><span
                         class="toggle-line"></span></span></button>
 
-        </div><a class="navbar-brand" href="{{ url('/') }}">
+        </div><a class="navbar-brand" href="{{ route('home') }}">
             <div class="d-flex align-items-center py-3"><img class="me-2"
                     src="{{ asset('assets/img/logo-blue.png') }}" alt="" width="150" />
             </div>

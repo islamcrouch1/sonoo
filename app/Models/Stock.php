@@ -31,10 +31,7 @@ class Stock extends Model
     public function scopeWhenSearch($query, $search)
     {
         return $query->when($search, function ($q) use ($search) {
-            return $q->where('stock', 'like', "%$search%")
-                ->orWhere('color_id', 'like', "%$search%")
-                ->orWhere('size_id', 'like', "%$search%")
-                ->orWhere('product', 'like', "%$search%");
+            return $q->orWhere('product_id', 'like', "$search");
         });
     }
 }

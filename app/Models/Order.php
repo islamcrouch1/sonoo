@@ -32,6 +32,10 @@ class Order extends Model
         return $this->hasMany(Prefund::class);
     }
 
+    public function histories()
+    {
+        return $this->hasMany(OrderHistory::class)->orderBy('id');
+    }
 
     public function requests()
     {

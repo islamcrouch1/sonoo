@@ -4,7 +4,7 @@
         data-bs-target="#navbarVerticalCollapse" aria-controls="navbarVerticalCollapse" aria-expanded="false"
         aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span
                 class="toggle-line"></span></span></button>
-    <a class="navbar-brand me-1 me-sm-3" href="{{ url('/') }}">
+    <a class="navbar-brand me-1 me-sm-3" href="{{ route('home') }}">
         <div class="d-flex align-items-center"><img class="me-2" src="{{ asset('assets/img/logo-blue.png') }}"
                 alt="" width="150" />
         </div>

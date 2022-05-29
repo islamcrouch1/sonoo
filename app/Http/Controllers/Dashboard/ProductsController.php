@@ -234,6 +234,10 @@ class ProductsController extends Controller
                     $body_ar = "تم تغيير حالة المنتج الخاص بك الى معطل مؤقتا";
                     $body_en  = "Your product status has been changed to paused";
                     break;
+                case 'pending':
+                    $body_ar = "تم تغيير حالة المنتج الخاص بك الى معلق";
+                    $body_en  = "Your product status has been changed to pending";
+                    break;
                 default:
                     # code...
                     break;
@@ -242,7 +246,6 @@ class ProductsController extends Controller
             $url = route('vendor-products.index');
             addNoty($product->vendor, Auth::user(), $url, $title_en, $title_ar, $body_en, $body_ar);
         }
-
 
         $product->update([
             'name_ar' => $request['name_ar'],
@@ -265,6 +268,10 @@ class ProductsController extends Controller
         $product->update([
             'unlimited' => $request['limited'] == 'on' ? 1 : 0,
         ]);
+
+        $description_ar = ' تم تعديل منتج ' . '  منتج رقم' . ' #' . $product->id . ' - SKU ' . $product->sku;
+        $description_en  = "product updated " . " product ID " . ' #' . $product->id . ' - SKU ' . $product->sku;
+        addLog('admin', 'products', $description_ar, $description_en);
 
         alertSuccess('Product updated successfully', 'تم تحديث المنتج بنجاح');
         return redirect()->route('products.index');
@@ -734,281 +741,88 @@ class ProductsController extends Controller
 
 
 
-    public function updateStatusAll($lang, Request $request)
+    public function updateStatusBulk(Request $request)
     {
 
-
         $request->validate([
-
-            'status' => "required|string|max:255",
-            'checkAll' => "required|array",
-
+            'selected_status' => "required|string|max:255",
+            'selected_items' => "required|array",
         ]);
 
+        foreach ($request->selected_items as $product) {
 
+            $product = Product::findOrFail($product);
 
+            if ($product->status != $request->selected_status) {
 
-        foreach ($request->checkAll as $product) {
+                $this->changeStatus($product, $request->selected_status);
 
-
-            $Product = Product::find($product);
-
-
-
-            $Product->update([
-                'status' => $request->status,
-                'vendor_id' => Auth::id(),
-
-            ]);
-
-
-
-            if ($Product->status == 'active') {
-
-
-
-
-                $title_ar = 'اشعار من الإدارة';
-                $body_ar = "تم تغيير حالة المنتج الخاص بك الى نشط";
-                $title_en = 'Notification From Admin';
-                $body_en  = "Your product status has been changed to Active";
-
-
-                $notification1 = Notification::create([
-                    'user_id' => $Product->user->id,
-                    'user_name'  => Auth::user()->name,
-                    'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                    'title_ar' => $title_ar,
-                    'body_ar' => $body_ar,
-                    'title_en' => $title_en,
-                    'body_en' => $body_en,
-                    'date' => $Product->updated_at,
-                    'status' => 0,
-                    'url' =>  route('vendor-products.index', ['lang' => app()->getLocale()]),
-                ]);
-
-
-
-                $date =  Carbon::now();
-                $interval = $notification1->created_at->diffForHumans($date);
-
-                $data = [
-                    'notification_id' => $notification1->id,
-                    'user_id' => $Product->user->id,
-                    'user_name'  => Auth::user()->name,
-                    'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                    'title_ar' => $title_ar,
-                    'body_ar' => $body_ar,
-                    'title_en' => $title_en,
-                    'body_en' => $body_en,
-                    'date' => $interval,
-                    'status' => $notification1->status,
-                    'url' =>  route('vendor-products.index', ['lang' => app()->getLocale()]),
-                    'change_status' => route('notification-change', ['lang' => app()->getLocale(), 'user' => $Product->user->id, 'notification' => $notification1->id]),
-
-                ];
-
-
-                try {
-                    event(new NewNotification($data));
-                } catch (Exception $e) {
-                }
-            }
-
-
-            if ($Product->status == 'rejected') {
-
-
-
-
-                $title_ar = 'اشعار من الإدارة';
-                $body_ar = "تم تغيير حالة المنتج الخاص بك الى مرفوض";
-                $title_en = 'Notification From Admin';
-                $body_en  = "Your product status has been changed to Rejected";
-
-
-                $notification1 = Notification::create([
-                    'user_id' => $Product->user->id,
-                    'user_name'  => Auth::user()->name,
-                    'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                    'title_ar' => $title_ar,
-                    'body_ar' => $body_ar,
-                    'title_en' => $title_en,
-                    'body_en' => $body_en,
-                    'date' => $Product->updated_at,
-                    'status' => 0,
-                    'url' =>  route('vendor-products.index', ['lang' => app()->getLocale()]),
-                ]);
-
-
-
-                $date =  Carbon::now();
-                $interval = $notification1->created_at->diffForHumans($date);
-
-                $data = [
-                    'notification_id' => $notification1->id,
-                    'user_id' => $Product->user->id,
-                    'user_name'  => Auth::user()->name,
-                    'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                    'title_ar' => $title_ar,
-                    'body_ar' => $body_ar,
-                    'title_en' => $title_en,
-                    'body_en' => $body_en,
-                    'date' => $interval,
-                    'status' => $notification1->status,
-                    'url' =>  route('vendor-products.index', ['lang' => app()->getLocale()]),
-                    'change_status' => route('notification-change', ['lang' => app()->getLocale(), 'user' => $Product->user->id, 'notification' => $notification1->id]),
-
-                ];
-
-
-                try {
-                    event(new NewNotification($data));
-                } catch (Exception $e) {
-                }
+                alertSuccess('Products status updated successfully', 'تم تحديث حالة المنتجات بنجاح');
+            } else {
+                alertError('The status of some products cannot be changed', 'لا يمكن تغيير حالة بعض المنتجات');
             }
         }
 
-
-
-        session()->flash('success', 'Products updated successfully');
-        return redirect()->route('products.index', app()->getLocale());
+        return redirect()->route('products.index');
     }
 
-    public function updateStatus($lang, Request $request, Product $Product)
+    public function updateStatus(Request $request, Product $product)
     {
 
-
-
         $request->validate([
-
             'status' => "required|string|max:255",
-
         ]);
 
 
+        if ($product->status != $request->status) {
 
+            $this->changeStatus($product, $request->status);
 
+            alertSuccess('Product status updated successfully', 'تم تحديث حالة المنتج بنجاح');
+        } else {
+            alertError('Product status cannot be updated', 'لا يمكن تحديث حالة المنتج');
+        }
 
-        $Product->update([
-            'status' => $request->status,
-            'vendor_id' => Auth::id(),
+        return redirect()->route('products.index');
+    }
 
+    private function changeStatus($product, $status)
+    {
+        $title_ar = 'اشعار من الإدارة';
+        $title_en = 'Notification From Admin';
+
+        switch ($status) {
+            case 'active':
+                $body_ar = "تم تغيير حالة المنتج الخاص بك الى نشط";
+                $body_en  = "Your product status has been changed to Active";
+                break;
+            case 'rejected':
+                $body_ar = "تم تغيير حالة المنتج الخاص بك الى مرفوض";
+                $body_en  = "Your product status has been changed to Rejected";
+                break;
+            case 'pause':
+                $body_ar = "تم تغيير حالة المنتج الخاص بك الى معطل مؤقتا";
+                $body_en  = "Your product status has been changed to paused";
+                break;
+            case 'pending':
+                $body_ar = "تم تغيير حالة المنتج الخاص بك الى معلق";
+                $body_en  = "Your product status has been changed to pending";
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        $url = route('vendor-products.index');
+        addNoty($product->vendor, Auth::user(), $url, $title_en, $title_ar, $body_en, $body_ar);
+
+        $product->update([
+            'status' => $status,
+            'admin_id' => Auth::id(),
         ]);
 
-
-
-
-
-        if ($Product->status == 'active') {
-
-
-
-
-            $title_ar = 'اشعار من الإدارة';
-            $body_ar = "تم تغيير حالة المنتج الخاص بك الى نشط";
-            $title_en = 'Notification From Admin';
-            $body_en  = "Your product status has been changed to Active";
-
-
-            $notification1 = Notification::create([
-                'user_id' => $Product->user->id,
-                'user_name'  => Auth::user()->name,
-                'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                'title_ar' => $title_ar,
-                'body_ar' => $body_ar,
-                'title_en' => $title_en,
-                'body_en' => $body_en,
-                'date' => $Product->updated_at,
-                'status' => 0,
-                'url' =>  route('vendor-products.index', ['lang' => app()->getLocale()]),
-            ]);
-
-
-
-            $date =  Carbon::now();
-            $interval = $notification1->created_at->diffForHumans($date);
-
-            $data = [
-                'notification_id' => $notification1->id,
-                'user_id' => $Product->user->id,
-                'user_name'  => Auth::user()->name,
-                'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                'title_ar' => $title_ar,
-                'body_ar' => $body_ar,
-                'title_en' => $title_en,
-                'body_en' => $body_en,
-                'date' => $interval,
-                'status' => $notification1->status,
-                'url' =>  route('vendor-products.index', ['lang' => app()->getLocale()]),
-                'change_status' => route('notification-change', ['lang' => app()->getLocale(), 'user' => $Product->user->id, 'notification' => $notification1->id]),
-
-            ];
-
-
-            try {
-                event(new NewNotification($data));
-            } catch (Exception $e) {
-            }
-        }
-
-
-        if ($Product->status == 'rejected') {
-
-
-
-
-            $title_ar = 'اشعار من الإدارة';
-            $body_ar = "تم تغيير حالة المنتج الخاص بك الى مرفوض";
-            $title_en = 'Notification From Admin';
-            $body_en  = "Your product status has been changed to Rejected";
-
-
-            $notification1 = Notification::create([
-                'user_id' => $Product->user->id,
-                'user_name'  => Auth::user()->name,
-                'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                'title_ar' => $title_ar,
-                'body_ar' => $body_ar,
-                'title_en' => $title_en,
-                'body_en' => $body_en,
-                'date' => $Product->updated_at,
-                'status' => 0,
-                'url' =>  route('vendor-products.index', ['lang' => app()->getLocale()]),
-            ]);
-
-
-
-            $date =  Carbon::now();
-            $interval = $notification1->created_at->diffForHumans($date);
-
-            $data = [
-                'notification_id' => $notification1->id,
-                'user_id' => $Product->user->id,
-                'user_name'  => Auth::user()->name,
-                'user_image' => asset('storage/images/users/' . Auth::user()->profile),
-                'title_ar' => $title_ar,
-                'body_ar' => $body_ar,
-                'title_en' => $title_en,
-                'body_en' => $body_en,
-                'date' => $interval,
-                'status' => $notification1->status,
-                'url' =>  route('vendor-products.index', ['lang' => app()->getLocale()]),
-                'change_status' => route('notification-change', ['lang' => app()->getLocale(), 'user' => $Product->user->id, 'notification' => $notification1->id]),
-
-            ];
-
-
-            try {
-                event(new NewNotification($data));
-            } catch (Exception $e) {
-            }
-        }
-
-
-
-
-        session()->flash('success', 'Product updated successfully');
-        return redirect()->route('products.index', app()->getLocale());
+        $description_ar = ' تم تعديل منتج ' . '  منتج رقم' . ' #' . $product->id . ' - SKU ' . $product->sku;
+        $description_en  = "product updated " . " product ID " . ' #' . $product->id . ' - SKU ' . $product->sku;
+        addLog('admin', 'products', $description_ar, $description_en);
     }
 }

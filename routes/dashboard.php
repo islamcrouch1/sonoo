@@ -34,7 +34,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
     Route::get('/activate-users/{user}', [UsersController::class, 'activate'])->name('users.activate')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('/block-users/{user}', [UsersController::class, 'block'])->name('users.block')->middleware('auth', 'checkverified', 'checkstatus');
     Route::post('/add-bonus/{user}', [UsersController::class, 'bonus'])->name('users.bonus')->middleware('auth', 'checkverified', 'checkstatus');
-   
+
     // countries routes
     Route::resource('countries', CountriesController::class)->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('/trashed-countries', [CountriesController::class, 'trashed'])->name('countries.trashed')->middleware('auth', 'checkverified', 'checkstatus');
@@ -67,6 +67,8 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
     Route::get('/products/color/{product}', [ProductsController::class, 'colorCreate'])->name('products.color.create')->middleware('auth', 'checkverified', 'checkstatus');
     Route::post('/products/color-store/{product}', [ProductsController::class, 'colorStore'])->name('products.color.store')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('/stock/color-remove/{stock}', [ProductsController::class, 'colorDestroy'])->name('products.color.destroy')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('products/status/{product}', [ProductsController::class, 'updateStatus'])->name('products.status')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('products-bulk/status', [ProductsController::class, 'updateStatusBulk'])->name('products.status.bulk')->middleware('auth', 'checkverified', 'checkstatus');
 
     // product color routes
     Route::resource('colors', ColorsController::class)->middleware('auth', 'checkverified', 'checkstatus');
@@ -92,7 +94,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
     // orders routes
     Route::resource('orders', OrdersController::class)->middleware('auth', 'checkverified', 'checkstatus');
     Route::post('orders/status/{order}', [OrdersController::class, 'updateStatus'])->name('orders.status')->middleware('auth', 'checkverified', 'checkstatus');
-    Route::post('orders/status/all', [OrdersController::class, 'updateStatusAll'])->name('orders.status.all')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('orders-bulk/status', [OrdersController::class, 'updateStatusBulk'])->name('orders.status.bulk')->middleware('auth', 'checkverified', 'checkstatus');
     Route::post('orders/admin/refund/{order}', [OrdersController::class, 'rejectRefund'])->name('orders.refund.reject')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('orders/admin/refunds', [OrdersController::class, 'refundsIndex'])->name('orders.refunds')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('orders/admin/mandatory', [OrdersController::class, 'mandatoryIndex'])->name('orders.mandatory')->middleware('auth', 'checkverified', 'checkstatus');
@@ -100,7 +102,7 @@ Route::group(['prefix' => 'dashboard', 'middleware' => ['role:superadministrator
     // vendors orders routes  orders.vendor.mandatory
     Route::get('vendor-orders', [OrdersController::class, 'indexVendors'])->name('orders-vendor')->middleware('auth', 'checkverified', 'checkstatus');
     Route::post('vendor-orders/status/{vendor_order}', [OrdersController::class, 'updateStatusVendor'])->name('orders.vendor.status')->middleware('auth', 'checkverified', 'checkstatus');
-    Route::post('vendor-orders/status', [OrdersController::class, 'updateStatusVendorAll'])->name('orders.vendor.status.all')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::post('vendor-orders-bulk/status', [OrdersController::class, 'updateStatusVendorBulk'])->name('orders.vendor.status.bulk')->middleware('auth', 'checkverified', 'checkstatus');
     Route::get('vendor-orders/mandatory', [OrdersController::class, 'mandatoryIndexVendor'])->name('orders.vendor.mandatory')->middleware('auth', 'checkverified', 'checkstatus');
 
     // users and orders notes routes

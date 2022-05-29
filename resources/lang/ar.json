@@ -156,7 +156,7 @@
     "Libirary Categories": "أقسام المكتبة",
     "Products": "المنتجات",
     "Student": "طالب",
-   
+
     "Mobile Number Verification": "تفعيل رقم الموبايل",
     "Verify your phone": "ادخل الكود لتفعيل حسابك",
     "Thanks for registering with our platform. We will send you to verify your phone number. Provide the code below.": "شكرا لتسجيلك معنا , سوف يتم ارسال كود التفعيل الى هاتفك يرجى ادخاله في الحقل بالأسفل.",
@@ -1031,10 +1031,10 @@
     "Withdrawal Request": "طلب سحب رصيد",
     "No Withdrawal Requests To Show": "لا يوجد طلبات سحب رصيد للعرض حاليا",
     "You don't have messages to display": "لا يوجد رسائل للعرض حاليا",
-    "Home": "الرئيسية",
-    "Home": "الرئيسية",
-    "Home": "الرئيسية",
-    "Home": "الرئيسية",
+    "You canceled the order": "لقد قمت بإلغاء طلبك",
+    "Order created": "تم إنشاء الطلب",
+    "Track order": "تتبع الطلب",
+    "There are no reviews for the product": "لا يوجد تقييمات على المنتج",
     "Home": "الرئيسية",
     "Home": "الرئيسية",
     "Home": "الرئيسية",

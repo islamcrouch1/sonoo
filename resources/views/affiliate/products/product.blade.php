@@ -10,7 +10,7 @@
                             $count = productImagesCount($product);
                         @endphp
                         <div class="swiper-container theme-slider position-lg-absolute all-0"
-                            data-swiper='{"spaceBetween":{{ $count }},"loop":true,"loopedSlides":{{ $count }},"thumb":{"spaceBetween":{{ $count }},"slidesPerView":5,"loop":true,"freeMode":true,"grabCursor":true,"loopedSlides":{{ $count }},"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
+                            data-swiper='{"spaceBetween":{{ $count }},"loop":true,"loopedSlides":{{ $count }},"thumb":{"spaceBetween":{{ $count }},"slidesPerView":5,"freeMode":true,"grabCursor":true,"loopedSlides":{{ $count }},"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
                             <div id="allImages" class="swiper-wrapper h-100">
                                 @foreach ($product->images as $image)
                                     <div class="swiper-slide"><a class="d-block" href="#!"><img
@@ -217,6 +217,9 @@
                                             <p class="mb-0">{{ $review->review }}</p>
                                             <hr class="my-4" />
                                         @endforeach
+                                        @if ($product->reviews->count() == 0)
+                                            <p>{{ __('There are no reviews for the product') }}</p>
+                                        @endif
                                     </div>
                                     <div class="col-lg-6 ps-lg-5">
                                         <form method="POST"

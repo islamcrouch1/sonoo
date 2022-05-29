@@ -8,7 +8,8 @@
     @php
         session()->forget('success');
     @endphp
-@elseif (session()->has('error'))
+@endif
+@if (session()->has('error'))
     <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
         <div class="bg-danger me-3 icon-item"><span class="fas fa-times-circle text-white fs-3"></span></div>
         <p class="mb-0 flex-1">{{ session()->get('error') }}</p>
@@ -18,7 +19,8 @@
     @php
         session()->forget('error');
     @endphp
-@elseif (session()->has('failures'))
+@endif
+@if (session()->has('failures'))
     <table class="table table-danger">
         <tr>
             <th>Row</th>

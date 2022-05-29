@@ -7,6 +7,7 @@ use App\Models\Country;
 use App\Models\Log;
 use App\Models\Notification;
 use App\Models\Order;
+use App\Models\OrderHistory;
 use App\Models\Request;
 use App\Models\Setting;
 use App\Models\User;
@@ -23,7 +24,15 @@ use Illuminate\Validation\ValidationException;
 if (!function_exists('setLocaleBySession')) {
     function setLocaleBySession()
     {
-        app()->isLocale('en') ? session(['lang' => 'ar']) : session(['lang' => 'en']);
+        if (Auth::check()) {
+            $user = User::findOrFail(Auth::id());
+
+            $user->update([
+                'lang' => app()->getLocale() == 'ar' ? 'en' : 'ar',
+            ]);
+        } else {
+            app()->getLocale() == 'en' ? session(['lang' => 'ar']) : session(['lang' => 'en']);
+        }
     }
 }
 
@@ -694,7 +703,9 @@ if (!function_exists('getAverageRatingWithStars')) {
             $rating += $review->rating;
         }
 
-        $rating = $rating / $count;
+        if ($count != 0) {
+            $rating = $rating / $count;
+        }
 
         $check = str_contains($rating, '.');
         $rating = floor($rating);
@@ -727,5 +738,67 @@ if (!function_exists('getRatingCount')) {
             $count++;
         }
         return $count;
+    }
+}
+
+
+// create order history
+if (!function_exists('createOrderHistory')) {
+    function createOrderHistory($order, $status)
+    {
+
+        if (Auth::user()->hasRole('affiliate') && $status == 'canceled') {
+            $status = 'You canceled the order';
+        }
+
+        OrderHistory::create([
+            'order_id' => $order->id,
+            'status' => $status,
+        ]);
+    }
+}
+
+
+// get order history
+if (!function_exists('getOrderHistory')) {
+    function getOrderHistory($status)
+    {
+
+        $order_status = '';
+
+        switch ($status) {
+            case 'pending':
+                $order_status = '<span class="badge badge-soft-warning ">' . __($status) . '</span>';
+                break;
+            case 'confirmed':
+                $order_status = '<span class="badge badge-soft-primary ">' . __($status) . '</span>';
+                break;
+            case 'on the way':
+                $order_status = '<span class="badge badge-soft-info ">' . __($status) . '</span>';
+                break;
+            case 'delivered':
+                $order_status = '<span class="badge badge-soft-success ">' . __($status) . '</span>';
+                break;
+            case 'canceled':
+                $order_status = '<span class="badge badge-soft-danger ">' . __($status) . '</span>';
+                break;
+            case 'in the mandatory period':
+                $order_status = '<span class="badge badge-soft-warning ">' . __($status) . '</span>';
+                break;
+            case 'returned':
+                $order_status = '<span class="badge badge-soft-danger ">' . __($status) . '</span>';
+                break;
+            case 'RTO':
+                $order_status = '<span class="badge badge-soft-danger ">' . __($status) . '</span>';
+                break;
+            case 'You canceled the order':
+                $order_status = '<span class="badge badge-soft-danger ">' . __($status) . '</span>';
+                break;
+            default:
+                $order_status = '';
+                break;
+        }
+
+        return $order_status;
     }
 }

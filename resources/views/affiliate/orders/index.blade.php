@@ -64,14 +64,21 @@
                     <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
                         <thead class="bg-200 text-900">
                             <tr>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="id">{{ __('Order ID') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Customer Name') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Customer phone') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">{{ __('Status') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Total') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Affiliate Profit') }}
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="id">{{ __('Order ID') }}
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Shipping') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">
+                                    {{ __('Customer Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">
+                                    {{ __('Customer phone') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="status">
+                                    {{ __('Status') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Total') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Affiliate Profit') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Shipping') }}</th>
 
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                     data-sort="joined">{{ __('Created At') }}</th>
@@ -95,41 +102,7 @@
                                         {{ $order->client_phone }}
                                     </td>
                                     <td class="phone align-middle white-space-nowrap py-2">
-                                        @switch($order->status)
-                                            @case('pending')
-                                                <span class="badge badge-soft-warning ">{{ __('pending') }}</span>
-                                            @break
-
-                                            @case('confirmed')
-                                                <span class="badge badge-soft-primary ">{{ __('confirmed') }}</span>
-                                            @break
-
-                                            @case('on the way')
-                                                <span class="badge badge-soft-info ">{{ __('on the way') }}</span>
-                                            @break
-
-                                            @case('delivered')
-                                                <span class="badge badge-soft-success ">{{ __('delivered') }}</span>
-                                            @break
-
-                                            @case('canceled')
-                                                <span class="badge badge-soft-danger ">{{ __('canceled') }}</span>
-                                            @break
-
-                                            @case('in the mandatory period')
-                                                <span class="badge badge-soft-danger ">{{ __('in the mandatory period') }}</span>
-                                            @break
-
-                                            @case('returned')
-                                                <span class="badge badge-soft-danger ">{{ __('returned') }}</span>
-                                            @break
-
-                                            @case('RTO')
-                                                <span class="badge badge-soft-danger ">{{ __('RTO') }}</span>
-                                            @break
-
-                                            @default
-                                        @endswitch
+                                        {!! getOrderHistory($order->status) !!}
 
                                         @if ($order->refund != null && $order->status != 'returned')
                                             @if ($order->refund->status == 0)
@@ -183,8 +156,9 @@
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
                                                     <a class="dropdown-item"
-                                                        href="{{ route('orders.affiliate.show', ['order' => $order->id]) }}">{{ __('Display
-                                                        order') }}</a>
+                                                        href="{{ route('orders.affiliate.show', ['order' => $order->id]) }}">{{ __('Display order') }}</a>
+                                                    <a href="" class="dropdown-item" data-bs-toggle="modal"
+                                                        data-bs-target="#track-modal-{{ $order->id }}">{{ __('Track order') }}</a>
                                                     @if ($order->status == 'pending')
                                                         <a class="dropdown-item"
                                                             href="{{ route('orders.affiliate.cancel', ['order' => $order->id]) }}">{{ __('Cancel') }}</a>
@@ -263,6 +237,93 @@
                                     </div>
                                 </div>
                                 <!-- end order notes modal for each user -->
+
+                                <!-- start order track modal for each order -->
+                                <div class="modal fade" id="track-modal-{{ $order->id }}" tabindex="-1"
+                                    role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered" role="document"
+                                        style="max-width: 500px">
+                                        <div class="modal-content position-relative">
+                                            <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                                                <button
+                                                    class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                                                    data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body p-0">
+                                                <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                                                    <h4 class="mb-1" id="modalExampleDemoLabel">
+                                                        {{ __('Track your order') . ' #' . $order->id }}
+                                                    </h4>
+                                                </div>
+                                                <div class="m-2">
+                                                    <div class="timeline-vertical">
+                                                        <div class="timeline-item timeline-item-start">
+                                                            <div
+                                                                class="timeline-icon icon-item icon-item-lg text-primary border-300">
+                                                                <span class="fs-1 fas fa-check"></span>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-lg-6 timeline-item-time">
+                                                                    <div>
+                                                                        <p class="fs--1 mb-0 fw-semi-bold">
+                                                                            {{ $order->created_at }}</p>
+                                                                        <p class="fs--2 text-600">
+                                                                            <span
+                                                                                class="badge badge-soft-light">{{ interval($order->created_at) }}</span>
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <div class="timeline-item-content">
+                                                                        <div style="padding: 10px"
+                                                                            class="timeline-item-card">
+                                                                            <span
+                                                                                class="badge badge-soft-success ">{{ __('Order created') }}</span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @foreach ($order->histories as $history)
+                                                            <div class="timeline-item timeline-item-start">
+                                                                <div
+                                                                    class="timeline-icon icon-item icon-item-lg text-primary border-300">
+                                                                    <span class="fs-1 fas fa-check"></span>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6 timeline-item-time">
+                                                                        <div>
+                                                                            <p class="fs--1 mb-0 fw-semi-bold">
+                                                                                {{ $history->created_at }}</p>
+                                                                            <p class="fs--2 text-600">
+                                                                                <span
+                                                                                    class="badge badge-soft-light">{{ interval($history->created_at) }}</span>
+                                                                            </p>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <div class="timeline-item-content">
+                                                                            <div style="padding: 10px"
+                                                                                class="timeline-item-card">
+                                                                                {!! getOrderHistory($history->status) !!}
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        @endforeach
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" type="button"
+                                                    data-bs-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- end order track modal for each user -->
 
                                 @if ($order->status != 'canceled' && $order->status != 'returned' && $order->status != 'pending' && $order->status != 'RTO' && $order->refund == null)
                                     <!-- start order refund modal for each order -->

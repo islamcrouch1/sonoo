@@ -191,7 +191,7 @@ class OrdersController extends Controller
                 $body_ar = 'تجاوز هذا المنتج الحد المسموح في المخزون :#' . $stock->product->id;
                 $title_en = 'stock limit alert';
                 $body_en  = 'this product over the stock limit :#' . $stock->product->id;
-                $url = route('stock.management.index');
+                $url = route('stock.management.index', ['search' => $product->id]);
                 addNoty($admin, $user, $url, $title_en, $title_ar, $body_en, $body_ar);
             }
         }
@@ -237,11 +237,17 @@ class OrdersController extends Controller
 
         foreach ($order->vendor_orders as $vendor_order) {
             changeOutStandingBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, 'canceled', 'sub');
+
+            $vendor_order->update([
+                'status' => 'canceled',
+            ]);
         }
 
         $order->update([
             'status' => 'canceled',
         ]);
+
+        createOrderHistory($order, $order->status);
 
 
         $description_ar = "تم تغيير حالة الطلب الى ملغي" . ' طلب رقم ' . ' #' . $order->id;

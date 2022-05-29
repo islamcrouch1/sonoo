@@ -102,3 +102,8 @@ input:checked+.slider:before {
         max-width: 12.5% !important;
     }
 }
+
+
+.thumb{
+    height: 75px;
+}
