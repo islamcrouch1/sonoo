@@ -106,19 +106,19 @@
 
 
 
-            @include('layouts.Dashboard._aside')
+            @include('layouts.dashboard._aside')
 
 
 
             <div class="content">
 
-                @include('layouts.Dashboard._header')
+                @include('layouts.dashboard._header')
 
-                @include('layouts.Dashboard._flash')
+                @include('layouts.dashboard._flash')
 
                 @yield('adminContent')
 
-                @include('layouts.Dashboard._footer')
+                @include('layouts.dashboard._footer')
 
 
             </div>
@@ -155,9 +155,30 @@
     <script src="{{ asset('vendors/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('vendors/choices/choices.min.js') }}"></script>
     <script src="{{ asset('vendors/swiper/swiper-bundle.min.js') }}"></script>
+    <script src="{{ asset('vendors/rater-js/index.js') }}"></script>
 
 
 
+
+    @if (setting('affiliate_modal') == 'on')
+        <script>
+            var myModal = new bootstrap.Modal(document.getElementById('affiliateModal'), {
+                keyboard: false
+            });
+
+            myModal.show()
+        </script>
+    @endif
+
+    @if (setting('vendor_modal') == 'on')
+        <script>
+            var myModal = new bootstrap.Modal(document.getElementById('vendorModal'), {
+                keyboard: false
+            });
+
+            myModal.show()
+        </script>
+    @endif
 
 
 

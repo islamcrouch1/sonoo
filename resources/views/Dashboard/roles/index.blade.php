@@ -54,10 +54,14 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Role Name') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Description') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Users Count') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Permissions') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">
+                                    {{ __('Role Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
+                                    {{ __('Description') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Users Count') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Permissions') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                     data-sort="joined">{{ __('Created at') }}</th>
                                 @if ($roles->count() > 0 && $roles[0]->trashed())
@@ -87,7 +91,7 @@
                                     </td>
                                     <td class="phone align-middle white-space-nowrap py-2">{{ $role->description }}</td>
                                     <td class="phone align-middle white-space-nowrap py-2">{{ $role->users_count }}</td>
-                                    <td class="phone align-middle white-space-nowrap py-2">
+                                    <td class="phone align-middle py-2">
                                         @foreach ($role->permissions as $permission)
                                             <span class='badge badge-soft-success'>{{ $permission->name }}</span>
                                         @endforeach
@@ -109,7 +113,7 @@
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
                                                     @if ($role->trashed() &&
-    auth()->user()->hasPermission('roles-restore'))
+                                                        auth()->user()->hasPermission('roles-restore'))
                                                         <a class="dropdown-item"
                                                             href="{{ route('roles.restore', ['role' => $role->id]) }}">{{ __('Restore') }}</a>
                                                     @elseif(auth()->user()->hasPermission('roles-update'))
@@ -117,7 +121,7 @@
                                                             href="{{ route('roles.edit', ['role' => $role->id]) }}">{{ __('Edit') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('roles-delete') ||
-    auth()->user()->hasPermission('roles-trash'))
+                                                        auth()->user()->hasPermission('roles-trash'))
                                                         <form method="POST"
                                                             action="{{ route('roles.destroy', ['role' => $role->id]) }}">
                                                             @csrf

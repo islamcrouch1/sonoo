@@ -49,20 +49,14 @@ class OrdersController extends Controller
     }
 
 
-    public function updateStatus(Request $request, Order $order)
+    private function changeStatus($order, $status)
     {
-        $request->validate([
-            'status' => "required|string",
-        ]);
-
-        if (!checkOrderStatus($request->status, $order->status)) {
-            alertError('The status of the order cannot be changed', 'لا يمكن تغيير حالة الطلب');
-            return redirect()->route('orders.index');
-        }
 
         $order->update([
-            'status' => $request->status,
+            'status' => $status,
         ]);
+
+        createOrderHistory($order, $order->status);
 
         $description_ar = "تم تغيير حالة الطلب الى " . getArabicStatus($order->status) . ' طلب رقم ' . ' #' . $order->id;
         $description_en  = "order status has been changed to " . $order->status . ' order No ' . ' #' . $order->id;
@@ -77,10 +71,10 @@ class OrdersController extends Controller
 
         addNoty($order->user, Auth::user(), $url, $title_en, $title_ar, $body_en, $body_ar);
 
-        if ($request->status == 'canceled' || $request->status == 'RTO') {
+        if ($status == 'canceled' || $status == 'RTO') {
 
             foreach ($order->vendor_orders as $vendor_order) {
-                changeOutStandingBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, $request->status, 'sub');
+                changeOutStandingBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, $status, 'sub');
             }
 
             foreach ($order->products as $product) {
@@ -106,13 +100,12 @@ class OrdersController extends Controller
             changeOutStandingBalance($order->user, $order->total_commission, $order->id, $order->status, 'sub');
         }
 
-
-        if ($request->status == 'returned') {
+        if ($status == 'returned') {
             foreach ($order->vendor_orders as $vendor_order) {
                 if ($vendor_order->status == 'Waiting for the order amount to be released') {
-                    changeOutStandingBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, $request->status, 'sub');
+                    changeOutStandingBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, $status, 'sub');
                 } else {
-                    changeAvailableBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, $request->status, 'sub');
+                    changeAvailableBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, $status, 'sub');
                 }
             }
 
@@ -140,8 +133,7 @@ class OrdersController extends Controller
             changeAvailableBalance($order->user, $order->total_commission, $order->id, $order->status, 'sub');
         }
 
-
-        if ($request->status == 'delivered') {
+        if ($status == 'delivered') {
 
 
             // $mystock_price = 0;
@@ -156,11 +148,10 @@ class OrdersController extends Controller
             changeAvailableBalance($order->user, $order->total_commission, $order->id, $order->status, 'add');
         }
 
-
         foreach ($order->vendor_orders as $vendor_order) {
 
             $vendor_order->update([
-                'status' => $request->status == 'delivered' ? 'Waiting for the order amount to be released' : $request->status,
+                'status' => $status == 'delivered' ? 'Waiting for the order amount to be released' : $status,
             ]);
 
             $title_ar = 'اشعار من الإدارة';
@@ -170,9 +161,42 @@ class OrdersController extends Controller
             $url = route('vendor.orders.index');
             addNoty($vendor_order->user, Auth::user(), $url, $title_en, $title_ar, $body_en, $body_ar);
         }
+    }
 
 
-        alertSuccess('request updated successfully', 'تم تحديث حالة الطلب بنجاح');
+    public function updateStatus(Request $request, Order $order)
+    {
+        $request->validate([
+            'status' => "required|string",
+        ]);
+
+        if (!checkOrderStatus($request->status, $order->status)) {
+            alertError('The status of the order cannot be changed', 'لا يمكن تغيير حالة الطلب');
+            return redirect()->route('orders.index');
+        } else {
+            $this->changeStatus($order, $request->status);
+        }
+
+        alertSuccess('Order status updated successfully', 'تم تحديث حالة الطلب بنجاح');
+        return redirect()->route('orders.index');
+    }
+
+    public function updateStatusBulk(Request $request)
+    {
+        $request->validate([
+            'selected_status' => "required|string|max:255",
+            'selected_items' => "required|array",
+        ]);
+
+        foreach ($request->selected_items as $order) {
+            $order = Order::findOrFail($order);
+            if (!checkOrderStatus($request->selected_status, $order->status)) {
+                alertError('The status of some orders cannot be changed', 'لا يمكن تغيير حالة بعض الطلبات');
+            } else {
+                $this->changeStatus($order, $request->selected_status);
+                alertSuccess('Orders Status updated successfully', 'تم تحديث حالة الطلب بنجاح');
+            }
+        }
         return redirect()->route('orders.index');
     }
 
@@ -290,27 +314,50 @@ class OrdersController extends Controller
             'status' => "required|string|max:255",
         ]);
 
-        if ($request->status == 'delivered') {
-            $vendor_order->update([
-                'status' => $request->status,
-            ]);
-
-            $title_ar = 'اشعار من الإدارة';
-            $body_ar = "تم تغيير حالة الطلب الخاص بك الى " . getArabicStatus($vendor_order->status);
-            $title_en = 'Notification From Admin';
-            $body_en  = "Your order status has been changed to " . $vendor_order->status;
-            $url = route('vendor.orders.index');
-
-            addNoty($vendor_order->user, Auth::user(), $url, $title_en, $title_ar, $body_en, $body_ar);
-
-            changeOutStandingBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, $vendor_order->status, 'sub');
-            changeAvailableBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, $vendor_order->status, 'add');
-
+        if ($request->status == 'delivered' && $vendor_order->status == 'Waiting for the order amount to be released') {
+            $this->changeStatusVendor($vendor_order, $request->status);
             alertSuccess('Order status updated successfully', 'تم تحديث حالة الطلب بنجاح');
-            return redirect()->route('orders-vendor');
         } else {
             alertSuccess('Order status cannot be updated', 'لا يمكن تحديث حالة الطلب');
-            return redirect()->route('orders-vendor');
         }
+        return redirect()->route('orders-vendor');
+    }
+
+    public function updateStatusVendorBulk(Request $request)
+    {
+        $request->validate([
+            'selected_status' => "required|string|max:255",
+            'selected_items' => "required|array",
+        ]);
+
+        foreach ($request->selected_items as $vendor_order) {
+            $vendor_order = VendorOrder::findOrFail($vendor_order);
+            if ($request->selected_status == 'delivered' && $vendor_order->status == 'Waiting for the order amount to be released') {
+                $this->changeStatusVendor($vendor_order, $request->selected_status);
+                alertSuccess('Orders status updated successfully', 'تم تحديث حالة الطلبات بنجاح');
+            } else {
+                alertError('The status of some orders cannot be changed', 'لا يمكن تغيير حالة بعض الطلبات');
+            }
+        }
+        return redirect()->route('orders-vendor');
+    }
+
+    private function changeStatusVendor($vendor_order, $status)
+    {
+
+        $vendor_order->update([
+            'status' => $status,
+        ]);
+
+        $title_ar = 'اشعار من الإدارة';
+        $body_ar = "تم تغيير حالة الطلب الخاص بك الى " . getArabicStatus($vendor_order->status);
+        $title_en = 'Notification From Admin';
+        $body_en  = "Your order status has been changed to " . $vendor_order->status;
+        $url = route('vendor.orders.index');
+
+        addNoty($vendor_order->user, Auth::user(), $url, $title_en, $title_ar, $body_en, $body_ar);
+
+        changeOutStandingBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, $vendor_order->status, 'sub');
+        changeAvailableBalance($vendor_order->user, $vendor_order->total_price, $vendor_order->id, $vendor_order->status, 'add');
     }
 }

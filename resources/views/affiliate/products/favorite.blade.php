@@ -82,20 +82,20 @@
                                             <strong>{{ priceWithCommission($product) - $product->price }}
                                                 {{ ' ' . $product->country->currency }}</strong>
                                         </p>
+                                        <p class="fs--1 mb-1">Stock: <strong
+                                                class="text-success">{{ __('Available') }}</strong>
+                                        </p>
+                                        {{-- <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong> --}}
                                     </div>
                                 </div>
                                 <div class="d-flex flex-between-center px-3">
                                     <div>
-                                        <p class="fs--1 mb-1">Stock: <strong class="text-success">{{ __('Available') }}</strong>
-                                        </p>
-                                        {{-- <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong> --}}
 
-                                        {{-- <span class="fa fa-star text-warning">
-                                        </span><span class="fa fa-star text-warning"></span>
-                                        <span class="fa fa-star text-warning"></span>
-                                        <span class="fa fa-star text-warning"></span>
-                                        <span class="fa fa-star-half-alt text-warning star-icon"></span>
-                                        <span class="ms-1">(20)</span> --}}
+                                        {!! getAverageRatingWithStars($product) !!}
+
+                                        <span class="ms-1">({{ getRatingCount($product) }})</span>
+
+
                                     </div>
                                     <div>
                                         <a class="btn btn-sm btn-falcon-default me-2 add-fav" href="#!"

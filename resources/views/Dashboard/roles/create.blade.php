@@ -50,8 +50,8 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                                $models = ['users', 'roles', 'settings', 'countries', 'categories', 'orders', 'products', 'shipping_rates', 'colors', 'sizes', 'withdrawals', 'notes', 'messages', 'finances', 'slides', 'orders_notes', 'logs', 'bonus'];
-                                                $models_ar = ['المستخدمين', 'الصلاحيات', 'الاعدادات', 'الدول', 'الأقسام ', 'الطلبات', 'المنتجات', 'أسعار الشحن', 'الألوان', 'المقاسات', 'طلبات سحب الرصيد', 'الملاحظات', 'الرسائل والدعم', 'الحسابات', 'سلايدر', 'ملاحظات الاوردرات', 'سجل الأنشطة', 'البونص'];
+                                                $models = ['users', 'roles', 'settings', 'countries', 'categories', 'orders', 'products', 'shipping_rates', 'colors', 'sizes', 'withdrawals', 'notes', 'messages', 'finances', 'slides', 'orders_notes', 'logs', 'bonus', 'stock_management'];
+                                                $models_ar = ['المستخدمين', 'الصلاحيات', 'الاعدادات', 'الدول', 'الأقسام ', 'الطلبات', 'المنتجات', 'أسعار الشحن', 'الألوان', 'المقاسات', 'طلبات سحب الرصيد', 'الملاحظات', 'الرسائل والدعم', 'الحسابات', 'سلايدر', 'ملاحظات الاوردرات', 'سجل الأنشطة', 'البونص', 'إدارة المخزون'];
                                             @endphp
 
                                             @foreach ($models as $index => $model)
@@ -76,7 +76,8 @@
                                                                 name="permissions[]" multiple="multiple"
                                                                 data-options='{"removeItemButton":true,"placeholder":true}'>
                                                                 @foreach ($permissions_maps as $index => $permissions_map)
-                                                                    <option value="{{ $model . '-' . $permissions_map }}">
+                                                                    <option
+                                                                        value="{{ $model . '-' . $permissions_map }}">
                                                                         {{ app()->getLocale() == 'ar' ? $permissions_maps_ar[$index] : $permissions_map }}
                                                                     </option>
                                                                 @endforeach
@@ -95,8 +96,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
-                                    role') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Add New
+                                                                                                            role') }}</button>
                             </div>
                         </form>
 

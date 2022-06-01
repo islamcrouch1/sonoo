@@ -138,3 +138,8 @@ input:checked+.slider:before {
    .excolorr{
      color:#663300 !important;
    } 
+
+
+.thumb{
+    height: 75px;
+}

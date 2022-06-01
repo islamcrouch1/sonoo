@@ -12,7 +12,7 @@
                 data-bs-placement="left" title="Toggle Navigation"><span class="navbar-toggle-icon"><span
                         class="toggle-line"></span></span></button>
 
-        </div><a class="navbar-brand" href="{{ url('/') }}">
+        </div><a class="navbar-brand" href="{{ route('home') }}">
             <div class="d-flex align-items-center py-3"><img class="me-2"
                     src="{{ asset('assets/img/logo-blue.png') }}" alt="" width="150" />
             </div>
@@ -205,6 +205,18 @@
                                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                                             class="fas fa-truck"></span></span><span
                                         class="nav-link-text ps-1">{{ __('Shipping Rates') }}</span>
+                                </div>
+                            </a>
+                        @endif
+
+                        @if (auth()->user()->hasPermission('stock_management-read'))
+                            <!-- parent pages--><a
+                                class="nav-link {{ Route::is('stock.management*') ? 'active' : '' }}"
+                                href="{{ route('stock.management.index') }}" role="button" data-bs-toggle=""
+                                aria-expanded="false">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                            class="fas fa-layer-group"></span></span><span
+                                        class="nav-link-text ps-1">{{ __('Stock Management') }}</span>
                                 </div>
                             </a>
                         @endif

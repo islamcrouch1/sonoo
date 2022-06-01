@@ -63,7 +63,8 @@
             <div class="card-body">
                 <div class="row flex-between-center">
                     <div class="col-sm-auto mb-2 mb-sm-0">
-                        <h6 class="mb-0">{{ __('Showing 1-') }}{{ $products->count() }}{{ __('of Products') }} </h6>
+                        <h6 class="mb-0">
+                            {{ __('Showing 1-') }}{{ $products->count() }}{{ __('of Products') }} </h6>
                     </div>
                     <div class="col-sm-auto">
                         <div class="row gx-2 align-items-center">
@@ -160,20 +161,21 @@
                                             <strong>{{ priceWithCommission($product) - $product->price }}
                                                 {{ ' ' . $product->country->currency }}</strong>
                                         </p>
+                                        <p class="fs--1 mb-1">{{ __('Stock:') }} <strong
+                                                class="text-success">{{ __('Available') }}</strong>
+                                        </p>
+                                        {{-- <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong> --}}
+
                                     </div>
                                 </div>
                                 <div class="d-flex flex-between-center px-3">
                                     <div>
-                                        <p class="fs--1 mb-1">{{ __('Stock:') }} <strong class="text-success">{{ __('Available') }}</strong>
-                                        </p>
-                                        {{-- <p class="fs--1 mb-1">Stock: <strong class="text-danger">Sold-Out</strong> --}}
 
-                                        {{-- <span class="fa fa-star text-warning">
-                                        </span><span class="fa fa-star text-warning"></span>
-                                        <span class="fa fa-star text-warning"></span>
-                                        <span class="fa fa-star text-warning"></span>
-                                        <span class="fa fa-star-half-alt text-warning star-icon"></span>
-                                        <span class="ms-1">(20)</span> --}}
+                                        {!! getAverageRatingWithStars($product) !!}
+
+                                        <span class="ms-1">({{ getRatingCount($product) }})</span>
+
+
                                     </div>
                                     <div>
                                         <a class="btn btn-sm btn-falcon-default me-2 add-fav" href="#!"
@@ -227,5 +229,27 @@
             </div>
         </div>
     @endif
+
+
+    <!-- Modal -->
+    <div style="{{ app()->getLocale() == 'ar' ? 'direction: rtl; text-align: right' : '' }}" class="modal fade"
+        id="affiliateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">{{ setting('affiliate_modal_title') }}</h5>
+                    <button style="{{ app()->getLocale() == 'ar' ? 'margin:0' : '' }}" type="button"
+                        class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+                </div>
+                <div class="modal-body">
+                    {{ setting('affiliate_modal_body') }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ __('Close') }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
 @endsection

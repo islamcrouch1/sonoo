@@ -52,8 +52,8 @@
                                         </thead>
                                         <tbody>
                                             @php
-                                                $models = ['users', 'roles', 'settings', 'countries', 'categories', 'orders', 'products', 'shipping_rates', 'colors', 'sizes', 'withdrawals', 'notes', 'messages', 'finances', 'slides', 'orders_notes', 'logs', 'bonus'];
-                                                $models_ar = ['المستخدمين', 'الصلاحيات', 'الاعدادات', 'الدول', 'الأقسام ', 'الطلبات', 'المنتجات', 'أسعار الشحن', 'الألوان', 'المقاسات', 'طلبات سحب الرصيد', 'الملاحظات', 'الرسائل والدعم', 'الحسابات', 'سلايدر', 'ملاحظات الاوردرات', 'سجل الأنشطة', 'البونص'];
+                                                $models = ['users', 'roles', 'settings', 'countries', 'categories', 'orders', 'products', 'shipping_rates', 'colors', 'sizes', 'withdrawals', 'notes', 'messages', 'finances', 'slides', 'orders_notes', 'logs', 'bonus', 'stock_management'];
+                                                $models_ar = ['المستخدمين', 'الصلاحيات', 'الاعدادات', 'الدول', 'الأقسام ', 'الطلبات', 'المنتجات', 'أسعار الشحن', 'الألوان', 'المقاسات', 'طلبات سحب الرصيد', 'الملاحظات', 'الرسائل والدعم', 'الحسابات', 'سلايدر', 'ملاحظات الاوردرات', 'سجل الأنشطة', 'البونص', 'إدارة المخزون'];
                                             @endphp
 
                                             @foreach ($models as $index => $model)
@@ -99,8 +99,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
-                                    role') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Edit
+                                                                        role') }}</button>
                             </div>
                         </form>
 

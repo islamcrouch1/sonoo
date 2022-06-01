@@ -10,7 +10,7 @@ class Stock extends Model
     use HasFactory;
 
     protected $fillable = [
-        'color_id', 'size_id', 'product_id', 'quantity', 'image'
+        'color_id', 'size_id', 'product_id', 'quantity', 'image', 'limit'
     ];
 
     public function product()
@@ -31,10 +31,7 @@ class Stock extends Model
     public function scopeWhenSearch($query, $search)
     {
         return $query->when($search, function ($q) use ($search) {
-            return $q->where('stock', 'like', "%$search%")
-                ->orWhere('color_id', 'like', "%$search%")
-                ->orWhere('size_id', 'like', "%$search%")
-                ->orWhere('product', 'like', "%$search%");
+            return $q->orWhere('product_id', 'like', "$search");
         });
     }
 }
