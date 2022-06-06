@@ -108,10 +108,14 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Phone') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('User Type') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Status') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Phone') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('User Type') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Status') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                     data-sort="joined">{{ __('Joined') }}</th>
                                 @if ($users->count() > 0 && $users[0]->trashed())
@@ -231,8 +235,8 @@
                                                     <div class="p-4 pb-0">
 
                                                         <div class="mb-3">
-                                                            <label class="form-label" for="bonus">{{ __('Enter bonus
-                                                                amount') }}</label>
+                                                            <label class="form-label"
+                                                                for="bonus">{{ __('Enter bonus amount') }}</label>
                                                             <input name="bonus"
                                                                 class="form-control @error('bonus') is-invalid @enderror"
                                                                 value="{{ old('bonus') }}" type="number"

@@ -29,6 +29,33 @@ $(document).ready(function(){
         $(this).closest('form').submit();
     });
 
+    $('.sonoo-form').change(function(){
+        $(this).closest('form').submit();
+    });
+
+
+    $('#copy').click(function(){
+        copyLink();
+    });
+
+
+    function copyLink() {
+
+        /* Get the text field */
+        var copyText = document.getElementById("page-link");
+        var locale = document.getElementById("locale");
+
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+        /* Copy the text inside the text field */
+        navigator.clipboard.writeText(copyText.value);
+
+    }
+
+
+
 
 
 

@@ -316,6 +316,14 @@
                             </div>
                         </a>
 
+                        <a class="nav-link {{ Route::is('mystore.show*') ? 'active' : '' }}"
+                            href="{{ route('mystore.show') }}" role="button" data-bs-toggle="" aria-expanded="false">
+                            <div class="d-flex align-items-center"><span class="nav-link-icon"><span
+                                        class="fas fa-store"></span></span><span
+                                    class="nav-link-text ps-1">{{ __('My Store') }}</span>
+                            </div>
+                        </a>
+
                         <a class="nav-link {{ Route::is('favorite*') ? 'active' : '' }}"
                             href="{{ route('favorite') }}" role="button" data-bs-toggle="" aria-expanded="false">
                             <div class="d-flex align-items-center"><span class="nav-link-icon"><span

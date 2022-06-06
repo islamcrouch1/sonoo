@@ -43,6 +43,48 @@ $(document).ready(function(){
         }
     });
 
+    // function to calculate affiliate commission when change price in add to my store
+    $('input[type=number].product-price-store').change(function(){
+
+        var min = $(this).data('min');
+        var max = $(this).data('max');
+        var price = $(this).val() ;
+        var product_id = $(this).data('product_id');
+        var span = '#aff_comm_store' + product_id;
+        var alarm = '.alarm-' + product_id ;
+        var alarm_text = '.alarm-text-' + product_id ;
+        var locale = $(this).data('locale');
+
+        if(price < min){
+
+            $(this).val(min);
+            $(span).html(0);
+            if(locale == 'ar'){
+                $(alarm_text).html("يجب أن يكون سعر البيع من " + min + " إلى " +  max)
+            }else{
+                $(alarm_text).html("Selling price must be between " + min + " to " +  max)
+            }
+            $(alarm).css('display', 'flex');
+
+        }else if(price > max){
+
+            $(alarm).css('display', 'none');
+            $(this).val(max);
+            $(span).html(max - min);
+            if(locale == 'ar'){
+                $(alarm_text).html("يجب أن يكون سعر البيع من " + min + " إلى " +  max)
+            }else{
+                $(alarm_text).html("Selling price must be between " + min + " to " +  max)
+            }
+            $(alarm).css('display', 'flex');
+
+        }else{
+
+            $(alarm).css('display', 'none');
+            $(span).html(price - min);
+        }
+    });
+
     // display related sizes for each color
     $('input[type=radio].color-select').change(function(){
         // get data from color input

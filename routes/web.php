@@ -33,3 +33,4 @@ require __DIR__ . '/affiliate.php';
 require __DIR__ . '/vendor.php';
 require __DIR__ . '/verification.php';
 require __DIR__ . '/user.php';
+require __DIR__ . '/store.php';
