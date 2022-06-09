@@ -21,22 +21,22 @@
                                         href="{{ route('front.index') }}">
                                         <img style="width:150px" src="{{ asset('assets/img/logo.png') }}" alt="">
                                     </a>
-                                    <p class="opacity-75 text-white">With the power of Falcon, you can now focus only on
-                                        functionaries for your digital products, while leaving the UI design on us!</p>
+                                    <p class="opacity-75 text-white"> {{ __('Do not miss the chance.Now you can start your business without needing any capital.') }} </p>
+              
                                 </div>
                             </div>
                             <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                                <p class="pt-3 text-white">Have an account?<br><a class="btn btn-outline-light mt-2 px-4"
-                                        href="{{ route('login') }}">Log In</a></p>
+                                <p class="pt-3 text-white">{{ __('Have an account?') }}<br><a class="btn btn-outline-light mt-2 px-4"
+                                        href="{{ route('login') }}">{{ __('Log In') }}</a></p>
                             </div>
                         </div>
                         <div class="col-md-7 d-flex flex-center">
                             <div class="p-4 p-md-5 flex-grow-1">
-                                <h3>Register</h3>
+                                <h3>{{ __('Register') }}</h3>
                                 <form method="POST" action="{{ route('user.register') }}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label" for="name">Name</label>
+                                        <label class="form-label" for="name">{{ __('Name') }}</label>
                                         <input name="name" class="form-control @error('name') is-invalid @enderror"
                                             value="{{ old('name') }}" type="text" autocomplete="on" id="name" autofocus
                                             required />
@@ -46,7 +46,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="email">Email address</label>
+                                        <label class="form-label" for="email">{{ __('Email address') }}</label>
                                         <input class="form-control @error('email') is-invalid @enderror" type="email"
                                             autocomplete="on" id="email" name="email" autocomplete="on"
                                             value="{{ old('email') }}" required />
@@ -57,13 +57,13 @@
 
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="role">Account type</label>
+                                        <label class="form-label" for="role">{{ __('Account type') }}</label>
 
                                         <select class="form-select @error('role') is-invalid @enderror" aria-label=""
                                             name="role" id="role" required>
-                                            <option value="4" {{ old('role') == '4' ? 'selected' : '' }}>Affiliate
+                                            <option value="4" {{ old('role') == '4' ? 'selected' : '' }}>{{ __('Affiliate') }}
                                             </option>
-                                            <option value="3" {{ old('role') == '3' ? 'selected' : '' }}>Vendor</option>
+                                            <option value="3" {{ old('role') == '3' ? 'selected' : '' }}>{{ __('Vendor') }}</option>
                                         </select>
                                         @error('role')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -71,11 +71,11 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="country">Account type</label>
+                                        <label class="form-label" for="country">{{ __('country') }}</label>
 
                                         <select class="form-select @error('country') is-invalid @enderror" aria-label=""
                                             name="country" id="country" required>
-                                            <option value="1" {{ old('country') == '1' ? 'selected' : '' }}>Egypt
+                                            <option value="1" {{ old('country') == '1' ? 'selected' : '' }}>{{ __('Egypt') }}
                                             </option>
                                         </select>
                                         @error('country')
@@ -84,7 +84,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="phone">Phone</label>
+                                        <label class="form-label" for="phone">{{ __('Phone') }}</label>
                                         <input class="form-control @error('phone') is-invalid @enderror" type="number"
                                             autocomplete="on" id="phone" name="phone" autocomplete="on"
                                             value="{{ old('phone') }}" required />
@@ -96,7 +96,7 @@
 
                                     <div class="row gx-2">
                                         <div class="mb-3 col-sm-6">
-                                            <label class="form-label" for="password">Password</label>
+                                            <label class="form-label" for="password">{{ __('Password') }}</label>
                                             <input class="form-control @error('password') is-invalid @enderror"
                                                 type="password" autocomplete="on" id="password" name="password" required />
                                             @error('password')
@@ -104,8 +104,7 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3 col-sm-6">
-                                            <label class="form-label" for="password_confirmation">Confirm
-                                                Password</label>
+                                            <label class="form-label" for="password_confirmation">{{ __('Confirm Password') }}</label>
                                             <input class="form-control @error('password_confirmation') is-invalid @enderror"
                                                 type="password" autocomplete="on" id="password_confirmation"
                                                 name="password_confirmation" required />
@@ -117,20 +116,20 @@
 
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="gender">Gender</label>
+                                        <label class="form-label" for="gender">{{ __('Gender') }}</label>
 
                                         <br>
                                         <div class="form-check form-check-inline">
                                             <input {{ old('gender') == 'male' ? 'checked' : '' }}
                                                 class="form-check-input @error('gender') is-invalid @enderror" id="gender1"
                                                 type="radio" name="gender" value="male" required />
-                                            <label class="form-check-label" for="flexRadioDefault1">Male</label>
+                                            <label class="form-check-label" for="flexRadioDefault1">{{ __('Male') }}</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input {{ old('gender') == 'female' ? 'checked' : '' }}
                                                 class="form-check-input @error('gender') is-invalid @enderror" id="gender2"
                                                 type="radio" name="gender" value="female" required />
-                                            <label class="form-check-label" for="flexRadioDefault2">Female</label>
+                                            <label class="form-check-label" for="flexRadioDefault2">{{ __('Female') }}</label>
                                         </div>
 
                                         @error('gender')
@@ -139,7 +138,7 @@
                                     </div>
 
                                     <div class="mb-3">
-                                        <label class="form-label" for="profile">Profile picture</label>
+                                        <label class="form-label" for="profile">{{ __('Profile picture') }}</label>
                                         <input name="profile"
                                             class="img form-control @error('profile') is-invalid @enderror" type="file"
                                             id="profile" />
@@ -164,8 +163,8 @@
                                     <div class="form-check">
                                         <input class="form-check-input @error('check') is-invalid @enderror"
                                             type="checkbox" id="check" name="check" required />
-                                        <label class="form-label" for="check">I accept the <a href="#!">terms </a>and <a
-                                                href="#!">privacy policy</a></label>
+                                        <label class="form-label" for="check">{{ __('I accept the') }} <a href="#!">{{ __('terms') }} </a>{{ __('and') }} <a
+                                                href="#!">{{ __('privacy policy') }}</a></label>
                                         @error('check')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -175,7 +174,7 @@
 
                                     <div class="mb-3">
                                         <button class="btn btn-primary d-block w-100 mt-3" type="submit"
-                                            name="submit">Register</button>
+                                            name="submit">{{ __('Register') }}</button>
                                     </div>
                                 </form>
 

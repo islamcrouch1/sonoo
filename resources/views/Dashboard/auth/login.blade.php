@@ -21,25 +21,23 @@
                                         href="{{ route('front.index') }}"> <img style="width:150px"
                                             src="{{ asset('assets/img/logo.png') }}" alt="">
                                     </a>
-                                    <p class="opacity-75 text-white">With the power of Falcon, you can now focus only on
-                                        functionaries for your digital products, while leaving the UI design on us!</p>
+                                    <p class="opacity-75 text-white">{{ __('Sonoo will always have more, your time with us is always rewarded.') }} </p>
                                 </div>
                             </div>
                             <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                                <p class="text-white">Don't have an account?<br><a
+                                <p class="text-white"> {{ __("Don't have an account?") }}<br><a
                                         class="text-decoration-underline link-light"
-                                        href="{{ route('user.register') }}">Get
-                                        started!</a></p>
-                                <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">Read our <a
-                                        class="text-decoration-underline text-white" href="#!">terms</a> and <a
-                                        class="text-decoration-underline text-white" href="#!">conditions </a></p>
+                                        href="{{ route('user.register') }}">{{ __('Get started!') }}</a></p>
+                                <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">{{ __('Read our') }} <a
+                                        class="text-decoration-underline text-white" href="#!">{{ __('terms') }}</a> {{ __('and') }} <a
+                                        class="text-decoration-underline text-white" href="#!">{{ __('conditions') }} </a></p>
                             </div>
                         </div>
                         <div class="col-md-7 d-flex flex-center">
                             <div class="p-4 p-md-5 flex-grow-1">
                                 <div class="row flex-between-center">
                                     <div class="col-auto">
-                                        <h3>Account Login</h3>
+                                        <h3>{{ __('Account Login') }}</h3>
                                     </div>
                                 </div>
                                 @if (session('status'))
@@ -55,7 +53,7 @@
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label" for="phone">Phone Number</label>
+                                        <label class="form-label" for="phone">{{ __('Phone Number') }}</label>
                                         <input class="form-control @error('phone') is-invalid @enderror" id="phone"
                                             type="txt" name="phone" value="{{ old('phone') }}" required autofocus
                                             autocomplete="on" />
@@ -67,7 +65,7 @@
                                     </div>
                                     <div class="mb-3">
                                         <div class="d-flex justify-content-between">
-                                            <label class="form-label" for="password">Password</label>
+                                            <label class="form-label" for="password">{{ __('Password') }}</label>
                                         </div>
                                         <div style="position: relative" id="show_hide_password">
                                             <input class="form-control @error('password') is-invalid @enderror"
@@ -88,16 +86,14 @@
                                             <div class="form-check mb-0">
                                                 <input class="form-check-input" type="checkbox" id="card-checkbox"
                                                     name="remember" checked="checked" />
-                                                <label class="form-check-label mb-0" for="card-checkbox">Remember me</label>
+                                                <label class="form-check-label mb-0" for="card-checkbox">{{ __('Remember me') }}</label>
                                             </div>
                                         </div>
                                         <div class="col-auto"><a class="fs--1"
-                                                href="{{ route('password.reset.request') }}">Forgot
-                                                Password?</a></div>
+                                                href="{{ route('password.reset.request') }}">{{ __('Forgot Password?') }}</a></div>
                                     </div>
                                     <div class="mb-3">
-                                        <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Log
-                                            in</button>
+                                        <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Log in') }}</button>
                                     </div>
                                 </form>
                                 {{-- <div class="position-relative mt-4">

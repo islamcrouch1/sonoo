@@ -7,12 +7,10 @@
                  data-bs-offset-top="0" data-scroll-to="#banner"><span class="fas fa-chevron-up"
                      data-fa-transform="rotate-45"></span></a></div>
          <div class="row">
-             <div class="col-lg-4">
-                 <h5 class="text-uppercase text-white opacity-85 mb-3">Our Mission</h5>
-                 <p class="text-600">Falcon enables front end developers to build custom streamlined user
-                     interfaces in a matter of hours, while it gives backend developers all the UI elements they need to
-                     develop their web app.And it's rich design can be easily integrated with backends whether your app
-                     is based on ruby on rails, laravel, express or any other server side system.</p>
+             
+             <div class="col-lg-4 col-md-4 ">
+                 
+                <iframe id="mapcanvas" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.449033681021!2d31.2432972149728!3d30.052660781879318!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145840960a775b41%3A0xfd2f355c9fc375f3!2zMyAyNiDZitmI2YTZitmI2IwgT3JhYnksIEFiZGVlbiwgQ2Fpcm8gR292ZXJub3JhdGU!5e0!3m2!1sen!2seg!4v1637431424568!5m2!1sen!2seg"></iframe>
                  <div class="icon-group mt-4"><a class="icon-item bg-white text-facebook" href="#!"><span
                              class="fab fa-facebook-f"></span></a><a class="icon-item bg-white text-twitter"
                          href="#!"><span class="fab fa-twitter"></span></a><a
@@ -21,21 +19,21 @@
                          href="#!"><span class="fab fa-linkedin-in"></span></a><a class="icon-item bg-white"
                          href="#!"><span class="fab fa-medium-m"></span></a></div>
              </div>
-             <div class="col ps-lg-6 ps-xl-8">
-                 <div class="row mt-5 mt-lg-0">
-                     <div class="col-6 col-md-3">
-                         <h5 class="text-uppercase text-white opacity-85 mb-3">Company</h5>
-                         <ul class="list-unstyled">
-                             <li class="mb-1"><a class="link-600" href="#!">About</a></li>
-                             <li class="mb-1"><a class="link-600" href="#!">Contact</a></li>
-                             <li class="mb-1"><a class="link-600" href="#!">Careers</a></li>
-                             <li class="mb-1"><a class="link-600" href="#!">Blog</a></li>
-                             <li class="mb-1"><a class="link-600" href="#!">Terms</a></li>
-                             <li class="mb-1"><a class="link-600" href="#!">Privacy</a></li>
-                             <li><a class="link-600" href="#!">Imprint</a></li>
+            
+                 
+            <div class="col-lg-4 text-center col-md-4">
+                          <h5 class="  fs-2  text-white   mb-3">{{ __('Menu') }}</h5>
+                         <ul class="list-unstyled"> 
+                             <li class="mb-3"><a class="link-600" href="#!">{{ __('Home') }}</a></li>
+                             <li class="mb-3"><a class="link-600" href="#!">{{ __('About') }}</a></li>
+                             <li class="mb-3"><a class="link-600" href="#!">{{ __('Contact') }}</a></li>
+                        
+                             <li class="mb-3"><a class="link-600" href="#!">{{ __('Terms and conditions') }}</a></li>
+                             <li class="mb-3"><a class="link-600" href="#!">{{ __('Frequent Questions') }}</a></li>
+                           
                          </ul>
-                     </div>
-                     <div class="col-6 col-md-3">
+            </div>
+                     {{-- <div class="col-6 col-md-3">
                          <h5 class="text-uppercase text-white opacity-85 mb-3">Product</h5>
                          <ul class="list-unstyled">
                              <li class="mb-1"><a class="link-600" href="#!">Features</a></li>
@@ -47,32 +45,32 @@
                              <li class="mb-1"><a class="link-600" href="#!">Agencies</a></li>
                              <li class="mb-1"><a class="link-600" href="#!">Enterprise</a></li>
                          </ul>
-                     </div>
-                     <div class="col mt-5 mt-md-0">
-                         <h5 class="text-uppercase text-white opacity-85 mb-3">From the Blog</h5>
-                         <ul class="list-unstyled">
-                             <li>
-                                 <h5 class="fs-0 mb-0"><a class="link-600" href="#!"> Interactive graphs and
-                                         charts</a></h5>
+                     </div> --}}
+            <div class="col-lg-4 col-md-4 mt-1 ">
+                       
+                         <ul class="list-unstyled mt-0">
+                             {{-- <li>
+                                 <h5 class="fs-6 mb-0"><a class="link-600" href="#!"> terms and conditions
+                                         </a></h5>
                                  <p class="text-600 opacity-50">Jan 15 &bull; 8min read </p>
+                             </li> --}}
+                             <li>
+                                 <h5 class="fs-2 text-light  mb-0"> {{ __('Email') }}
+                                         </h5>
+                                 <p class="text-600  opacity-70">................</p>
                              </li>
                              <li>
-                                 <h5 class="fs-0 mb-0"><a class="link-600" href="#!"> Lifetime free
-                                         updates</a></h5>
-                                 <p class="text-600 opacity-50">Jan 5 &bull; 3min read &starf;</p>
+                                 <h5 class="fs-2  text-light mb-0">{{ __('Phone Number') }}
+                                        </h5>
+                                 <p class="text-600 opacity-70">....................</p>
                              </li>
                              <li>
-                                 <h5 class="fs-0 mb-0"><a class="link-600" href="#!"> Merry Christmas From
-                                         us</a></h5>
-                                 <p class="text-600 opacity-50">Dec 25 &bull; 2min read</p>
-                             </li>
-                             <li>
-                                 <h5 class="fs-0 mb-0"><a class="link-600" href="#!"> The New Falcon
-                                         Theme</a></h5>
-                                 <p class="text-600 opacity-50">Dec 23 &bull; 10min read </p>
+                                 <h5 class="fs-2 text-light  mb-0"> {{ __('Address') }}
+                                         </h5>
+                                 <p class="text-600 pt-2 opacity-70">{{ __('3, 26th of July Street, second floor, Flat 25, in front of Al-Hawari, Lebanon Square,  Al-Muhandseen') }} </p>
                              </li>
                          </ul>
-                     </div>
+            </div>
                  </div>
              </div>
          </div>
@@ -95,12 +93,12 @@
          <div class="container py-3">
              <div class="row justify-content-between fs--1">
                  <div class="col-12 col-sm-auto text-center">
-                     <p class="mb-0 text-600 opacity-85">Thank you for creating with Falcon <span
+                     <p class="mb-0 text-600 opacity-85">  {{ __('All Rights Reserved') }}<span
                              class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy; <a
-                             class="text-white opacity-85" href="https://themewagon.com">Themewagon</a></p>
+                             class="text-white opacity-85" href="https://sonoo.online.com"> {{ __('Sonooegy') }}</a></p>
                  </div>
                  <div class="col-12 col-sm-auto text-center">
-                     <p class="mb-0 text-600 opacity-85">v3.8.0</p>
+                     <p class="mb-0 text-600 opacity-85"></p>
                  </div>
              </div>
          </div>

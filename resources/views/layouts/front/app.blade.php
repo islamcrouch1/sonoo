@@ -36,27 +36,48 @@
     <!-- ===============================================-->
     <link href="{{ asset('/vendors/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link
         href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,500,600,700%7cPoppins:300,400,500,600,700,800,900&amp;display=swap"
         rel="stylesheet">
+    <link
+     href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
+     rel="stylesheet">
+      
     <link href="{{ asset('vendors/overlayscrollbars/OverlayScrollbars.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/theme-rtl.min.css') }}" rel="stylesheet" id="style-rtl">
     <link href="{{ asset('assets/css/theme.min.css') }}" rel="stylesheet" id="style-default">
     <link href="{{ asset('assets/css/user-rtl.min.css') }}" rel="stylesheet" id="user-style-rtl">
     <link href="{{ asset('assets/css/user.min.css') }}" rel="stylesheet" id="user-style-default">
     <link href="{{ asset('assets/css/custom.css') }}" rel="stylesheet" >
+   
     
 
 
 
     @if (app()->getLocale() == 'ar')
+    
         <script>
             var linkDefault = document.getElementById('style-default');
             var userLinkDefault = document.getElementById('user-style-default');
             linkDefault.setAttribute('disabled', true);
             userLinkDefault.setAttribute('disabled', true);
             document.querySelector('html').setAttribute('dir', 'rtl');
+            
+            
         </script>
+         
+        <style>
+
+            @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+            h1,h2,h3,h5,h6,p,span{
+            font-family:'Cairo' !important;
+        }
+         </style>
+                
+
+           
+     
     @else
         <script>
             var linkRTL = document.getElementById('style-rtl');
@@ -65,6 +86,7 @@
             userLinkRTL.setAttribute('disabled', true);
         </script>
     @endif
+    
 </head>
 
 
