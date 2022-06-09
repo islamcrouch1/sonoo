@@ -153,6 +153,13 @@
                                 <span class="fas fa-cart-plus me-sm-2 cart-icon"></span>
                                 <span class="d-none d-sm-inline-block">{{ __('Add To Cart') }}</span>
                             </button></div>
+
+                        <div class="col-auto px-1 px-md-2"><button class="btn btn-sm btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#mystore-modal">
+                                <span class=" d-none d-sm-inline-block">{{ __('Add To My Store') }}</span>
+                            </button>
+                        </div>
+
                         <div class="col-auto px-0"><a class="btn btn-sm btn-outline-danger border-300 add-fav" href="#!"
                                 data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"
                                 data-id="{{ $product->id }}"
@@ -263,4 +270,75 @@
             </div>
         </div>
     </div>
+
+
+
+    <!-- start bonus modal for each user -->
+    <div class="modal fade" id="mystore-modal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+            <div class="modal-content position-relative">
+                <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+                    <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base"
+                        data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form method="POST" action="{{ route('mystore.store', ['product' => $product->id]) }}">
+                    @csrf
+                    <div class="modal-body p-0">
+                        <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+                            <h4 class="mb-1" id="modalExampleDemoLabel">
+                                {{ __('Add product to my store') }}
+                            </h4>
+                        </div>
+
+                        <div class="alert alert-info m-2" role="alert">
+                            {{ __('Add the price of the product that will be displayed on your store page.') }}</div>
+
+                        <div class="p-4 pb-0">
+
+                            <div class="mb-3">
+                                <label class="form-label"
+                                    for="store_price">{{ __('Suggested selling price') }}</label>
+                                <input name="store_price"
+                                    class="form-control product-price-store @error('store_price') is-invalid @enderror"
+                                    value="{{ priceWithCommission($product) }}" type="number" autocomplete="on"
+                                    id="store_price" min="{{ $product->price }}" max="{{ $product->max_price }}"
+                                    data-product_id="{{ $product->id }}" data-max="{{ $product->max_price }}"
+                                    data-min="{{ $product->price }}" autofocus required />
+                                @error('store_price')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+                            <div class="mb-3" style="display: none">
+
+                                <input name="product_price"
+                                    class="form-control @error('product_price') is-invalid @enderror"
+                                    value="{{ $product->price }}" type="number" autocomplete="on" id="product_price"
+                                    autofocus required />
+                                @error('product_price')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                            </div>
+
+
+                            <div class="mb-3">
+                                <small style="font-size: 20px" class="text-warning me-2">{{ __('Profit:') }} <span
+                                        id="aff_comm_store{{ $product->id }}">{{ priceWithCommission($product) - $product->price }}</span>
+                                    {{ ' ' . $product->country->currency }} </small>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button"
+                            data-bs-dismiss="modal">{{ __('Close') }}</button>
+                        <button class="btn btn-primary" type="submit">{{ __('Add') }}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- end bonus modal for each user -->
 @endsection

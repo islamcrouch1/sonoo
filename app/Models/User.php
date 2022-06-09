@@ -25,7 +25,7 @@ class User extends Authenticatable
      */
 
     protected $fillable = [
-        'name', 'email', 'password', 'country_id', 'phone', 'gender', 'profile', 'role', 'status', 'lang'
+        'name', 'email', 'password', 'country_id', 'phone', 'gender', 'profile', 'role', 'status', 'lang', 'store_name', 'store_description', 'store_profile', 'store_cover', 'store_status'
     ];
 
     /**
@@ -48,6 +48,11 @@ class User extends Authenticatable
         'phone_verified_at' => 'datetime',
     ];
 
+
+    public function store_products()
+    {
+        return $this->hasMany(StoreProduct::class);
+    }
 
     public function vendor_products()
     {

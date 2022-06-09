@@ -6,6 +6,7 @@ use App\Http\Controllers\Affiliate\FavoriteController;
 use App\Http\Controllers\Affiliate\OrdersController;
 use App\Http\Controllers\Affiliate\ReviewsController;
 use App\Http\Controllers\Affiliate\ShippingRatesController;
+use App\Http\Controllers\Affiliate\StoreController;
 use App\Http\Controllers\Dashboard\HomeController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,4 +42,9 @@ Route::group(['prefix' => 'affiliate', 'middleware' => ['role:affiliate']], func
 
     // reviews routes
     Route::post('reviews/{product}', [ReviewsController::class, 'store'])->name('reviews.affiliate.index')->middleware('auth', 'checkverified', 'checkstatus');
+
+    // store routes
+    Route::post('mystore/{product}', [StoreController::class, 'store'])->name('mystore.store')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('mystore', [StoreController::class, 'show'])->name('mystore.show')->middleware('auth', 'checkverified', 'checkstatus');
+    Route::get('mystore/delete/{product}', [StoreController::class, 'destroy'])->name('mystore.destroy')->middleware('auth', 'checkverified', 'checkstatus');
 });

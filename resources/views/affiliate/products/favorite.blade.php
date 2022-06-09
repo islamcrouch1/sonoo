@@ -28,7 +28,7 @@
                             <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
                                 <div class="overflow-hidden">
                                     <div class="position-relative rounded-top overflow-hidden">
-                                        <div class="swiper-container theme-slider"
+                                        <div style="height: 180px" class="swiper-container theme-slider"
                                             data-swiper='{"autoplay":true,"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"}}'>
                                             <div class="swiper-wrapper">
 

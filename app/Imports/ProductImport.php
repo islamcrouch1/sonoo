@@ -193,12 +193,12 @@ class ProductImport implements
                     //     $constraint->aspectRatio();
                     // })->
 
-                    Image::make($contents)->save(public_path('storage/images/products/' . $rand  . ' - ' . $row['sku'] . $name), 80);
+                    Image::make($contents)->save(public_path('storage/images/products/' . $rand  . '-' . $row['sku'] . $name), 80);
 
                     ProductImage::create([
 
                         'product_id' => $product->id,
-                        'image' => $rand . ' - ' . $row['sku'] . $name,
+                        'image' => $rand . '-' . $row['sku'] . $name,
                     ]);
                 } catch (Exception $e) {
                 }

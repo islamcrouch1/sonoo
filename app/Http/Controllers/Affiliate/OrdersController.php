@@ -108,7 +108,26 @@ class OrdersController extends Controller
             //     $av_stock = Astock::find($product->pivot->stock_id);
             // }
 
-            $order->products()->attach($product->id, ['stock_id' => $product->pivot->stock_id, 'quantity' => $product->pivot->quantity, 'selling_price' => $product->pivot->price, 'vendor_price' => $product->vendor_price, 'commission_per_item' => $product->pivot->price - $product->price, 'profit_per_item' => $product->price - $product->vendor_price, 'total_selling_price' => ($product->pivot->price * $product->pivot->quantity), 'total_commission' => ($product->pivot->price - $product->price) * $product->pivot->quantity, 'product_type' => $product->pivot->product_type, 'size_ar' => $av_stock->size->size_ar, 'size_en' => $av_stock->size->size_en, 'color_en' => $av_stock->color->color_en, 'color_ar' => $av_stock->color->color_ar]);
+            $order->products()->attach(
+                $product->id,
+                [
+                    'stock_id' => $product->pivot->stock_id,
+                    'quantity' => $product->pivot->quantity,
+                    'selling_price' => $product->pivot->price,
+                    'vendor_price' => $product->vendor_price,
+                    'commission_per_item' => $product->pivot->price - $product->price,
+                    'profit_per_item' => $product->price - $product->vendor_price,
+                    'total_selling_price' => ($product->pivot->price * $product->pivot->quantity),
+                    'total_commission' => ($product->pivot->price - $product->price) * $product->pivot->quantity,
+                    'product_type' => $product->pivot->product_type,
+                    'size_ar' => $av_stock->size->size_ar,
+                    'size_en' => $av_stock->size->size_en,
+                    'color_en' => $av_stock->color->color_en,
+                    'color_ar' => $av_stock->color->color_ar
+                ]
+            );
+
+
             $vendor_order = $product->vendor->vendor_orders()->create([
                 'total_price' => $product->vendor_price * $product->pivot->quantity,
                 'order_id' => $order->id,
@@ -116,7 +135,20 @@ class OrdersController extends Controller
                 'user_id' => $product->vendor->id,
                 'user_name' => $product->vendor->name,
             ]);
-            $vendor_order->products()->attach($product->id, ['stock_id' => $product->pivot->stock_id, 'quantity' => $product->pivot->quantity, 'vendor_price' => $product->vendor_price, 'total_vendor_price' => ($product->vendor_price * $product->pivot->quantity), 'product_type' => $product->pivot->product_type, 'size_ar' => $av_stock->size->size_ar, 'size_en' => $av_stock->size->size_en, 'color_en' => $av_stock->color->color_en, 'color_ar' => $av_stock->color->color_ar]);
+            $vendor_order->products()->attach(
+                $product->id,
+                [
+                    'stock_id' => $product->pivot->stock_id,
+                    'quantity' => $product->pivot->quantity,
+                    'vendor_price' => $product->vendor_price,
+                    'total_vendor_price' => ($product->vendor_price * $product->pivot->quantity),
+                    'product_type' => $product->pivot->product_type,
+                    'size_ar' => $av_stock->size->size_ar,
+                    'size_en' => $av_stock->size->size_en,
+                    'color_en' => $av_stock->color->color_en,
+                    'color_ar' => $av_stock->color->color_ar
+                ]
+            );
             changeOutStandingBalance($product->vendor, $vendor_order->total_price, $vendor_order->id, $vendor_order->status, 'add');
             $total_price = 0;
         }
