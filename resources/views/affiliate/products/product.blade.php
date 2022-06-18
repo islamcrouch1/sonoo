@@ -63,19 +63,33 @@
 
                         @foreach ($stocks as $index => $stock)
                             @if ($stock->image != null)
-                                <input type="radio" class="btn-check color-select" value="{{ $stock->id }}"
+                            <div class="inline-block">
+                                <div>
+                                  <input  type="radio" id="option{{ $index + 1 }}" name="color-select" value="{{ $stock->id }}"  data-product_id="{{ $product->id }}" data-color_id="{{ $stock->color_id }}"
+                                  data-stock_id="{{ $stock->id }}" checked>
+                                  <label for="option{{ $index + 1 }}">
+                                    <span class="span">
+                                      <img src="https://www.freepik.com/free-vector/white-vector-check-mark-tick-circle-conceptual_16305250.htm#query=check&position=7&from_view=keyword" alt="Checked Icon" />
+                                    </span>
+                                  </label>
+                                </div>
+                            </div>
+                           
+                                {{-- <input type="radio" class="btn-check rounded-circle color-select"  value="{{ $stock->id }}" 
                                     name="color-select" id="option{{ $index + 1 }}"
                                     data-product_id="{{ $product->id }}" data-color_id="{{ $stock->color_id }}"
                                     data-stock_id="{{ $stock->id }}">
-                                <label class="btn btn-falcon-primary" for="option{{ $index + 1 }}"><i
-                                        style="color:{{ $stock->color->hex }}" class="fas fa-circle fa-2x"></i></label>
+                                   
+                                    
+                                <label class="  btn-falcon-default rounded-circle" for="option{{ $index + 1 }}"><span
+                                        style="color:{{ $stock->color->hex }}" class=" fas fa-solid fa-circle fa-3x"></span></label> --}}
                                 {{-- {{ app()->getLocale() == 'ar' ? $stock->color->color_ar : $stock->color->color_en }} --}}
                             @else
-                                <input type="radio" class="btn-check color-select" value="{{ $stock->id }}"
+                                <input type="radio" class="btn-check rounded-circle color-select" value="{{ $stock->id }}"
                                     name="color-select" id="option{{ $index + 1 }}" data-stock_id="{{ $stock->id }}"
                                     data-color_id="{{ $stock->color_id }}" data-product_id="{{ $product->id }}">
-                                <label class="btn btn-falcon-primary" for="option{{ $index + 1 }}"><i
-                                        style="color:{{ $stock->color->hex }}" class="fas fa-circle fa-2x"></i></label>
+                                <label class="btn-falcon-default rounded-circle" for="option{{ $index + 1 }}"><span
+                                        style="color:{{ $stock->color->hex }}" class="fas fa-solid fa-circle fa-3x"></span></label>
                             @endif
                         @endforeach
 

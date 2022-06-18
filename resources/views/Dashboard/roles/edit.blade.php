@@ -100,8 +100,7 @@
 
                             <div class="mb-3">
                                 <button class="btn btn-primary d-block w-100 mt-3" type="submit"
-                                    name="submit">{{ __('Edit
-                                                                        role') }}</button>
+                                    name="submit">{{ __('Edit role') }}</button>
                             </div>
                         </form>
 

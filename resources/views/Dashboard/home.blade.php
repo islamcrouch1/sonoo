@@ -418,31 +418,38 @@
             </div>
         </div>
 
-        <div class="row g-3 mb-3">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        {{ __('New feature from Sonoo!') }}
-                        <span class="badge badge-soft-warning">New</span>
-                    </div>
-                    <div class="card-body">
-                        <h5 class="card-title">{{ __('Products listing page for affiliate:') }}</h5>
-                        <p class="card-text pt-2">
-                            {{ __('You can now choose your list of products and display them on a sale page ready to complete the order directly from your customers, a new feature that enables you to market in an easier way without the need to create a website or a landing page for products, all you need now is to choose the products and create your advertising campaigns and get profits') }}
-                        </p>
-                        <a href="{{ route('store.show', ['user' => Auth::id()]) }}" target="_blank"
-                            class="btn btn-primary">{{ __('Visit your page') }}</a>
-                        <button id="copy" class="btn btn-info">{{ __('Copy link') }}</button>
-                        <input style="display: none" type="text"
-                            value="{{ route('store.show', ['user' => Auth::id()]) }}" id="page-link">
 
-                        <input style="display: none" type="text" value="{{ app()->getLocale() }}" id="locale">
+    @endif
 
 
-                    </div>
+    @if (Auth::user()->hasRole('affiliate'))
+
+    <div class="row g-3 mb-3">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    {{ __('New feature from Sonoo!') }}
+                    <span class="badge badge-soft-warning">New</span>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ __('Products listing page for affiliate:') }}</h5>
+                    <p class="card-text pt-2">
+                        {{ __('You can now choose your list of products and display them on a sale page ready to complete the order directly from your customers, a new feature that enables you to market in an easier way without the need to create a website or a landing page for products, all you need now is to choose the products and create your advertising campaigns and get profits') }}
+                    </p>
+                    <a href="{{ route('store.show', ['user' => Auth::id()]) }}" target="_blank"
+                        class="btn btn-primary">{{ __('Visit your page') }}</a>
+                    <button id="copy" class="btn btn-info">{{ __('Copy link') }}</button>
+                    <input style="display: none" type="text"
+                        value="{{ route('store.show', ['user' => Auth::id()]) }}" id="page-link">
+
+                    <input style="display: none" type="text" value="{{ app()->getLocale() }}" id="locale">
+
+
                 </div>
             </div>
         </div>
+    </div>
+
     @endif
 
 
