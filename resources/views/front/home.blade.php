@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-xl-7 offset-xl-1 align-self-end mt-1 mt-xl-0"><a class="img-landing-banner rounded"
                         href="{{ route('front.index') }}"><img class="img-fluid mb-10"
-                            src="../assets/img/generic/dashboard-altcopy.png" alt="" /></a></div>
+                            src="../assets/img/generic/Dashboard-altcopy.png" alt="" /></a></div>
             </div>
         </div>
         <!-- end of .container-->

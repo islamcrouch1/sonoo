@@ -12,26 +12,26 @@
 
              <ul class="navbar-nav" data-top-nav-dropdowns="data-top-nav-dropdowns">
                  <li class="nav-item "><a class="nav-link" href="{{ route('front.index') }}" role="button"
-                         id="dashboards">Home</a>
+                         id="Dashboards">Home</a>
                  </li>
                  <li class="nav-item "><a class="nav-link" href="{{ route('front.fqs') }}" role="button"
-                         id="dashboards">FAQs</a>
+                         id="Dashboards">FAQs</a>
                  </li>
                  <li class="nav-item "><a class="nav-link" href="{{ route('front.terms') }}" role="button"
-                         id="dashboards">Terms and conditions</a>
+                         id="Dashboards">Terms and conditions</a>
                  </li>
                  {{-- <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                         id="dashboards">Dashboard</a>
-                     <div class="dropdown-menu dropdown-menu-card border-0 mt-0" aria-labelledby="dashboards">
+                         id="Dashboards">Dashboard</a>
+                     <div class="dropdown-menu dropdown-menu-card border-0 mt-0" aria-labelledby="Dashboards">
                          <div class="bg-white dark__bg-1000 rounded-3 py-2"><a class="dropdown-item link-600 fw-medium"
                                  href="../index.html">Default</a><a class="dropdown-item link-600 fw-medium"
-                                 href="../dashboard/analytics.html">Analytics</a><a
-                                 class="dropdown-item link-600 fw-medium" href="../dashboard/crm.html">CRM</a><a
-                                 class="dropdown-item link-600 fw-medium" href="../dashboard/e-commerce.html">E
+                                 href="../Dashboard/analytics.html">Analytics</a><a
+                                 class="dropdown-item link-600 fw-medium" href="../Dashboard/crm.html">CRM</a><a
+                                 class="dropdown-item link-600 fw-medium" href="../Dashboard/e-commerce.html">E
                                  commerce</a><a class="dropdown-item link-600 fw-medium"
-                                 href="../dashboard/project-management.html">Management</a><a
-                                 class="dropdown-item link-600 fw-medium" href="../dashboard/saas.html">SaaS</a>
+                                 href="../Dashboard/project-management.html">Management</a><a
+                                 class="dropdown-item link-600 fw-medium" href="../Dashboard/saas.html">SaaS</a>
                          </div>
                      </div>
                  </li>

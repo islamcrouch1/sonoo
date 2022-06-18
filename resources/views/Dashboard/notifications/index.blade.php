@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -34,7 +34,7 @@
                                         <div class="d-flex d-flex align-items-center">
                                             <div class="avatar avatar-xl me-2">
                                                 <img class="rounded-circle"
-                                                    src="{{ Auth::user()->hasRole('administrator|superadministrator')? $notification->sender_image: asset('assets/img/fevicon.png') }}"
+                                                    src="{{ Auth::user()->hasRole('administrator|superadministrator') ? $notification->sender_image : asset('assets/img/fevicon.png') }}"
                                                     alt="" />
                                             </div>
                                             <div class="flex-1">

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -20,8 +20,8 @@
                             @csrf
                             <div class="mb-3">
                                 <label class="form-label" for="name_ar">{{ __('Color') }}</label>
-                                <select class=" form-control @error('color') is-invalid @enderror" id="color" name="color"
-                                    value="{{ old('color') }}" required autocomplete="color">
+                                <select class=" form-control @error('color') is-invalid @enderror" id="color"
+                                    name="color" value="{{ old('color') }}" required autocomplete="color">
                                     @foreach ($colors as $color)
                                         <option value="{{ $color->id }}">
                                             {{ app()->getLocale() == 'ar' ? $color->color_ar : $color->color_en }}
@@ -34,8 +34,8 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="name_ar">{{ __('Size') }}</label>
-                                <select class=" form-control @error('size') is-invalid @enderror" id="size" name="size"
-                                    value="{{ old('size') }}" required autocomplete="size">
+                                <select class=" form-control @error('size') is-invalid @enderror" id="size"
+                                    name="size" value="{{ old('size') }}" required autocomplete="size">
                                     @foreach ($sizes as $size)
                                         <option value="{{ $size->id }}">
                                             {{ app()->getLocale() == 'ar' ? $size->size_ar : $size->size_en }}</option>
@@ -46,8 +46,9 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
-                                    Stock') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Add New
+                                                                        Stock') }}</button>
                             </div>
                         </form>
 

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app_login')
+@extends('layouts.Dashboard.app_login')
 
 @section('authContent')
     <div class="row min-vh-100 flex-center g-0">
@@ -17,17 +17,20 @@
                                 <!--/.bg-holder-->
 
                                 <div class="z-index-1 position-relative"><a
-                                        class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder" href="#"> <img
-                                            style="width:150px" src="{{ asset('assets/img/logo.png') }}" alt="">
+                                        class="link-light mb-4 font-sans-serif fs-4 d-inline-block fw-bolder"
+                                        href="#"> <img style="width:150px" src="{{ asset('assets/img/logo.png') }}"
+                                            alt="">
                                     </a>
                                     <p class="opacity-75 text-white">
                                         {{ __('Enter the new password') }} </p>
                                 </div>
                             </div>
                             <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                                <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">{{ __('Read our') }} <a
-                                        class="text-decoration-underline text-white" href="#!">{{ __('terms') }}</a>{{ __('and ') }} <a
-                                        class="text-decoration-underline text-white" href="#!">{{ __('conditions') }} </a></p>
+                                <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">{{ __('Read our') }}
+                                    <a class="text-decoration-underline text-white"
+                                        href="#!">{{ __('terms') }}</a>{{ __('and ') }} <a
+                                        class="text-decoration-underline text-white" href="#!">{{ __('conditions') }}
+                                    </a></p>
                             </div>
                         </div>
                         <div class="col-md-7 d-flex flex-center">

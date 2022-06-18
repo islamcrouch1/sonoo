@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -55,13 +55,15 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('City') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Cost') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('City') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Cost') }}
+                                </th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                     data-sort="joined">{{ __('Created at') }}</th>
                                 @if ($shipping_rates->count() > 0 && $shipping_rates[0]->trashed())
                                     <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
-                                        data-sort="joined">{{__('Deleted at') }}</th>
+                                        data-sort="joined">{{ __('Deleted at') }}</th>
                                 @endif
                                 <th class="align-middle no-sort"></th>
                             </tr>
@@ -103,7 +105,7 @@
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
                                                     @if ($shipping_rate->trashed() &&
-    auth()->user()->hasPermission('shipping_rates-restore'))
+                                                        auth()->user()->hasPermission('shipping_rates-restore'))
                                                         <a class="dropdown-item"
                                                             href="{{ route('shipping_rates.restore', ['shipping_rate' => $shipping_rate->id]) }}">{{ __('Restore') }}</a>
                                                     @elseif(auth()->user()->hasPermission('shipping_rates-update'))
@@ -111,7 +113,7 @@
                                                             href="{{ route('shipping_rates.edit', ['shipping_rate' => $shipping_rate->id]) }}">{{ __('Edit') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('shipping_rates-delete') ||
-    auth()->user()->hasPermission('shipping_rates-trash'))
+                                                        auth()->user()->hasPermission('shipping_rates-trash'))
                                                         <form method="POST"
                                                             action="{{ route('shipping_rates.destroy', ['shipping_rate' => $shipping_rate->id]) }}">
                                                             @csrf

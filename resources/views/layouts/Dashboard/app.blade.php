@@ -68,7 +68,6 @@
             .colorpicker.colorpicker-with-alpha {
                 left: 150px !important;
             }
-
         </style>
     @else
         <script>
@@ -81,7 +80,6 @@
             .colorpicker.colorpicker-with-alpha {
                 left: 300px !important;
             }
-
         </style>
     @endif
 </head>
@@ -106,19 +104,19 @@
 
 
 
-            @include('layouts.dashboard._aside')
+            @include('layouts.Dashboard._aside')
 
 
 
             <div class="content">
 
-                @include('layouts.dashboard._header')
+                @include('layouts.Dashboard._header')
 
-                @include('layouts.dashboard._flash')
+                @include('layouts.Dashboard._flash')
 
                 @yield('adminContent')
 
-                @include('layouts.dashboard._footer')
+                @include('layouts.Dashboard._footer')
 
 
             </div>

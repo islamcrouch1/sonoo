@@ -42,7 +42,7 @@ class ProductsController extends Controller
             ->latest()
             ->paginate(100);
 
-        return view('dashboard.products.index')->with('products', $products)->with('categories', $categories)->with('countries', $countries);
+        return view('Dashboard.products.index')->with('products', $products)->with('categories', $categories)->with('countries', $countries);
     }
 
     public function show(Product $product)
@@ -54,7 +54,7 @@ class ProductsController extends Controller
             ->where('parent', $product->categories()->first()->id)
             ->get();
 
-        return view('dashboard.products.show', compact('categories', 'product'));
+        return view('Dashboard.products.show', compact('categories', 'product'));
     }
 
     /**
@@ -68,7 +68,7 @@ class ProductsController extends Controller
         $countries = Country::all();
         $colors = Color::all();
         $sizes = Size::all();
-        return view('dashboard.products.create', compact('colors', 'categories', 'countries', 'sizes'));
+        return view('Dashboard.products.create', compact('colors', 'categories', 'countries', 'sizes'));
     }
 
 
@@ -175,7 +175,7 @@ class ProductsController extends Controller
         $categories = Category::whereNull('parent_id')->get();
         $countries = Country::all();
         $product = Product::find($product);
-        return view('dashboard.products.edit', compact('categories', 'countries', 'product'));
+        return view('Dashboard.products.edit', compact('categories', 'countries', 'product'));
     }
 
     /**
@@ -322,7 +322,7 @@ class ProductsController extends Controller
             ->whenCategory(request()->category_id)
             ->whenCountry(request()->country_id)
             ->paginate(100);
-        return view('dashboard.products.index')->with('products', $products)->with('categories', $categories)->with('countries', $countries);
+        return view('Dashboard.products.index')->with('products', $products)->with('categories', $categories)->with('countries', $countries);
     }
 
     public function restore($product)
@@ -335,7 +335,7 @@ class ProductsController extends Controller
     public function stockCreate($product)
     {
         $product = Product::findOrFail($product);
-        return view('dashboard.products.stock ')->with('product', $product);
+        return view('Dashboard.products.stock ')->with('product', $product);
     }
 
 
@@ -374,7 +374,7 @@ class ProductsController extends Controller
         $colors = Color::all();
         $sizes = Size::all();
         $product = Product::find($product);
-        return view('dashboard.products.color', compact('colors', 'sizes', 'product'));
+        return view('Dashboard.products.color', compact('colors', 'sizes', 'product'));
     }
 
     public function colorStore(Request $request, Product $product)
@@ -426,7 +426,7 @@ class ProductsController extends Controller
             ->get();
 
 
-        return view('dashboard.aff-prod.mystock_product', compact('categories', 'product'));
+        return view('Dashboard.aff-prod.mystock_product', compact('categories', 'product'));
     }
 
     public function myStockOrder($lang, Request $request, Product $product)
@@ -548,8 +548,8 @@ class ProductsController extends Controller
 
         $user = User::find($user);
 
-        return view('dashboard.orders.mystock_orders')->with('orders', $orders)->with('user', $user);
-        // return view('dashboard.orders.mystock_orders' , compact($orders , $user));
+        return view('Dashboard.orders.mystock_orders')->with('orders', $orders)->with('user', $user);
+        // return view('Dashboard.orders.mystock_orders' , compact($orders , $user));
 
 
     }
@@ -574,7 +574,7 @@ class ProductsController extends Controller
             ->paginate(100);
 
 
-        return view('dashboard.all_orders.stock_orders')->with('orders', $orders);
+        return view('Dashboard.all_orders.stock_orders')->with('orders', $orders);
     }
 
     public function myStockCancel($lang, Aorder $order)
@@ -606,7 +606,7 @@ class ProductsController extends Controller
             ->get();
 
 
-        return view('dashboard.aff-prod.sproduct', compact('categories', 'product', 'order'));
+        return view('Dashboard.aff-prod.sproduct', compact('categories', 'product', 'order'));
     }
 
     public function myStockProducts($lang)
@@ -624,7 +624,7 @@ class ProductsController extends Controller
 
 
 
-        return view('dashboard.aff-prod.mystock_products', compact('orders', 'user'));
+        return view('Dashboard.aff-prod.mystock_products', compact('orders', 'user'));
     }
 
     public function myStockordersChange($lang, Request $request, Aorder $order)

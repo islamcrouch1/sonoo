@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'user', 'middleware' => ['role:superadministrator|administrator|affiliate|vendor']], function () {
 
-    // home view route - dashboard
+    // home view route - Dashboard
     Route::get('/', [HomeController::class, 'index'])->name('home')->middleware('auth', 'checkverified', 'checkstatus');
 
     // user routes

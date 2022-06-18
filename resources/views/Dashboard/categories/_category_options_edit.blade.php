@@ -8,7 +8,7 @@ isset($count) ? $count++ : ($count = 1);
 
 @if ($scategory->children->count() > 0)
     @foreach ($scategory->children as $subCat)
-        @include('dashboard.categories._category_options_edit', [
+        @include('Dashboard.categories._category_options_edit', [
             'scategory' => $subCat,
             'count' => $count,
         ])

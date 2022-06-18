@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -23,7 +23,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="name_ar">{{ __('product name - arabic') }}</label>
                                 <input name="name_ar" class="form-control @error('name_ar') is-invalid @enderror"
-                                    value="{{ $product->name_ar }}" type="text" autocomplete="on" id="name_ar" required />
+                                    value="{{ $product->name_ar }}" type="text" autocomplete="on" id="name_ar"
+                                    required />
                                 @error('name_ar')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -32,7 +33,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="name_en">{{ __('product name - english') }}</label>
                                 <input name="name_en" class="form-control @error('name_en') is-invalid @enderror"
-                                    value="{{ $product->name_en }}" type="text" autocomplete="on" id="name_en" required />
+                                    value="{{ $product->name_en }}" type="text" autocomplete="on" id="name_en"
+                                    required />
                                 @error('name_en')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -41,14 +43,16 @@
                             <div class="mb-3">
                                 <label class="form-label" for="sku">{{ __('SKU') }}</label>
                                 <input name="sku" class="form-control @error('sku') is-invalid @enderror"
-                                    value="{{ $product->sku }}" type="text" autocomplete="on" id="sku" required />
+                                    value="{{ $product->sku }}" type="text" autocomplete="on" id="sku"
+                                    required />
                                 @error('sku')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description_ar">{{ __('product description - arabic') }}</label>
+                                <label class="form-label"
+                                    for="description_ar">{{ __('product description - arabic') }}</label>
                                 <textarea id="description_ar" class="form-control tinymce d-none @error('description_ar') is-invalid @enderror"
                                     name="description_ar">{!! $product->description_ar !!}</textarea>
                                 @error('description_ar')
@@ -57,7 +61,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description_en">{{ __('product description - english') }}</label>
+                                <label class="form-label"
+                                    for="description_en">{{ __('product description - english') }}</label>
                                 <textarea id="description_en" class="form-control tinymce d-none @error('description_en') is-invalid @enderror"
                                     name="description_en">{!! $product->description_en !!}</textarea>
                                 @error('description_en')
@@ -117,10 +122,11 @@
 
                                         @if ($category->children->count() > 0)
                                             @foreach ($category->children as $subCat)
-                                                @include('dashboard.categories._category_options_product_edit', [
-                                                    'scategory' => $subCat,
-                                                    'product' => $product,
-                                                ])
+                                                @include('Dashboard.categories._category_options_product_edit',
+                                                    [
+                                                        'scategory' => $subCat,
+                                                        'product' => $product,
+                                                    ])
                                             @endforeach
                                         @endif
                                     @endforeach
@@ -208,8 +214,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
-                                    Product') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Edit
+                                                                        Product') }}</button>
                             </div>
                         </form>
 

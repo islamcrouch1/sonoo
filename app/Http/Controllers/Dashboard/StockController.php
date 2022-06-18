@@ -16,6 +16,6 @@ class StockController extends Controller
             ->latest()
             ->paginate(100);
 
-        return view('dashboard.stocks.index', compact('stocks'));
+        return view('Dashboard.stocks.index', compact('stocks'));
     }
 }

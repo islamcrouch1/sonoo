@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="row g-3 mb-3">
@@ -36,7 +36,8 @@
                         </div>
                         <div class="col-6 col-md-4 pb-0 pt-4 ps-3">
                             <button class="btn btn-primary mb-1" type="button" data-bs-toggle="offcanvas"
-                                data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">{{ __('Withdrawal Request') }}</button>
+                                data-bs-target="#offcanvasRight"
+                                aria-controls="offcanvasRight">{{ __('Withdrawal Request') }}</button>
                             <div class="offcanvas offcanvas-end" id="offcanvasRight" tabindex="-1"
                                 aria-labelledby="offcanvasRightLabel">
                                 <div class="offcanvas-header">
@@ -82,7 +83,8 @@
                                                                 <select
                                                                     class="form-select @error('type') is-invalid @enderror"
                                                                     aria-label="" name="type" id="type" required>
-                                                                    <option value="1" selected>{{ __('Vodafone Cash') }}
+                                                                    <option value="1" selected>
+                                                                        {{ __('Vodafone Cash') }}
                                                                     </option>
                                                                 </select>
                                                                 @error('type')
@@ -170,9 +172,12 @@
                     <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
                         <thead class="bg-200 text-900">
                             <tr>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Withdrawal ID') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Amount') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('status') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">
+                                    {{ __('Withdrawal ID') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
+                                    {{ __('Amount') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('status') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                     data-sort="joined">{{ __('Created at') }}</th>
                             </tr>

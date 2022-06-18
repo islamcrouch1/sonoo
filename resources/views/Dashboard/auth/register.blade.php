@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app_login')
+@extends('layouts.Dashboard.app_login')
 
 @section('authContent')
     <div class="row min-vh-100 flex-center g-0">

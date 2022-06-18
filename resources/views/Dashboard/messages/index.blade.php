@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card overflow-hidden mb-3">
@@ -17,14 +17,14 @@
                         <div class="notification-avatar">
                             <div class="avatar avatar-xl me-3">
                                 <img class="rounded-circle"
-                                    src="{{ asset('storage/images/users/' . $message->sender->profile) }}" alt="" />
+                                    src="{{ asset('storage/images/users/' . $message->sender->profile) }}"
+                                    alt="" />
 
                             </div>
                         </div>
                         <div class="notification-body">
                             <p class="mb-1">{{ $message->message }}</p>
-                            <span class="notification-time"><span class="me-2" role="img"
-                                    aria-label="Emoji">📢</span>
+                            <span class="notification-time"><span class="me-2" role="img" aria-label="Emoji">📢</span>
                                 {{ $message->created_at }}
                                 <span class="badge badge-soft-info ">{{ interval($message->created_at) }}</span>
 
@@ -56,14 +56,16 @@
                             <div class="mb-3">
                                 <label class="form-label" for="message">{{ __('Message') }}</label>
                                 <input name="message" class="form-control @error('message') is-invalid @enderror"
-                                    value="{{ old('message') }}" type="text" autocomplete="on" id="message" required />
+                                    value="{{ old('message') }}" type="text" autocomplete="on" id="message"
+                                    required />
                                 @error('message')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Send Message') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Send Message') }}</button>
                             </div>
                         </form>
 

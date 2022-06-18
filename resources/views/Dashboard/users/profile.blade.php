@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
 
@@ -27,8 +27,7 @@
                             <label class="mb-0 overlay-icon d-flex flex-center" for="profile-image"><span
                                     class="bg-holder overlay overlay-0"></span><span
                                     class="z-index-1 text-white dark__text-white text-center fs--1"><span
-                                        class="fas fa-camera"></span><span
-                                        class="d-block">Update</span></span></label>
+                                        class="fas fa-camera"></span><span class="d-block">Update</span></span></label>
                         </div>
                     </div>
                 </form>
@@ -62,7 +61,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Save</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">Save</button>
                             </div>
                         </form>
                     </div>
@@ -103,8 +103,9 @@
 
                             <div class="mb-3">
                                 <label class="form-label" for="email">Email address</label>
-                                <input class="form-control @error('email') is-invalid @enderror" type="email" id="email"
-                                    name="email" autocomplete="on" value="{{ $user->email }}" required />
+                                <input class="form-control @error('email') is-invalid @enderror" type="email"
+                                    id="email" name="email" autocomplete="on" value="{{ $user->email }}"
+                                    required />
                                 @error('email')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -114,8 +115,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="role">Account type</label>
 
-                                <select class="form-select @error('role') is-invalid @enderror" aria-label="" name="role"
-                                    id="role" disabled>
+                                <select class="form-select @error('role') is-invalid @enderror" aria-label=""
+                                    name="role" id="role" disabled>
                                     @if ($user->hasRole('vendor') || $user->hasRole('affiliate'))
                                         <option value="{{ $user->hasRole('affiliate') ? '4' : '3' }}" selected>
                                             {{ $user->hasRole('affiliate') ? 'affiliate' : 'vendor' }}</option>

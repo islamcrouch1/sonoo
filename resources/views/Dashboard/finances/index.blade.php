@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card-white mb-3" id="customersTable"
@@ -21,8 +21,8 @@
 
                             <div class="d-inline-block">
                                 {{-- <label class="form-label" for="to">{{ __('To') }}</label> --}}
-                                <input type="date" id="to" name="to" class="form-control form-select-sm sonoo-search"
-                                    value="{{ request()->to }}">
+                                <input type="date" id="to" name="to"
+                                    class="form-control form-select-sm sonoo-search" value="{{ request()->to }}">
                             </div>
                         </form>
                     </div>

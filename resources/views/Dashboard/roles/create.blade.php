@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -98,7 +98,7 @@
                             <div class="mb-3">
                                 <button class="btn btn-primary d-block w-100 mt-3" type="submit"
                                     name="submit">{{ __('Add New
-                                                                                                            role') }}</button>
+                                                                                                                                                role') }}</button>
                             </div>
                         </form>
 

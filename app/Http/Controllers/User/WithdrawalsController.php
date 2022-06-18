@@ -18,7 +18,7 @@ class WithdrawalsController extends Controller
         $user = Auth::user();
         $withdrawals = Withdrawal::where('user_id', $user->id)->latest()->paginate(50);
         $requests = ModelsRequest::where('user_id', $user->id)->latest()->paginate(50);
-        return view('dashboard.withdrawals.user', compact('user', 'withdrawals', 'requests'));
+        return view('Dashboard.withdrawals.user', compact('user', 'withdrawals', 'requests'));
     }
 
     public function store(Request $request)

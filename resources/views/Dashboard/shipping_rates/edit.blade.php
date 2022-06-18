@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -43,8 +43,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="cost">{{ __('Cost') }}</label>
                                 <input name="cost" class="form-control @error('cost') is-invalid @enderror"
-                                    value="{{ $shipping_rate->cost }}" type="number" min="0" autocomplete="on" id="cost"
-                                    required />
+                                    value="{{ $shipping_rate->cost }}" type="number" min="0" autocomplete="on"
+                                    id="cost" required />
                                 @error('cost')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -69,8 +69,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
-                                    Shipping Rate') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Edit
+                                                                        Shipping Rate') }}</button>
                             </div>
                         </form>
 

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app_login')
+@extends('layouts.Dashboard.app_login')
 
 @section('authContent')
     <div class="row min-vh-100 flex-center g-0">
@@ -21,16 +21,19 @@
                                         href="{{ route('front.index') }}"> <img style="width:150px"
                                             src="{{ asset('assets/img/logo.png') }}" alt="">
                                     </a>
-                                    <p class="opacity-75 text-white">{{ __('Sonoo will always have more, your time with us is always rewarded.') }} </p>
+                                    <p class="opacity-75 text-white">
+                                        {{ __('Sonoo will always have more, your time with us is always rewarded.') }}
+                                    </p>
                                 </div>
                             </div>
                             <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
                                 <p class="text-white"> {{ __("Don't have an account?") }}<br><a
                                         class="text-decoration-underline link-light"
                                         href="{{ route('user.register') }}">{{ __('Get started!') }}</a></p>
-                                <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">{{ __('Read our') }} <a
-                                        class="text-decoration-underline text-white" href="#!">{{ __('terms') }}</a> {{ __('and') }} <a
-                                        class="text-decoration-underline text-white" href="#!">{{ __('conditions') }} </a></p>
+                                <p class="mb-0 mt-4 mt-md-5 fs--1 fw-semi-bold text-white opacity-75">{{ __('Read our') }}
+                                    <a class="text-decoration-underline text-white" href="#!">{{ __('terms') }}</a>
+                                    {{ __('and') }} <a class="text-decoration-underline text-white"
+                                        href="#!">{{ __('conditions') }} </a></p>
                             </div>
                         </div>
                         <div class="col-md-7 d-flex flex-center">
@@ -86,14 +89,17 @@
                                             <div class="form-check mb-0">
                                                 <input class="form-check-input" type="checkbox" id="card-checkbox"
                                                     name="remember" checked="checked" />
-                                                <label class="form-check-label mb-0" for="card-checkbox">{{ __('Remember me') }}</label>
+                                                <label class="form-check-label mb-0"
+                                                    for="card-checkbox">{{ __('Remember me') }}</label>
                                             </div>
                                         </div>
                                         <div class="col-auto"><a class="fs--1"
-                                                href="{{ route('password.reset.request') }}">{{ __('Forgot Password?') }}</a></div>
+                                                href="{{ route('password.reset.request') }}">{{ __('Forgot Password?') }}</a>
+                                        </div>
                                     </div>
                                     <div class="mb-3">
-                                        <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Log in') }}</button>
+                                        <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                            name="submit">{{ __('Log in') }}</button>
                                     </div>
                                 </form>
                                 {{-- <div class="position-relative mt-4">

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -55,9 +55,12 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Code') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Currency') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Code') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Currency') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                     data-sort="joined">{{ __('Created at') }}</th>
                                 @if ($countries->count() > 0 && $countries[0]->trashed())
@@ -109,7 +112,7 @@
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
                                                     @if ($country->trashed() &&
-    auth()->user()->hasPermission('countries-restore'))
+                                                        auth()->user()->hasPermission('countries-restore'))
                                                         <a class="dropdown-item"
                                                             href="{{ route('countries.restore', ['country' => $country->id]) }}">{{ __('Restore') }}</a>
                                                     @elseif(auth()->user()->hasPermission('countries-update'))
@@ -117,7 +120,7 @@
                                                             href="{{ route('countries.edit', ['country' => $country->id]) }}">{{ __('Edit') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('countries-delete') ||
-    auth()->user()->hasPermission('countries-trash'))
+                                                        auth()->user()->hasPermission('countries-trash'))
                                                         <form method="POST"
                                                             action="{{ route('countries.destroy', ['country' => $country->id]) }}">
                                                             @csrf

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -22,8 +22,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="name_ar">{{ __('Country name - arabic') }}</label>
                                 <input name="name_ar" class="form-control @error('name_ar') is-invalid @enderror"
-                                    value="{{ $country->name_ar }}" type="text" autocomplete="on" id="name_ar" autofocus
-                                    required />
+                                    value="{{ $country->name_ar }}" type="text" autocomplete="on" id="name_ar"
+                                    autofocus required />
                                 @error('name_ar')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -32,8 +32,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="name_en">{{ __('Country name - english') }}</label>
                                 <input name="name_en" class="form-control @error('name_en') is-invalid @enderror"
-                                    value="{{ $country->name_en }}" type="text" autocomplete="on" id="name_en" autofocus
-                                    required />
+                                    value="{{ $country->name_en }}" type="text" autocomplete="on" id="name_en"
+                                    autofocus required />
                                 @error('name_en')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -54,8 +54,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="currency">{{ __('Country Currency') }}</label>
                                 <input name="currency" class="form-control @error('currency') is-invalid @enderror"
-                                    value="{{ $country->currency }}" type="text" autocomplete="on" id="currency" autofocus
-                                    required />
+                                    value="{{ $country->currency }}" type="text" autocomplete="on" id="currency"
+                                    autofocus required />
                                 @error('currency')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -83,8 +83,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
-                                    Country') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Edit
+                                                                        Country') }}</button>
                             </div>
                         </form>
 
