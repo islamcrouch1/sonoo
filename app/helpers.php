@@ -401,6 +401,12 @@ if (!function_exists('CalculateProductPrice')) {
         $producPrice = $totalProfit + $product->vendor_price;
         $maxPrice = $producPrice * setting('max_price') / 100;
 
+        $maxAffiliateProfit = $maxPrice - $producPrice;
+        $AffiliateProfitTax = $maxAffiliateProfit * setting('tax') / 100;
+        $producPrice = $producPrice + $AffiliateProfitTax;
+
+
+
         $product->update([
             'max_price' => ceil($maxPrice),
             'total_profit' => ceil($totalProfit),

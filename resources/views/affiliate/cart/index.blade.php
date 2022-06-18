@@ -71,7 +71,8 @@
                                         <input
                                             class="form-control text-center input-spin-none quantity-{{ $product->pivot->stock_id }}"
                                             data-url="{{ route('cart.change', ['stock_id' => $product->pivot->stock_id]) }}"
-                                            type="number" name="quantity" min="1" value="{{ $product->pivot->quantity }}"
+                                            type="number" name="quantity" min="1"
+                                            value="{{ $product->pivot->quantity }}"
                                             aria-label="Amount (to the nearest dollar)" style="max-width: 50px" />
                                         <button class="btn btn-sm btn-outline-secondary border-300 cart-quantity"
                                             data-field="input-quantity" data-type="plus"
@@ -95,7 +96,7 @@
                 </table>
             </div>
 
-            <div class="row fw-bold gx-card mx-0">
+            {{-- <div class="row fw-bold gx-card mx-0">
                 <div class="col-9 col-md-8 py-2 text-end text-900">{{ __('Total') }}</div>
                 <div class="col px-0">
                     <div class="row gx-card mx-0">
@@ -105,7 +106,7 @@
                             {{ calculateCartTotal($user->cart) . ' ' . $user->country->currency }}</div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
         {{-- <div class="card-footer bg-light d-flex justify-content-end">
             <form class="me-3">
@@ -147,7 +148,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="address">{{ __('Address') . ' *' }}</label>
                                 <input name="address" class="form-control @error('address') is-invalid @enderror"
-                                    value="{{ old('address') }}" type="text" autocomplete="on" id="address" required />
+                                    value="{{ old('address') }}" type="text" autocomplete="on" id="address"
+                                    required />
                                 @error('address')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -164,8 +166,10 @@
 
                             <div class="mb-3">
                                 <label class="form-label" for="special_mark">{{ __('Special Mark') }}</label>
-                                <input name="special_mark" class="form-control @error('special_mark') is-invalid @enderror"
-                                    value="{{ old('special_mark') }}" type="text" autocomplete="on" id="special_mark" />
+                                <input name="special_mark"
+                                    class="form-control @error('special_mark') is-invalid @enderror"
+                                    value="{{ old('special_mark') }}" type="text" autocomplete="on"
+                                    id="special_mark" />
                                 @error('special_mark')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -189,7 +193,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="phone1">{{ __('Phone') . ' *' }}</label>
                                 <input name="phone1" class="form-control @error('phone1') is-invalid @enderror"
-                                    value="{{ old('phone1') }}" type="text" autocomplete="on" id="phone1" required />
+                                    value="{{ old('phone1') }}" type="text" autocomplete="on" id="phone1"
+                                    required />
                                 @error('phone1')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

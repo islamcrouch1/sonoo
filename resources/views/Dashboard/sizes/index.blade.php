@@ -55,7 +55,10 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('ID') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}
+                                </th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                     data-sort="joined">{{ __('Created at') }}</th>
                                 @if ($sizes->count() > 0 && $sizes[0]->trashed())
@@ -72,6 +75,11 @@
                                         <div class="form-check fs-0 mb-0 d-flex align-items-center">
                                             <input class="form-check-input" type="checkbox" id="customer-0"
                                                 data-bulk-select-row="data-bulk-select-row" />
+                                        </div>
+                                    </td>
+                                    <td class="name align-middle white-space-nowrap py-2">
+                                        <div class="d-flex d-flex align-items-center">
+                                            {{ $size->id }}
                                         </div>
                                     </td>
                                     <td class="name align-middle white-space-nowrap py-2">
@@ -100,7 +108,7 @@
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
                                                     @if ($size->trashed() &&
-    auth()->user()->hasPermission('sizes-restore'))
+                                                        auth()->user()->hasPermission('sizes-restore'))
                                                         <a class="dropdown-item"
                                                             href="{{ route('sizes.restore', ['size' => $size->id]) }}">{{ __('Restore') }}</a>
                                                     @elseif(auth()->user()->hasPermission('sizes-update'))
@@ -108,7 +116,7 @@
                                                             href="{{ route('sizes.edit', ['size' => $size->id]) }}">{{ __('Edit') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('sizes-delete') ||
-    auth()->user()->hasPermission('sizes-trash'))
+                                                        auth()->user()->hasPermission('sizes-trash'))
                                                         <form method="POST"
                                                             action="{{ route('sizes.destroy', ['size' => $size->id]) }}">
                                                             @csrf

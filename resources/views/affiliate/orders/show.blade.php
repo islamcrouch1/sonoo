@@ -18,15 +18,18 @@
         <div class="card-body">
             <div class="row align-items-center text-center mb-3">
                 <div class="col-sm-6 text-sm-start"><img src="{{ asset('assets/img/logo-blue.png') }}" alt="invoice"
-                        width="150" /></div>
+                        width="150" />
+                </div>
                 <div class="col text-sm-end mt-3 mt-sm-0">
                     <h2 class="mb-3">Invoice</h2>
-                    <h5>Sonoo.online</h5>
+                    <h5>
+                        سونو ايجي للتسويق والتجارة الالكترونية
+                    </h5>
                     <p class="fs--1 mb-0">
                         {{ __('3, 26th of July Street, second floor, Flat 25, in front of Al-Hawari, Lebanon Square, above the pharmacy, Dr. Amira, Al-Muhandseen') }}
                     </p>
                     <p class="fs--1 mb-0">{{ __('Phone:') }}01094666865</p>
-                    <p class="fs--1 mb-0">{{ __('Email:') }} info@coponoo.com</p>
+                    <p class="fs--1 mb-0">{{ __('Email:') }} info@sonoo.online</p>
                 </div>
                 <div class="col-12">
                     <hr />
@@ -57,6 +60,10 @@
                             <tbody>
                                 <tr>
                                     <th class="text-sm-end">Order Number:</th>
+                                    <td>#{{ $order->id }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-sm-end">رقم التسجيل الضريبي:</th>
                                     <td>#{{ $order->id }}</td>
                                 </tr>
                                 <tr>
@@ -95,16 +102,16 @@
                                         {{ app()->getLocale() == 'ar' ? $product->name_ar : $product->name_en }}</h6>
                                     <span class="badge badge-soft-info">
                                         @if ($product->pivot->product_type == '0')
-                                            {{ app()->getLocale() == 'ar'? $product->stocks->find($product->pivot->stock_id)->color->color_ar: $product->stocks->find($product->pivot->stock_id)->color->color_en }}
+                                            {{ app()->getLocale() == 'ar' ? $product->stocks->find($product->pivot->stock_id)->color->color_ar : $product->stocks->find($product->pivot->stock_id)->color->color_en }}
                                         @else
-                                            {{ app()->getLocale() == 'ar'? $product->astocks->find($product->pivot->stock_id)->color->color_ar: $product->astocks->find($product->pivot->stock_id)->color->color_en }}
+                                            {{ app()->getLocale() == 'ar' ? $product->astocks->find($product->pivot->stock_id)->color->color_ar : $product->astocks->find($product->pivot->stock_id)->color->color_en }}
                                         @endif
                                     </span>
                                     <span class="badge badge-soft-info">
                                         @if ($product->pivot->product_type == '0')
-                                            {{ app()->getLocale() == 'ar'? $product->stocks->find($product->pivot->stock_id)->size->size_ar: $product->stocks->find($product->pivot->stock_id)->size->size_en }}
+                                            {{ app()->getLocale() == 'ar' ? $product->stocks->find($product->pivot->stock_id)->size->size_ar : $product->stocks->find($product->pivot->stock_id)->size->size_en }}
                                         @else
-                                            {{ app()->getLocale() == 'ar'? $product->astocks->find($product->pivot->stock_id)->size->size_ar: $product->astocks->find($product->pivot->stock_id)->size->size_en }}
+                                            {{ app()->getLocale() == 'ar' ? $product->astocks->find($product->pivot->stock_id)->size->size_ar : $product->astocks->find($product->pivot->stock_id)->size->size_en }}
                                         @endif
                                     </span>
 
@@ -140,6 +147,7 @@
                         </tr>
                     </table>
                 </div>
+                <p>السعر شامل ضريبة القيمة المضافة</p>
             </div>
         </div>
         {{-- <div class="card-footer bg-light">
