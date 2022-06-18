@@ -173,7 +173,7 @@
                                                     data-bulk-select-row="data-bulk-select-row" />
                                             </div>
                                         </td>
-                                        <td class="name align-middle white-space-nowrap py-2">
+                                        <td class="name align-middle py-2">
                                             <div class="d-flex d-flex align-items-center">
                                                 <div class="avatar avatar-xl me-2">
                                                     <img class="rounded-circle"
