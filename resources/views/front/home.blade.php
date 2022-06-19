@@ -12,9 +12,9 @@
 
 
         <div class="container ">
-            <div class="row flex-center   pt-lg-8 pb-lg-9 pb-xl-0">
-                <div class="col-md-11 col-lg-8 col-xl-4 pb-7  pb-xl-9 text-center text-xl-start"><a
-                        class="btn btn-outline-danger disabled ready mb-4 fs-1 first border-2 rounded-pill"><span
+            <div class="row flex-center   pt-lg-10 pb-lg-7 pb-xl-0">
+                <div class="col-md-11 col-lg-8 col-xl-4 pb-3  pb-xl-5 text-center text-xl-start"><a
+                        class="btn btn-outline-danger disabled ready mb-2 fs-1 first border-2 rounded-pill"><span
                             class="me-2" role="img" aria-label="Gift"></span>{{ __('Catch Your Profit') }} !!</a>
                     <h1 class="text-white fw-light">{{ __('Faster') }} <span class="typed-text fw-bold"
                             data-typed-text='["{{ __('Delivery') }}","{{ __('Profit') }}","{{ __('Success')}}"]'></span></h1>
