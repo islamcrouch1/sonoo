@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -28,8 +28,8 @@
 
                             <div class="mb-3">
                                 <label class="form-label" for="currency">{{ __('type select') }}</label>
-                                <select class="form-select @error('type') is-invalid @enderror" aria-label="" name="type"
-                                    id="type" required>
+                                <select class="form-select @error('type') is-invalid @enderror" aria-label=""
+                                    name="type" id="type" required>
                                     <option value="all">{{ __('All') }}</option>
                                     <option value="affiliate">{{ __('Affiliate') }}</option>
                                     <option value="vendor">{{ __('Vendor') }}</option>

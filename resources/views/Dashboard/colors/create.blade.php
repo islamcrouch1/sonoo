@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -20,8 +20,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="color_ar">color name - arabic</label>
                                 <input name="color_ar" class="form-control @error('color_ar') is-invalid @enderror"
-                                    value="{{ old('color_ar') }}" type="text" autocomplete="on" id="color_ar" autofocus
-                                    required />
+                                    value="{{ old('color_ar') }}" type="text" autocomplete="on" id="color_ar"
+                                    autofocus required />
                                 @error('color_ar')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -30,7 +30,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="color_en">color name - english</label>
                                 <input name="color_en" class="form-control @error('color_en') is-invalid @enderror"
-                                    value="{{ old('color_en') }}" type="text" autocomplete="on" id="color_en" required />
+                                    value="{{ old('color_en') }}" type="text" autocomplete="on" id="color_en"
+                                    required />
                                 @error('color_en')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror

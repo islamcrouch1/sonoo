@@ -181,8 +181,7 @@
                                     </nav>
                                 </div>
                             </div> --}}
-                            <div class="brand-logo"><a
-                                    href="{{ route('store.show', ['user' => $user->id]) }}"><img
+                            <div class="brand-logo"><a href="{{ route('store.show', ['user' => $user->id]) }}"><img
                                         src="{{ asset('assets/img/logo-blue.png') }}"
                                         class="img-fluid blur-up lazyload" alt="" style="width:160px"></a></div>
                         </div>
@@ -436,7 +435,7 @@
                                                 <li>
                                                     <a href="#">vendor</a>
                                                     <ul>
-                                                        <li><a href="vendor-dashboard.html">vendor dashboard</a>
+                                                        <li><a href="vendor-Dashboard.html">vendor Dashboard</a>
                                                         </li>
                                                         <li><a href="vendor-profile.html">vendor profile</a></li>
                                                         <li><a href="become-vendor.html">become vendor</a></li>
@@ -447,7 +446,7 @@
                                                     <ul>
                                                         <li><a href="wishlist.html">wishlist</a></li>
                                                         <li><a href="cart.html">cart</a></li>
-                                                        <li><a href="dashboard.html">Dashboard</a></li>
+                                                        <li><a href="Dashboard.html">Dashboard</a></li>
                                                         <li><a href="login.html">login</a></li>
                                                         <li><a href="register.html">register</a></li>
                                                         <li><a href="contact.html">contact</a></li>

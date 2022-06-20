@@ -39,13 +39,13 @@ class OrdersController extends Controller
             ->latest()
             ->paginate(100);
 
-        return view('dashboard.orders.index')->with('orders', $orders)->with('countries', $countries);
+        return view('Dashboard.orders.index')->with('orders', $orders)->with('countries', $countries);
     }
 
 
     public function show(Order $order)
     {
-        return view('dashboard.orders.show')->with('order', $order);
+        return view('Dashboard.orders.show')->with('order', $order);
     }
 
 
@@ -240,7 +240,7 @@ class OrdersController extends Controller
             ->latest()
             ->paginate(100);
 
-        return view('dashboard.orders.index')->with('orders', $orders)->with('countries', $countries);
+        return view('Dashboard.orders.index')->with('orders', $orders)->with('countries', $countries);
     }
 
 
@@ -263,7 +263,7 @@ class OrdersController extends Controller
             ->latest()
             ->paginate(100);
 
-        return view('dashboard.orders.index')->with('orders', $orders)->with('countries', $countries);
+        return view('Dashboard.orders.index')->with('orders', $orders)->with('countries', $countries);
     }
 
 
@@ -285,7 +285,7 @@ class OrdersController extends Controller
             ->latest()
             ->paginate(100);
 
-        return view('dashboard.orders.vendor-orders')->with('orders', $orders)->with('countries', $countries);
+        return view('Dashboard.orders.vendor-orders')->with('orders', $orders)->with('countries', $countries);
     }
 
     public function mandatoryIndexVendor(Request $request)
@@ -305,7 +305,7 @@ class OrdersController extends Controller
             ->whenStatus(request()->status)
             ->latest()
             ->paginate(100);
-        return view('dashboard.orders.vendor-orders')->with('orders', $orders)->with('countries', $countries);
+        return view('Dashboard.orders.vendor-orders')->with('orders', $orders)->with('countries', $countries);
     }
 
     public function updateStatusVendor(Request $request, VendorOrder $vendor_order)

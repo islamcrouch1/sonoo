@@ -11,7 +11,7 @@ class SettingController extends Controller
     public function index()
     {
         $settings = Setting::all();
-        return view('dashboard.settings.index', compact('settings'));
+        return view('Dashboard.settings.index', compact('settings'));
     }
 
 

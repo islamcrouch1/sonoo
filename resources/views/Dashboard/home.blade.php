@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     {{-- <div class="row g-3 mb-3">
@@ -15,7 +15,7 @@
                             <div class="position-relative z-index-2">
                                 <div>
                                     <h3 class="text-primary mb-1">Hi, {{ $user->name }}!</h3>
-                                    <p>{{ __('Here’s what happening with your dashboard today') }} </p>
+                                    <p>{{ __('Here’s what happening with your Dashboard today') }} </p>
                                 </div>
                                 <div class="d-flex py-3">
                                     <div class="pe-3">
@@ -341,7 +341,8 @@
 
                                                                     <select
                                                                         class="form-select @error('type') is-invalid @enderror"
-                                                                        aria-label="" name="type" id="type" required>
+                                                                        aria-label="" name="type" id="type"
+                                                                        required>
                                                                         <option value="1" selected>
                                                                             {{ __('Vodafone Cash') }}
                                                                         </option>
@@ -388,7 +389,8 @@
                                                                         class="form-control @error('code') is-invalid @enderror"
                                                                         placeholder="{{ __('enter the confirmation code') }}"
                                                                         value="{{ old('code') }}" type="text"
-                                                                        autocomplete="on" id="code" autofocus required />
+                                                                        autocomplete="on" id="code" autofocus
+                                                                        required />
                                                                     @error('code')
                                                                         <div class="alert alert-danger">{{ $message }}
                                                                         </div>
@@ -417,39 +419,35 @@
                 </div>
             </div>
         </div>
-
-
     @endif
 
 
     @if (Auth::user()->hasRole('affiliate'))
+        <div class="row g-3 mb-3">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        {{ __('New feature from Sonoo!') }}
+                        <span class="badge badge-soft-warning">New</span>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{ __('Products listing page for affiliate:') }}</h5>
+                        <p class="card-text pt-2">
+                            {{ __('You can now choose your list of products and display them on a sale page ready to complete the order directly from your customers, a new feature that enables you to market in an easier way without the need to create a website or a landing page for products, all you need now is to choose the products and create your advertising campaigns and get profits') }}
+                        </p>
+                        <a href="{{ route('store.show', ['user' => Auth::id()]) }}" target="_blank"
+                            class="btn btn-primary">{{ __('Visit your page') }}</a>
+                        <button id="copy" class="btn btn-info">{{ __('Copy link') }}</button>
+                        <input style="display: none" type="text"
+                            value="{{ route('store.show', ['user' => Auth::id()]) }}" id="page-link">
 
-    <div class="row g-3 mb-3">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    {{ __('New feature from Sonoo!') }}
-                    <span class="badge badge-soft-warning">New</span>
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">{{ __('Products listing page for affiliate:') }}</h5>
-                    <p class="card-text pt-2">
-                        {{ __('You can now choose your list of products and display them on a sale page ready to complete the order directly from your customers, a new feature that enables you to market in an easier way without the need to create a website or a landing page for products, all you need now is to choose the products and create your advertising campaigns and get profits') }}
-                    </p>
-                    <a href="{{ route('store.show', ['user' => Auth::id()]) }}" target="_blank"
-                        class="btn btn-primary">{{ __('Visit your page') }}</a>
-                    <button id="copy" class="btn btn-info">{{ __('Copy link') }}</button>
-                    <input style="display: none" type="text"
-                        value="{{ route('store.show', ['user' => Auth::id()]) }}" id="page-link">
-
-                    <input style="display: none" type="text" value="{{ app()->getLocale() }}" id="locale">
+                        <input style="display: none" type="text" value="{{ app()->getLocale() }}" id="locale">
 
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
     @endif
 
 
@@ -457,7 +455,8 @@
     @if (Auth::user()->hasRole('vendor'))
         <!-- Modal -->
         <div style="{{ app()->getLocale() == 'ar' ? 'direction: rtl; text-align: right' : '' }}" class="modal fade"
-            id="vendorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            id="vendorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -482,7 +481,8 @@
     @if (Auth::user()->hasRole('affiliate'))
         <!-- Modal -->
         <div style="{{ app()->getLocale() == 'ar' ? 'direction: rtl; text-align: right' : '' }}" class="modal fade"
-            id="affiliateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            id="affiliateModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">

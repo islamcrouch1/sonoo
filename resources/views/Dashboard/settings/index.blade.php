@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -63,8 +63,7 @@
 
 
                             <div class="mb-3">
-                                <label class="form-label"
-                                    for="vendor_limit">{{ __('Vendor withdrawal limit') }}</label>
+                                <label class="form-label" for="vendor_limit">{{ __('Vendor withdrawal limit') }}</label>
                                 <input name="vendor_limit" class="form-control @error('vendor_limit') is-invalid @enderror"
                                     value="{{ setting('vendor_limit') }}" type="number" autocomplete="on"
                                     id="vendor_limit" required />
@@ -102,7 +101,7 @@
                                 <label class="form-label"
                                     for="terms_ar">{{ __('Terms and conditions - arabic') }}</label>
                                 <textarea name="terms_ar" class="form-control tinymce @error('terms_ar') is-invalid @enderror" autocomplete="on"
-                                    id="terms_ar">{!! setting('terms_en') !!}</textarea>
+                                    id="terms_ar">{!! setting('terms_ar') !!}</textarea>
                                 @error('terms_ar')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -148,8 +147,7 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label"
-                                    for="front_modal_body">{{ __('Front popup - body') }}</label>
+                                <label class="form-label" for="front_modal_body">{{ __('Front popup - body') }}</label>
                                 <input name="front_modal_body"
                                     class="form-control @error('front_modal_body') is-invalid @enderror"
                                     value="{{ setting('front_modal_body') }}" type="text" autocomplete="on"

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -32,14 +32,17 @@
 
                                         @if ($category->children->count() > 0)
                                             @foreach ($category->children as $subCat)
-                                                @include('dashboard.categories._category_options', ['category' => $subCat])
+                                                @include('Dashboard.categories._category_options', [
+                                                    'category' => $subCat,
+                                                ])
                                             @endforeach
                                         @endif
                                     @endforeach
                                 </select>
                             </div>
                             <div class="d-inline-block">
-                                <select name="status" class="form-select form-select-sm sonoo-search" id="autoSizingSelect">
+                                <select name="status" class="form-select form-select-sm sonoo-search"
+                                    id="autoSizingSelect">
                                     <option value="" selected>{{ __('All Status') }}</option>
                                     <option value="active" {{ request()->status == 'active' ? 'selected' : '' }}>
                                         {{ __('Active') }}</option>

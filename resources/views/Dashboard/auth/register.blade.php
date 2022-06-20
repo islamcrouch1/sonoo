@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app_login')
+@extends('layouts.Dashboard.app_login')
 
 @section('authContent')
     <div class="row min-vh-100 flex-center g-0">
@@ -21,12 +21,15 @@
                                         href="{{ route('front.index') }}">
                                         <img style="width:150px" src="{{ asset('assets/img/logo.png') }}" alt="">
                                     </a>
-                                    <p class="opacity-75 text-white"> {{ __('Do not miss the chance.Now you can start your business without needing any capital.') }} </p>
-              
+                                    <p class="opacity-75 text-white">
+                                        {{ __('Do not miss the chance.Now you can start your business without needing any capital.') }}
+                                    </p>
+
                                 </div>
                             </div>
                             <div class="mt-3 mb-4 mt-md-4 mb-md-5 light">
-                                <p class="pt-3 text-white">{{ __('Have an account?') }}<br><a class="btn btn-outline-light mt-2 px-4"
+                                <p class="pt-3 text-white">{{ __('Have an account?') }}<br><a
+                                        class="btn btn-outline-light mt-2 px-4"
                                         href="{{ route('login') }}">{{ __('Log In') }}</a></p>
                             </div>
                         </div>
@@ -38,8 +41,8 @@
                                     <div class="mb-3">
                                         <label class="form-label" for="name">{{ __('Name') }}</label>
                                         <input name="name" class="form-control @error('name') is-invalid @enderror"
-                                            value="{{ old('name') }}" type="text" autocomplete="on" id="name" autofocus
-                                            required />
+                                            value="{{ old('name') }}" type="text" autocomplete="on" id="name"
+                                            autofocus required />
                                         @error('name')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror
@@ -61,9 +64,11 @@
 
                                         <select class="form-select @error('role') is-invalid @enderror" aria-label=""
                                             name="role" id="role" required>
-                                            <option value="4" {{ old('role') == '4' ? 'selected' : '' }}>{{ __('Affiliate') }}
+                                            <option value="4" {{ old('role') == '4' ? 'selected' : '' }}>
+                                                {{ __('Affiliate') }}
                                             </option>
-                                            <option value="3" {{ old('role') == '3' ? 'selected' : '' }}>{{ __('Vendor') }}</option>
+                                            <option value="3" {{ old('role') == '3' ? 'selected' : '' }}>
+                                                {{ __('Vendor') }}</option>
                                         </select>
                                         @error('role')
                                             <div class="alert alert-danger">{{ $message }}</div>
@@ -75,7 +80,8 @@
 
                                         <select class="form-select @error('country') is-invalid @enderror" aria-label=""
                                             name="country" id="country" required>
-                                            <option value="1" {{ old('country') == '1' ? 'selected' : '' }}>{{ __('Egypt') }}
+                                            <option value="1" {{ old('country') == '1' ? 'selected' : '' }}>
+                                                {{ __('Egypt') }}
                                             </option>
                                         </select>
                                         @error('country')
@@ -104,7 +110,8 @@
                                             @enderror
                                         </div>
                                         <div class="mb-3 col-sm-6">
-                                            <label class="form-label" for="password_confirmation">{{ __('Confirm Password') }}</label>
+                                            <label class="form-label"
+                                                for="password_confirmation">{{ __('Confirm Password') }}</label>
                                             <input class="form-control @error('password_confirmation') is-invalid @enderror"
                                                 type="password" autocomplete="on" id="password_confirmation"
                                                 name="password_confirmation" required />
@@ -121,15 +128,17 @@
                                         <br>
                                         <div class="form-check form-check-inline">
                                             <input {{ old('gender') == 'male' ? 'checked' : '' }}
-                                                class="form-check-input @error('gender') is-invalid @enderror" id="gender1"
-                                                type="radio" name="gender" value="male" required />
-                                            <label class="form-check-label" for="flexRadioDefault1">{{ __('Male') }}</label>
+                                                class="form-check-input @error('gender') is-invalid @enderror"
+                                                id="gender1" type="radio" name="gender" value="male" required />
+                                            <label class="form-check-label"
+                                                for="flexRadioDefault1">{{ __('Male') }}</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input {{ old('gender') == 'female' ? 'checked' : '' }}
-                                                class="form-check-input @error('gender') is-invalid @enderror" id="gender2"
-                                                type="radio" name="gender" value="female" required />
-                                            <label class="form-check-label" for="flexRadioDefault2">{{ __('Female') }}</label>
+                                                class="form-check-input @error('gender') is-invalid @enderror"
+                                                id="gender2" type="radio" name="gender" value="female" required />
+                                            <label class="form-check-label"
+                                                for="flexRadioDefault2">{{ __('Female') }}</label>
                                         </div>
 
                                         @error('gender')
@@ -152,7 +161,8 @@
 
                                         <div class="col-md-10">
                                             <img src="{{ asset('assets/img/avatar/avatarmale.png') }}"
-                                                style="width:100px; border: 1px solid #999" class="img-thumbnail img-prev">
+                                                style="width:100px; border: 1px solid #999"
+                                                class="img-thumbnail img-prev">
                                         </div>
 
                                     </div>
@@ -163,8 +173,10 @@
                                     <div class="form-check">
                                         <input class="form-check-input @error('check') is-invalid @enderror"
                                             type="checkbox" id="check" name="check" required />
-                                        <label class="form-label" for="check">{{ __('I accept the') }} <a href="#!">{{ __('terms') }} </a>{{ __('and') }} <a
-                                                href="#!">{{ __('privacy policy') }}</a></label>
+                                        <label class="form-label" for="check">{{ __('I accept the') }} <a
+                                                href="{{ route('front.terms') }}">{{ __('terms') }}
+                                            </a>{{ __('and') }} <a
+                                                href="{{ route('front.terms') }}">{{ __('privacy policy') }}</a></label>
                                         @error('check')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror

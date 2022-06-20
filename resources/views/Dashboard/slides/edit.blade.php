@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -32,7 +32,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="url">{{ __('Slide URL') }}</label>
                                 <input name="url" class="form-control @error('url') is-invalid @enderror"
-                                    value="{{ $slide->url }}" type="text" autocomplete="on" id="url" autofocus required />
+                                    value="{{ $slide->url }}" type="text" autocomplete="on" id="url" autofocus
+                                    required />
                                 @error('url')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -59,8 +60,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
-                                    Slide') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Edit
+                                                                        Slide') }}</button>
                             </div>
                         </form>
 

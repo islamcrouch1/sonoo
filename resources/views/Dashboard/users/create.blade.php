@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -29,8 +29,8 @@
 
                             <div class="mb-3">
                                 <label class="form-label" for="email">{{ __('Email address') }}</label>
-                                <input class="form-control @error('email') is-invalid @enderror" type="email" id="email"
-                                    name="email" autocomplete="on" value="{{ old('email') }}" required />
+                                <input class="form-control @error('email') is-invalid @enderror" type="email"
+                                    id="email" name="email" autocomplete="on" value="{{ old('email') }}" required />
                                 @error('email')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -40,8 +40,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="role">{{ __('Account type') }}</label>
 
-                                <select class="form-select @error('role') is-invalid @enderror" aria-label="" name="role"
-                                    id="role" required>
+                                <select class="form-select @error('role') is-invalid @enderror" aria-label=""
+                                    name="role" id="role" required>
                                     @foreach ($roles as $role)
                                         <option value="{{ $role->id }}"
                                             {{ old('role') == $role->id ? 'selected' : '' }}>
@@ -91,8 +91,9 @@
                                     @enderror
                                 </div>
                                 <div class="mb-3 col-sm-6">
-                                    <label class="form-label" for="password_confirmation">{{ __('Confirm
-                                        Password') }}</label>
+                                    <label class="form-label"
+                                        for="password_confirmation">{{ __('Confirm
+                                                                                Password') }}</label>
                                     <input class="form-control @error('password_confirmation') is-invalid @enderror"
                                         type="password" autocomplete="on" id="password_confirmation"
                                         name="password_confirmation" required />
@@ -145,8 +146,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
-                                    User') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Add New
+                                                                        User') }}</button>
                             </div>
                         </form>
 

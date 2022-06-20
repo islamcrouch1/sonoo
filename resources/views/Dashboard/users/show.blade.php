@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="row">
@@ -140,9 +140,10 @@
                                             @csrf
                                             <div class="mb-3">
                                                 <label class="form-label" for="note">Note</label>
-                                                <input name="note" class="form-control @error('note') is-invalid @enderror"
-                                                    value="{{ old('note') }}" type="text" autocomplete="on" id="note"
-                                                    required />
+                                                <input name="note"
+                                                    class="form-control @error('note') is-invalid @enderror"
+                                                    value="{{ old('note') }}" type="text" autocomplete="on"
+                                                    id="note" required />
                                                 @error('note')
                                                     <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror

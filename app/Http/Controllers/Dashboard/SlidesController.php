@@ -14,7 +14,7 @@ class SlidesController extends Controller
     {
         $slides = Slide::whenSearch(request()->search)
             ->paginate(100);
-        return view('dashboard.slides.index')->with('slides', $slides);
+        return view('Dashboard.slides.index')->with('slides', $slides);
     }
 
     /**
@@ -24,7 +24,7 @@ class SlidesController extends Controller
      */
     public function create()
     {
-        return view('dashboard.slides.create');
+        return view('Dashboard.slides.create');
     }
 
     /**
@@ -76,7 +76,7 @@ class SlidesController extends Controller
     public function edit($slide)
     {
         $slide = Slide::find($slide);
-        return view('dashboard.slides.edit ')->with('slide', $slide);
+        return view('Dashboard.slides.edit ')->with('slide', $slide);
     }
 
     /**
@@ -141,7 +141,7 @@ class SlidesController extends Controller
     public function trashed()
     {
         $slides = Slide::onlyTrashed()->paginate(100);
-        return view('dashboard.slides.index', ['slides' => $slides]);
+        return view('Dashboard.slides.index', ['slides' => $slides]);
     }
 
     public function restore($slide)

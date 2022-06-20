@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -22,8 +22,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="color_ar">{{ __('color name - arabic') }}</label>
                                 <input name="color_ar" class="form-control @error('color_ar') is-invalid @enderror"
-                                    value="{{ $color->color_ar }}" type="text" autocomplete="on" id="color_ar" autofocus
-                                    required />
+                                    value="{{ $color->color_ar }}" type="text" autocomplete="on" id="color_ar"
+                                    autofocus required />
                                 @error('color_ar')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -32,7 +32,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="color_en">{{ __('color name - english') }}</label>
                                 <input name="color_en" class="form-control @error('color_en') is-invalid @enderror"
-                                    value="{{ $color->color_en }}" type="text" autocomplete="on" id="color_en" required />
+                                    value="{{ $color->color_en }}" type="text" autocomplete="on" id="color_en"
+                                    required />
                                 @error('color_en')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -42,7 +43,8 @@
                                 <label class="form-label" for="hex">{{ __('color hex') }}</label>
                                 <div style="position: relative" class="colorpicker colorpicker-component">
                                     <input name="hex" class="form-control @error('hex') is-invalid @enderror"
-                                        value="{{ $color->hex }}" type="text" autocomplete="on" id="hex" required />
+                                        value="{{ $color->hex }}" type="text" autocomplete="on" id="hex"
+                                        required />
                                     <span class="input-group-addon"><i
                                             style="width:35px; height:35px; border-radius:10px; border:1px solid #ced4da; position: absolute; top:4px; {{ app()->getLocale() == 'ar' ? 'left:4px;' : 'right:4px;' }}"></i></span>
 
@@ -53,8 +55,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
-                                    color') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Edit
+                                                                        color') }}</button>
                             </div>
                         </form>
 

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -55,10 +55,14 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('Profit %') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Products') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">{{ __('Subcatecories') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
+                                    {{ __('Profit %') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Products') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
+                                    {{ __('Subcatecories') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                     data-sort="joined">{{ __('Created at') }}</th>
                                 @if ($categories->count() > 0 && $categories[0]->trashed())
@@ -117,15 +121,15 @@
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
                                                     @if ($category->trashed() &&
-    auth()->user()->hasPermission('categories-restore'))
+                                                        auth()->user()->hasPermission('categories-restore'))
                                                         <a class="dropdown-item"
                                                             href="{{ route('categories.restore', ['category' => $category->id]) }}">{{ __('Restore<') }}/a>
-                                                    @elseif(auth()->user()->hasPermission('categories-update'))
-                                                        <a class="dropdown-item"
-                                                            href="{{ route('categories.edit', ['category' => $category->id]) }}">{{ __('Edit') }}</a>
+                                                        @elseif(auth()->user()->hasPermission('categories-update'))
+                                                            <a class="dropdown-item"
+                                                                href="{{ route('categories.edit', ['category' => $category->id]) }}">{{ __('Edit') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('categories-delete') ||
-    auth()->user()->hasPermission('categories-trash'))
+                                                        auth()->user()->hasPermission('categories-trash'))
                                                         <form method="POST"
                                                             action="{{ route('categories.destroy', ['category' => $category->id]) }}">
                                                             @csrf

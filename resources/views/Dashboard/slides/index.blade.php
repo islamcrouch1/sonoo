@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -55,8 +55,10 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Slide') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('URL') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Slide') }}
+                                </th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('URL') }}
+                                </th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" style="min-width: 100px;"
                                     data-sort="joined">{{ __('Created at') }}</th>
                                 @if ($slides->count() > 0 && $slides[0]->trashed())
@@ -79,7 +81,8 @@
                                         <div class="d-flex d-flex align-items-center">
                                             <div class="avatar avatar-xl me-2">
                                                 <img class="rounded-circle"
-                                                    src="{{ asset('storage/images/slides/' . $slide->image) }}" alt="" />
+                                                    src="{{ asset('storage/images/slides/' . $slide->image) }}"
+                                                    alt="" />
                                             </div>
                                             <div class="flex-1">
                                                 <h5 class="mb-0 fs--1">
@@ -89,7 +92,8 @@
                                         </div>
                                     </td>
                                     <td class="phone align-middle white-space-nowrap py-2"> <a href="{{ $slide->url }}"
-                                            class="btn btn-sm btn-falcon-primary me-1 mb-1" target="_blank">{{ __('Slide URL') }}
+                                            class="btn btn-sm btn-falcon-primary me-1 mb-1"
+                                            target="_blank">{{ __('Slide URL') }}
                                         </a></td>
                                     <td class="joined align-middle py-2">{{ $slide->created_at }} <br>
                                         {{ interval($slide->created_at) }} </td>
@@ -107,7 +111,7 @@
                                                 aria-labelledby="customer-dropdown-0">
                                                 <div class="bg-white py-2">
                                                     @if ($slide->trashed() &&
-    auth()->user()->hasPermission('slides-restore'))
+                                                        auth()->user()->hasPermission('slides-restore'))
                                                         <a class="dropdown-item"
                                                             href="{{ route('slides.restore', ['slide' => $slide->id]) }}">{{ __('Restore') }}</a>
                                                     @elseif(auth()->user()->hasPermission('slides-update'))
@@ -115,7 +119,7 @@
                                                             href="{{ route('slides.edit', ['slide' => $slide->id]) }}">{{ __('Edit') }}</a>
                                                     @endif
                                                     @if (auth()->user()->hasPermission('slides-delete') ||
-    auth()->user()->hasPermission('slides-trash'))
+                                                        auth()->user()->hasPermission('slides-trash'))
                                                         <form method="POST"
                                                             action="{{ route('slides.destroy', ['slide' => $slide->id]) }}">
                                                             @csrf

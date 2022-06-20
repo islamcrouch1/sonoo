@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
 
@@ -56,8 +56,8 @@
 
                                 <div class="d-inline-block">
                                     {{-- <label class="form-label" for="to">{{ __('To') }}</label> --}}
-                                    <input type="date" id="to" name="to" class="form-control form-select-sm sonoo-search"
-                                        value="{{ request()->to }}">
+                                    <input type="date" id="to" name="to"
+                                        class="form-control form-select-sm sonoo-search" value="{{ request()->to }}">
                                 </div>
 
                                 <div class="d-inline-block">
@@ -107,7 +107,8 @@
                                 type="button"><span class="fas fa-receipt" data-fa-transform="shrink-3 down-2"></span><span
                                     class="d-none d-sm-inline-block ms-1">{{ __('Mandatory') }}</span></a>
                             <a href="{{ route('orders.refunds') }}" class="btn btn-falcon-default btn-sm"
-                                type="button"><span class="fas fa-backward" data-fa-transform="shrink-3 down-2"></span><span
+                                type="button"><span class="fas fa-backward"
+                                    data-fa-transform="shrink-3 down-2"></span><span
                                     class="d-none d-sm-inline-block ms-1">{{ __('Refunds Requsets') }}</span></a>
                             <a href="{{ route('orders.export', ['status' => request()->status, 'from' => request()->from, 'to' => request()->to]) }}"
                                 class="btn btn-falcon-default btn-sm" type="button"><span class="fas fa-external-link-alt"
@@ -226,7 +227,8 @@
                                             <div class="dropdown font-sans-serif position-static">
                                                 <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal"
                                                     type="button" id="customer-dropdown-0" data-bs-toggle="dropdown"
-                                                    data-boundary="window" aria-haspopup="true" aria-expanded="false"><span
+                                                    data-boundary="window" aria-haspopup="true"
+                                                    aria-expanded="false"><span
                                                         class="fas fa-ellipsis-h fs--1"></span></button>
                                                 <div class="dropdown-menu dropdown-menu-end border py-0"
                                                     aria-labelledby="customer-dropdown-0">
@@ -235,22 +237,26 @@
                                                         @if (auth()->user()->hasPermission('orders-update'))
                                                             <a class="dropdown-item"
                                                                 href="{{ route('users.show', ['user' => $order->user_id]) }}">{{ __('Affiliate
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Info') }}</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Info') }}</a>
                                                             <a class="dropdown-item"
                                                                 href="{{ route('orders.show', ['order' => $order->id]) }}">{{ __('Display
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        order') }}</a>
-                                                            <a href="" class="dropdown-item" data-bs-toggle="modal"
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        order') }}</a>
+                                                            <a href="" class="dropdown-item"
+                                                                data-bs-toggle="modal"
                                                                 data-bs-target="#status-modal-{{ $order->id }}">{{ __('Change Status') }}</a>
                                                             @if ($order->refund)
-                                                                <a href="" class="dropdown-item" data-bs-toggle="modal"
+                                                                <a href="" class="dropdown-item"
+                                                                    data-bs-toggle="modal"
                                                                     data-bs-target="#refund-modal-{{ $order->id }}">{{ __('reason for refund request') }}</a>
                                                             @endif
-                                                            <a href="" class="dropdown-item" data-bs-toggle="modal"
+                                                            <a href="" class="dropdown-item"
+                                                                data-bs-toggle="modal"
                                                                 data-bs-target="#track-modal-{{ $order->id }}">{{ __('Track order') }}</a>
                                                         @endif
 
                                                         @if (auth()->user()->hasPermission('orders_notes-read'))
-                                                            <a href="" class="dropdown-item" data-bs-toggle="modal"
+                                                            <a href="" class="dropdown-item"
+                                                                data-bs-toggle="modal"
                                                                 data-bs-target="#notes-modal-{{ $order->id }}">{{ __('Order Notes') }}</a>
                                                         @endif
 
@@ -285,7 +291,7 @@
                                                                 <div class="mb-3">
                                                                     <label class="form-label"
                                                                         for="bonus">{{ __('Change order
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                status') }}</label>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        status') }}</label>
                                                                     <select
                                                                         class="form-control @error('status') is-invalid @enderror"
                                                                         name="status" required>

@@ -35,7 +35,7 @@ class CategoriesController extends Controller
 
         $countries = Country::all();
 
-        return view('dashboard.categories.index')->with('categories', $categories)->with('countries', $countries);
+        return view('Dashboard.categories.index')->with('categories', $categories)->with('countries', $countries);
     }
 
     /**
@@ -47,7 +47,7 @@ class CategoriesController extends Controller
     {
         $countries = Country::all();
         $categories = Category::whereNull('parent_id')->get();
-        return view('dashboard.categories.create')->with('countries', $countries)->with('categories', $categories)->with('parent_id', request()->parent_id);
+        return view('Dashboard.categories.create')->with('countries', $countries)->with('categories', $categories)->with('parent_id', request()->parent_id);
     }
 
     /**
@@ -111,7 +111,7 @@ class CategoriesController extends Controller
         $countries = Country::all();
         $category = Category::findOrFail($category);
         $categories = Category::whereNull('parent_id')->get();
-        return view('dashboard.categories.edit ')->with('category', $category)->with('countries', $countries)->with('categories', $categories);
+        return view('Dashboard.categories.edit ')->with('category', $category)->with('countries', $countries)->with('categories', $categories);
     }
 
     /**
@@ -194,7 +194,7 @@ class CategoriesController extends Controller
             ->whenCountry(request()->country_id)
             ->latest()
             ->paginate(100);
-        return view('dashboard.categories.index', ['categories' => $categories])->with('countries', $countries);
+        return view('Dashboard.categories.index', ['categories' => $categories])->with('countries', $countries);
     }
 
     public function restore($category, Request $request)

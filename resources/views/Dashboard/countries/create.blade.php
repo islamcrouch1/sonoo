@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -52,8 +52,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="currency">{{ __('Country Currency') }}</label>
                                 <input name="currency" class="form-control @error('currency') is-invalid @enderror"
-                                    value="{{ old('currency') }}" type="text" autocomplete="on" id="currency" autofocus
-                                    required />
+                                    value="{{ old('currency') }}" type="text" autocomplete="on" id="currency"
+                                    autofocus required />
                                 @error('currency')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -74,14 +74,16 @@
                             <div class="mb-3">
 
                                 <div class="col-md-10">
-                                    <img src="" style="width:100px; border: 1px solid #999" class="img-thumbnail img-prev">
+                                    <img src="" style="width:100px; border: 1px solid #999"
+                                        class="img-thumbnail img-prev">
                                 </div>
 
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add New
-                                    Country') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Add New
+                                                                        Country') }}</button>
                             </div>
                         </form>
 

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app_login')
+@extends('layouts.Dashboard.app_login')
 
 @section('authContent')
     <div class="row min-vh-100 flex-center g-0">
@@ -46,8 +46,8 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label class="form-label" for="code">{{ __('Verification Code') }}</label>
-                                        <input class="form-control @error('code') is-invalid @enderror" type="txt" id="code"
-                                            name="code" required autofocus />
+                                        <input class="form-control @error('code') is-invalid @enderror" type="txt"
+                                            id="code" name="code" required autofocus />
                                         @error('code')
                                             <div class="alert alert-danger">{{ $message }}</div>
                                         @enderror

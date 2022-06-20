@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -31,7 +31,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="name_ar">{{ __('product name - arabic') }}</label>
                                 <input name="name_ar" class="form-control @error('name_ar') is-invalid @enderror"
-                                    value="{{ old('name_ar') }}" type="text" autocomplete="on" id="name_ar" required />
+                                    value="{{ old('name_ar') }}" type="text" autocomplete="on" id="name_ar"
+                                    required />
                                 @error('name_ar')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -40,7 +41,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="name_en">{{ __('product name - english') }}</label>
                                 <input name="name_en" class="form-control @error('name_en') is-invalid @enderror"
-                                    value="{{ old('name_en') }}" type="text" autocomplete="on" id="name_en" required />
+                                    value="{{ old('name_en') }}" type="text" autocomplete="on" id="name_en"
+                                    required />
                                 @error('name_en')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -56,7 +58,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description_ar">{{ __('product description - arabic') }}</label>
+                                <label class="form-label"
+                                    for="description_ar">{{ __('product description - arabic') }}</label>
                                 <textarea id="description_ar" class="form-control tinymce d-none @error('description_ar') is-invalid @enderror"
                                     name="description_ar">{{ old('description_ar') }}</textarea>
                                 @error('description_ar')
@@ -65,7 +68,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description_en">{{ __('product description - english') }}</label>
+                                <label class="form-label"
+                                    for="description_en">{{ __('product description - english') }}</label>
                                 <textarea id="description_en" class="form-control tinymce d-none @error('description_en') is-invalid @enderror"
                                     name="description_en">{{ old('description_en') }}</textarea>
                                 @error('description_en')
@@ -122,7 +126,9 @@
 
                                         @if ($category->children->count() > 0)
                                             @foreach ($category->children as $subCat)
-                                                @include('dashboard.categories._category_options', ['category' => $subCat])
+                                                @include('Dashboard.categories._category_options', [
+                                                    'category' => $subCat,
+                                                ])
                                             @endforeach
                                         @endif
                                     @endforeach
@@ -134,9 +140,9 @@
 
                             <div class="mb-3">
                                 <label class="form-label" for="colors">{{ __('Product Colors') }}</label>
-                                <select class="form-select js-choice @error('colors') is-invalid @enderror" name="colors[]"
-                                    multiple="multiple" data-options='{"removeItemButton":true,"placeholder":true}'
-                                    required>
+                                <select class="form-select js-choice @error('colors') is-invalid @enderror"
+                                    name="colors[]" multiple="multiple"
+                                    data-options='{"removeItemButton":true,"placeholder":true}' required>
                                     <option value="">
                                         {{ __('Select Colors') }}</option>
                                     @foreach ($colors as $color)
@@ -206,7 +212,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Add') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Add') }}</button>
                             </div>
                         </form>
 

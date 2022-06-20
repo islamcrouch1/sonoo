@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <form id="bulk-form" method="POST" action="{{ route('orders.vendor.status.bulk') }}">
@@ -21,7 +21,8 @@
                                     <option value="delivered">
                                         {{ __('delivered') }}</option>
                                 </select>
-                                <button class="btn btn-falcon-default btn-sm ms-2" type="submit">{{ __('Apply') }}</button>
+                                <button class="btn btn-falcon-default btn-sm ms-2"
+                                    type="submit">{{ __('Apply') }}</button>
                             </div>
                         </div>
 
@@ -38,8 +39,8 @@
 
                                 <div class="d-inline-block">
                                     {{-- <label class="form-label" for="to">{{ __('To') }}</label> --}}
-                                    <input type="date" id="to" name="to" class="form-control form-select-sm sonoo-search"
-                                        value="{{ request()->to }}">
+                                    <input type="date" id="to" name="to"
+                                        class="form-control form-select-sm sonoo-search" value="{{ request()->to }}">
                                 </div>
 
                                 <div class="d-inline-block">
@@ -223,7 +224,8 @@
                                             <div class="dropdown font-sans-serif position-static">
                                                 <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal"
                                                     type="button" id="customer-dropdown-0" data-bs-toggle="dropdown"
-                                                    data-boundary="window" aria-haspopup="true" aria-expanded="false"><span
+                                                    data-boundary="window" aria-haspopup="true"
+                                                    aria-expanded="false"><span
                                                         class="fas fa-ellipsis-h fs--1"></span></button>
                                                 <div class="dropdown-menu dropdown-menu-end border py-0"
                                                     aria-labelledby="customer-dropdown-0">
@@ -232,14 +234,15 @@
                                                         @if (auth()->user()->hasPermission('orders-read'))
                                                             <a class="dropdown-item"
                                                                 href="{{ route('users.show', ['user' => $order->user_id]) }}">{{ __('Vendor
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Info') }}</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Info') }}</a>
                                                             <a class="dropdown-item"
                                                                 href="{{ route('orders.show', ['order' => $order->order_id]) }}">{{ __('Show
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Affiliate Order') }}</a>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            Affiliate Order') }}</a>
                                                         @endif
 
                                                         @if (auth()->user()->hasPermission('orders-update') && $order->status == 'Waiting for the order amount to be released')
-                                                            <a href="" class="dropdown-item" data-bs-toggle="modal"
+                                                            <a href="" class="dropdown-item"
+                                                                data-bs-toggle="modal"
                                                                 data-bs-target="#status-modal-{{ $order->id }}">{{ __('Change Status') }}</a>
                                                         @endif
 

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -37,8 +37,8 @@
 
                             <div class="d-inline-block">
                                 {{-- <label class="form-label" for="to">{{ __('To') }}</label> --}}
-                                <input type="date" id="to" name="to" class="form-control form-select-sm sonoo-search"
-                                    value="{{ request()->to }}">
+                                <input type="date" id="to" name="to"
+                                    class="form-control form-select-sm sonoo-search" value="{{ request()->to }}">
                             </div>
 
                             <div class="d-inline-block">
@@ -54,7 +54,8 @@
                                 </select>
                             </div>
                             <div class="d-inline-block">
-                                <select name="status" class="form-select form-select-sm sonoo-search" id="autoSizingSelect">
+                                <select name="status" class="form-select form-select-sm sonoo-search"
+                                    id="autoSizingSelect">
                                     <option value="" selected>{{ __('All Status') }}</option>
                                     <option value="active" {{ request()->status == 'active' ? 'selected' : '' }}>
                                         {{ __('active') }}</option>

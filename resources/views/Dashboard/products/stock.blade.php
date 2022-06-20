@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -61,9 +61,8 @@
                                                     <td class="text-end">
                                                         <div>
                                                             <a href="{{ route('products.color.destroy', ['stock' => $stock->id]) }}"
-                                                                class="btn p-0 ms-2" type="button"
-                                                                data-bs-toggle="tooltip" data-bs-placement="top"
-                                                                title="Delete"><span
+                                                                class="btn p-0 ms-2" type="button" data-bs-toggle="tooltip"
+                                                                data-bs-placement="top" title="Delete"><span
                                                                     class="text-500 fas fa-trash-alt"></span></a>
                                                         </div>
                                                     </td>

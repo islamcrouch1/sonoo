@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -34,12 +34,13 @@
 
                             <div class="d-inline-block">
                                 {{-- <label class="form-label" for="to">{{ __('To') }}</label> --}}
-                                <input type="date" id="to" name="to" class="form-control form-select-sm sonoo-search"
-                                    value="{{ request()->to }}">
+                                <input type="date" id="to" name="to"
+                                    class="form-control form-select-sm sonoo-search" value="{{ request()->to }}">
                             </div>
 
                             <div class="d-inline-block">
-                                <select name="status" class="form-select form-select-sm sonoo-search" id="autoSizingSelect">
+                                <select name="status" class="form-select form-select-sm sonoo-search"
+                                    id="autoSizingSelect">
                                     <option value="" selected>{{ __('All Status') }}</option>
                                     <option value="pending" {{ request()->status == 'pending' ? 'selected' : '' }}>
                                         {{ __('pending') }}</option>
@@ -75,8 +76,10 @@
                                             data-bulk-select='{"body":"table-customers-body","actions":"table-customers-actions","replacedElement":"table-customers-replace-element"}' />
                                     </div>
                                 </th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('User Name') }}</th>
-                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">{{ __('User Type') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">
+                                    {{ __('User Name') }}</th>
+                                <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
+                                    {{ __('User Type') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
                                     {{ __('Payment Type') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">

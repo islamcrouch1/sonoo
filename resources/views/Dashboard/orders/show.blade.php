@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3">
@@ -96,16 +96,16 @@
                                         {{ app()->getLocale() == 'ar' ? $product->name_ar : $product->name_en }}</h6>
                                     <span class="badge badge-soft-info">
                                         @if ($product->pivot->product_type == '0')
-                                            {{ app()->getLocale() == 'ar'? $product->stocks->find($product->pivot->stock_id)->color->color_ar: $product->stocks->find($product->pivot->stock_id)->color->color_en }}
+                                            {{ app()->getLocale() == 'ar' ? $product->stocks->find($product->pivot->stock_id)->color->color_ar : $product->stocks->find($product->pivot->stock_id)->color->color_en }}
                                         @else
-                                            {{ app()->getLocale() == 'ar'? $product->astocks->find($product->pivot->stock_id)->color->color_ar: $product->astocks->find($product->pivot->stock_id)->color->color_en }}
+                                            {{ app()->getLocale() == 'ar' ? $product->astocks->find($product->pivot->stock_id)->color->color_ar : $product->astocks->find($product->pivot->stock_id)->color->color_en }}
                                         @endif
                                     </span>
                                     <span class="badge badge-soft-info">
                                         @if ($product->pivot->product_type == '0')
-                                            {{ app()->getLocale() == 'ar'? $product->stocks->find($product->pivot->stock_id)->size->size_ar: $product->stocks->find($product->pivot->stock_id)->size->size_en }}
+                                            {{ app()->getLocale() == 'ar' ? $product->stocks->find($product->pivot->stock_id)->size->size_ar : $product->stocks->find($product->pivot->stock_id)->size->size_en }}
                                         @else
-                                            {{ app()->getLocale() == 'ar'? $product->astocks->find($product->pivot->stock_id)->size->size_ar: $product->astocks->find($product->pivot->stock_id)->size->size_en }}
+                                            {{ app()->getLocale() == 'ar' ? $product->astocks->find($product->pivot->stock_id)->size->size_ar : $product->astocks->find($product->pivot->stock_id)->size->size_en }}
                                         @endif
                                     </span>
 

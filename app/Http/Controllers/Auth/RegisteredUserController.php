@@ -25,7 +25,7 @@ class RegisteredUserController extends Controller
      */
     public function create()
     {
-        return view('dashboard.auth.register');
+        return view('Dashboard.auth.register');
     }
 
     /**
@@ -109,7 +109,7 @@ class RegisteredUserController extends Controller
             'outstanding_balance' => 0,
             'pending_withdrawal_requests' => 0,
             'completed_withdrawal_requests' => 0,
-            'bonus' => $user->hasRole('affiliate') ?  100 : 0,
+            'bonus' => $user->hasRole('affiliate') ?  0 : 0,
         ]);
 
         event(new Registered($user));

@@ -13,7 +13,7 @@ class PhoneVerificationController extends Controller
     {
         return hasVerifiedPhone($request->user())
             ? redirect()->route('home')
-            : view('dashboard.auth.verifyphone');
+            : view('Dashboard.auth.verifyphone');
     }
 
     public function verify(Request $request)

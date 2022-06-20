@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3" id="customersTable"
@@ -22,8 +22,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="name_ar">{{ __('category name - arabic') }}</label>
                                 <input name="name_ar" class="form-control @error('name_ar') is-invalid @enderror"
-                                    value="{{ $category->name_ar }}" type="text" autocomplete="on" id="name_ar" autofocus
-                                    required />
+                                    value="{{ $category->name_ar }}" type="text" autocomplete="on" id="name_ar"
+                                    autofocus required />
                                 @error('name_ar')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -32,15 +32,16 @@
                             <div class="mb-3">
                                 <label class="form-label" for="name_en">{{ __('category name - english') }}</label>
                                 <input name="name_en" class="form-control @error('name_en') is-invalid @enderror"
-                                    value="{{ $category->name_en }}" type="text" autocomplete="on" id="name_en" autofocus
-                                    required />
+                                    value="{{ $category->name_en }}" type="text" autocomplete="on" id="name_en"
+                                    autofocus required />
                                 @error('name_en')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description_ar">{{ __('category description - arabic') }}</label>
+                                <label class="form-label"
+                                    for="description_ar">{{ __('category description - arabic') }}</label>
                                 <input name="description_ar"
                                     class="form-control @error('description_ar') is-invalid @enderror"
                                     value="{{ $category->description_ar }}" type="text" autocomplete="on"
@@ -51,7 +52,8 @@
                             </div>
 
                             <div class="mb-3">
-                                <label class="form-label" for="description_en">{{ __('category description - english') }}</label>
+                                <label class="form-label"
+                                    for="description_en">{{ __('category description - english') }}</label>
                                 <input name="description_en"
                                     class="form-control @error('description_en') is-invalid @enderror"
                                     value="{{ $category->description_en }}" type="text" autocomplete="on"
@@ -77,10 +79,9 @@
 
                                         @if ($scategory->children->count() > 0)
                                             @foreach ($scategory->children as $subCat)
-                                                @include(
-                                                    'dashboard.categories._category_options_edit',
-                                                    ['scategory' => $subCat]
-                                                )
+                                                @include('Dashboard.categories._category_options_edit', [
+                                                    'scategory' => $subCat,
+                                                ])
                                             @endforeach
                                         @endif
                                     @endforeach
@@ -115,8 +116,8 @@
                             <div class="mb-3">
                                 <label class="form-label" for="profit">{{ __('Category Profit %') }}</label>
                                 <input name="profit" class="form-control @error('profit') is-invalid @enderror"
-                                    value="{{ $category->profit }}" type="number" min="0" autocomplete="on" id="profit"
-                                    autofocus required />
+                                    value="{{ $category->profit }}" type="number" min="0" autocomplete="on"
+                                    id="profit" autofocus required />
                                 @error('profit')
                                     <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
@@ -142,8 +143,9 @@
                             </div>
 
                             <div class="mb-3">
-                                <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">{{ __('Edit
-                                    Category') }}</button>
+                                <button class="btn btn-primary d-block w-100 mt-3" type="submit"
+                                    name="submit">{{ __('Edit
+                                                                        Category') }}</button>
                             </div>
                         </form>
 

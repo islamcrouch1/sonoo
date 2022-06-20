@@ -19,6 +19,8 @@ Route::redirect('/', '/user');
 
 
 Route::get('/', [FrontController::class, 'index'])->name('front.index');
+Route::get('/fqs', [FrontController::class, 'fqs'])->name('front.fqs');
+Route::get('/terms-conditions', [FrontController::class, 'terms'])->name('front.terms');
 
 
 Route::get('/setlocale', function () {

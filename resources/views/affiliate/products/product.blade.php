@@ -1,11 +1,11 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
     <div class="card mb-3">
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-6 mb-4 mb-lg-0">
-                    <div style="height: 366px" class="product-slider" id="galleryTop">
+                    <div style="height: 500px" class="product-slider" id="galleryTop">
                         @php
                             $count = productImagesCount($product);
                         @endphp
@@ -63,33 +63,39 @@
 
                         @foreach ($stocks as $index => $stock)
                             @if ($stock->image != null)
-                            <div class="inline-block">
-                                <div>
-                                  <input  type="radio" id="option{{ $index + 1 }}" name="color-select" value="{{ $stock->id }}"  data-product_id="{{ $product->id }}" data-color_id="{{ $stock->color_id }}"
-                                  data-stock_id="{{ $stock->id }}" checked>
-                                  <label for="option{{ $index + 1 }}">
-                                    <span class="span">
-                                      <img src="https://www.freepik.com/free-vector/white-vector-check-mark-tick-circle-conceptual_16305250.htm#query=check&position=7&from_view=keyword" alt="Checked Icon" />
-                                    </span>
-                                  </label>
-                                </div>
-                            </div>
-                           
-                                {{-- <input type="radio" class="btn-check rounded-circle color-select"  value="{{ $stock->id }}" 
+                                {{-- <div class="inline-block">
+                                    <div>
+                                        <input type="radio" id="option{{ $index + 1 }}" name="color-select"
+                                            value="{{ $stock->id }}" data-product_id="{{ $product->id }}"
+                                            data-color_id="{{ $stock->color_id }}" data-stock_id="{{ $stock->id }}"
+                                            checked>
+                                        <label for="option{{ $index + 1 }}">
+                                            <span class="span">
+                                                <img src="https://www.freepik.com/free-vector/white-vector-check-mark-tick-circle-conceptual_16305250.htm#query=check&position=7&from_view=keyword"
+                                                    alt="Checked Icon" />
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div> --}}
+
+                                <input type="radio" class="btn btn-check color-select" value="{{ $stock->id }}"
                                     name="color-select" id="option{{ $index + 1 }}"
                                     data-product_id="{{ $product->id }}" data-color_id="{{ $stock->color_id }}"
                                     data-stock_id="{{ $stock->id }}">
-                                   
-                                    
-                                <label class="  btn-falcon-default rounded-circle" for="option{{ $index + 1 }}"><span
-                                        style="color:{{ $stock->color->hex }}" class=" fas fa-solid fa-circle fa-3x"></span></label> --}}
+
+
+                                <label style="position: relative" class=" btn-falcon-default rounded-circle"
+                                    for="option{{ $index + 1 }}"><span style="color:{{ $stock->color->hex }}"
+                                        class=" fas fa-solid fa-circle fa-2x"></span></label>
                                 {{-- {{ app()->getLocale() == 'ar' ? $stock->color->color_ar : $stock->color->color_en }} --}}
                             @else
-                                <input type="radio" class="btn-check rounded-circle color-select" value="{{ $stock->id }}"
-                                    name="color-select" id="option{{ $index + 1 }}" data-stock_id="{{ $stock->id }}"
-                                    data-color_id="{{ $stock->color_id }}" data-product_id="{{ $product->id }}">
-                                <label class="btn-falcon-default rounded-circle" for="option{{ $index + 1 }}"><span
-                                        style="color:{{ $stock->color->hex }}" class="fas fa-solid fa-circle fa-3x"></span></label>
+                                <input type="radio" class="btn-check rounded-circle color-select"
+                                    value="{{ $stock->id }}" name="color-select" id="option{{ $index + 1 }}"
+                                    data-stock_id="{{ $stock->id }}" data-color_id="{{ $stock->color_id }}"
+                                    data-product_id="{{ $product->id }}">
+                                <label style="position: relative" class="btn-falcon-default rounded-circle"
+                                    for="option{{ $index + 1 }}"><span style="color:{{ $stock->color->hex }}"
+                                        class="fas fa-solid fa-circle fa-2x"></span></label>
                             @endif
                         @endforeach
 
@@ -174,8 +180,8 @@
                             </button>
                         </div>
 
-                        <div class="col-auto px-0"><a class="btn btn-sm btn-outline-danger border-300 add-fav" href="#!"
-                                data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"
+                        <div class="col-auto px-0"><a class="btn btn-sm btn-outline-danger border-300 add-fav"
+                                href="#!" data-bs-toggle="tooltip" data-bs-placement="top" title="Add to Wish List"
                                 data-id="{{ $product->id }}"
                                 data-url="{{ route('favorite.add', ['product' => $product->id]) }}"><span
                                     class="{{ Auth::user()->fav()->where('product_id', $product->id)->where('user_id', Auth::id())->get()->count() == 0? 'far': 'fas' }} fa-heart me-1 {{ 'fav-' . $product->id }}"></span></a>
@@ -209,10 +215,10 @@
                     <div class="overflow-hidden mt-4">
                         <ul class="nav nav-tabs" id="myTab" role="tablist">
                             <li class="nav-item"><a class="nav-link active ps-0" id="description-tab"
-                                    data-bs-toggle="tab" href="#tab-description" role="tab" aria-controls="tab-description"
-                                    aria-selected="true">Description</a></li>
-                            <li class="nav-item"><a class="nav-link px-2 px-md-3" id="reviews-tab"
-                                    data-bs-toggle="tab" href="#tab-reviews" role="tab" aria-controls="tab-reviews"
+                                    data-bs-toggle="tab" href="#tab-description" role="tab"
+                                    aria-controls="tab-description" aria-selected="true">Description</a></li>
+                            <li class="nav-item"><a class="nav-link px-2 px-md-3" id="reviews-tab" data-bs-toggle="tab"
+                                    href="#tab-reviews" role="tab" aria-controls="tab-reviews"
                                     aria-selected="false">Reviews</a></li>
 
                         </ul>
@@ -258,8 +264,8 @@
                                                 <label class="form-label" for="rating">{{ __('Rating') }}</label>
                                                 <input name="rating"
                                                     class="form-control @error('rating') is-invalid @enderror"
-                                                    value="{{ old('rating') }}" type="text" autocomplete="on" id="rating"
-                                                    required />
+                                                    value="{{ old('rating') }}" type="text" autocomplete="on"
+                                                    id="rating" required />
                                                 @error('rating')
                                                     <div class="alert alert-danger">{{ $message }}</div>
                                                 @enderror
@@ -310,8 +316,7 @@
                         <div class="p-4 pb-0">
 
                             <div class="mb-3">
-                                <label class="form-label"
-                                    for="store_price">{{ __('Suggested selling price') }}</label>
+                                <label class="form-label" for="store_price">{{ __('Suggested selling price') }}</label>
                                 <input name="store_price"
                                     class="form-control product-price-store @error('store_price') is-invalid @enderror"
                                     value="{{ priceWithCommission($product) }}" type="number" autocomplete="on"

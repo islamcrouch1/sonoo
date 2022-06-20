@@ -1,4 +1,4 @@
-@extends('layouts.dashboard.app')
+@extends('layouts.Dashboard.app')
 
 @section('adminContent')
 
@@ -37,7 +37,8 @@
                                         {{ __('Paused') }}</option>
                                 </select>
 
-                                <button class="btn btn-falcon-default btn-sm ms-2" type="submit">{{ __('Apply') }}</button>
+                                <button class="btn btn-falcon-default btn-sm ms-2"
+                                    type="submit">{{ __('Apply') }}</button>
                             </div>
                         </div>
                         <form action=""></form>
@@ -57,7 +58,9 @@
 
                                             @if ($category->children->count() > 0)
                                                 @foreach ($category->children as $subCat)
-                                                    @include('dashboard.categories._category_options', ['category' => $subCat])
+                                                    @include('Dashboard.categories._category_options', [
+                                                        'category' => $subCat,
+                                                    ])
                                                 @endforeach
                                             @endif
                                         @endforeach
@@ -170,7 +173,7 @@
                                                     data-bulk-select-row="data-bulk-select-row" />
                                             </div>
                                         </td>
-                                        <td class="name align-middle white-space-nowrap py-2">
+                                        <td class="name align-middle py-2">
                                             <div class="d-flex d-flex align-items-center">
                                                 <div class="avatar avatar-xl me-2">
                                                     <img class="rounded-circle"
@@ -227,7 +230,8 @@
                                             <div class="dropdown font-sans-serif position-static">
                                                 <button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal"
                                                     type="button" id="customer-dropdown-0" data-bs-toggle="dropdown"
-                                                    data-boundary="window" aria-haspopup="true" aria-expanded="false"><span
+                                                    data-boundary="window" aria-haspopup="true"
+                                                    aria-expanded="false"><span
                                                         class="fas fa-ellipsis-h fs--1"></span></button>
                                                 <div class="dropdown-menu dropdown-menu-end border py-0"
                                                     aria-labelledby="customer-dropdown-0">
@@ -239,7 +243,8 @@
                                                         @elseif(auth()->user()->hasPermission('products-update'))
                                                             <a class="dropdown-item"
                                                                 href="{{ route('products.edit', ['product' => $product->id]) }}">{{ __('Edit') }}</a>
-                                                            <a href="" class="dropdown-item" data-bs-toggle="modal"
+                                                            <a href="" class="dropdown-item"
+                                                                data-bs-toggle="modal"
                                                                 data-bs-target="#status-modal-{{ $product->id }}">{{ __('Change Status') }}</a>
                                                             <a class="dropdown-item"
                                                                 href="{{ route('products.stock.create', ['product' => $product->id]) }}">{{ __('Edit Stock') }}</a>
