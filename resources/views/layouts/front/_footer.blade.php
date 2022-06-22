@@ -26,6 +26,8 @@
                  <ul class="list-unstyled">
                      <li class="mb-3"><a class="link-600" href="{{ route('front.index') }}">{{ __('Home') }}</a>
                      </li>
+                     <li class="mb-3"><a class="link-600"
+                                href="{{ route('front.about') }}">{{ __('About Us') }}</a></li>
                      {{-- <li class="mb-3"><a class="link-600" href="#!">{{ __('About') }}</a></li>
                              <li class="mb-3"><a class="link-600" href="#!">{{ __('Contact') }}</a></li> --}}
 
@@ -33,6 +35,8 @@
                              href="{{ route('front.terms') }}">{{ __('Terms and conditions') }}</a></li>
                      <li class="mb-3"><a class="link-600"
                              href="{{ route('front.fqs') }}">{{ __('Frequent Questions') }}</a></li>
+                    
+   
 
                  </ul>
              </div>
@@ -95,7 +99,7 @@
  <!-- <section> begin ============================-->
  <section class="py-0 bg-dark light">
 
-     <div>
+     
          <hr class="my-0 text-600 opacity-25" />
          <div class="container py-3">
              <div class="row justify-content-between fs--1">
@@ -110,7 +114,7 @@
                  </div>
              </div>
          </div>
-     </div>
+     
      <!-- end of .container-->
 
  </section>

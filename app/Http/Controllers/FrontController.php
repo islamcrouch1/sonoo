@@ -20,4 +20,8 @@ class FrontController extends Controller
     {
         return view('front.terms');
     }
+    public function about()
+    {
+        return view('front.about');
+    }
 }

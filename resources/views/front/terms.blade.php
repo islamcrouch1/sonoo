@@ -6,11 +6,11 @@
         </div>
         <!--/.bg-holder-->
         <div class="position-relative text-center">
-            <h4 class="text-white">Terms and conditions</h4>
+            <h4 class="text-white">{{ __('Terms and conditions') }}</h4>
             <nav style="--falcon-breadcrumb-divider: '»';" aria-label="breadcrumb">
                 <ol style="justify-content: center;" class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ route('front.index') }}">Home</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Terms and conditions</li>
+                    <li class="breadcrumb-item"><a href="{{ route('front.index') }}">{{ __('Home') }}</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">{{ __('Terms and conditions') }}</li>
                 </ol>
             </nav>
         </div>

@@ -14,12 +14,16 @@
                  <li class="nav-item "><a class="nav-link" href="{{ route('front.index') }}" role="button"
                          id="Dashboards">{{ __('Home') }}</a>
                  </li>
+                 <li class="nav-item "><a class="nav-link" href="{{ route('front.about') }}" role="button"
+                    id="Dashboards">{{ __('About Us') }}</a>
+            </li>
                  <li class="nav-item "><a class="nav-link" href="{{ route('front.fqs') }}" role="button"
                          id="Dashboards">{{ __('FAQs') }}</a>
                  </li>
                  <li class="nav-item "><a class="nav-link" href="{{ route('front.terms') }}" role="button"
                          id="Dashboards">{{ __('Terms and conditions') }}</a>
                  </li>
+                
                  {{-- <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="#" role="button"
                          data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                          id="Dashboards">Dashboard</a>

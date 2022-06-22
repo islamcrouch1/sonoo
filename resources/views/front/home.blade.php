@@ -171,7 +171,7 @@
             <div class="row mt-6">
                 <div class="col-lg-4">
                     <div class="card yellow card-span  h-100">
-                        <div class="card-span-img"><span class="fas fa-rocket fs-4 text-info"></span></div>
+                        <div class="card-span-img gridd5"></div>
                         <div class="card-body pt-6 pb-4">
                             <h5 class="mb-2">{{ __('The largest number of affiliates for your products.') }}
                             </h5>
@@ -182,7 +182,7 @@
                 </div>
                 <div class="col-lg-4 mt-6 mt-lg-0">
                     <div class="card turquoise card-span h-100">
-                        <div class="card-span-img"><span class="fas fa-cloud fs-4 text-success"></span></div>
+                        <div class="gridd card-span-img"></div>
                         <div class="card-body pt-6 pb-4">
                             <h5 class="mb-2"> {{ __('Free storage and packaging services.') }}</h5>
                             <p>"{{ __('Easy to store and pack your products.') }}"</p>
@@ -191,7 +191,7 @@
                 </div>
                 <div class="col-lg-4 mt-6 mt-lg-0">
                     <div class="card linon card-span h-100">
-                        <div class="card-span-img"><span class="fas fa-headset fs-4 tcolor"></span></div>
+                        <div class="card-span-img gridd2"></div>
                         <div class="card-body pt-6 pb-4">
                             <h5 class="mb-2">{{ __('The strongest customer service team.') }}
                             </h5>
@@ -201,7 +201,7 @@
                 </div>
                 <div class="col-lg-6 mt-6 mt-lg-7">
                     <div class="card steel card-span h-100">
-                        <div class="card-span-img"><span class="fas fa-shipping-fast fs-4 text-danger"></span></div>
+                        <div class="card-span-img gridd3"></div>
                         <div class="card-body pt-6 pb-4">
                             <h5 class="mb-2"> {{ __('Fastest shipping and fulfilment.') }}
 
@@ -213,7 +213,7 @@
                 </div>
                 <div class="col-lg-6 mt-6 mt-lg-7">
                     <div class="card sky card-span h-100">
-                        <div class="card-span-img"><span class="fas fa-coins fs-4 first"></span></div>
+                        <div class="card-span-img gridd4"></div>
                         <div class="card-body pt-6 pb-4">
                             <h5 class="mb-2">{{ __('Collecting your profits from the customer') }}
                             </h5>
@@ -339,7 +339,7 @@
                 </div>
                 <div class="col-lg-6 text-center  my-4 mt-lg-0">
                     <div class="card mt-4 card-span border  ">
-                        <div class="card-span-img"><span class="fas fa-dolly-flatbed fs-4 ready"></span></div>
+                        <div class=" one card-span-img"></div>
                         <div class="card-body pb-4 pt-6">
                             <h5 class=" ncolorr fw-bold fs-2 mb-2"> {{ __('What is “My Inventory”') }}
 
@@ -361,7 +361,7 @@
 
                     <div class="col-lg-6 my-4 mt-lg-5">
                         <div class="card card-span border ">
-                            <div class="card-span-img"><span class="fas fa-chart-bar fs-4 ready"></span></div>
+                            <div class="card-span-img two"></div>
                             <div class="card-body px-5 pt-6 pb-4 ">
                                 <h5 class=" ncolorr fs-2 fw-bold mb-2">{{ __("It's also a free marketing tool.") }}
                                 </h5>
