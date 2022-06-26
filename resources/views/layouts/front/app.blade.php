@@ -95,6 +95,8 @@
 
     <main class="main" id="top">
         @include('layouts.front._whats')
+        
+        @include('layouts.front._facebook')
 
         @include('layouts.front._header')
 

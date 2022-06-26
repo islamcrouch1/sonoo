@@ -50,7 +50,7 @@
                     @endforeach
                     <br>
                     <span class="fs--1">SKU: <strong class="text-success">{{ $product->sku }}</strong></span>
-                    <span class="fs--1 mr-1 ml-1">Stock: <strong
+                    <span class="fs--1 mr-1 ml-1">{{ __('Stock') }}: <strong
                             class="text-success">{{ __('Available') }}</strong></span>
 
 
