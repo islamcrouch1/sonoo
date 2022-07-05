@@ -142,7 +142,7 @@
                                     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">
                                         {{ __('Product Name') }}</th>
                                     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
-                                        {{ __('SKU - IDSKU - ID') }}</th>
+                                        {{ __('SKU - ID') }}</th>
                                     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
                                         {{ __('Vendor Price') }}</th>
                                     <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
@@ -182,7 +182,7 @@
                                                 </div>
                                                 <div class="flex-1">
                                                     <h5 class="mb-0 fs--1">
-                                                        {{ $product->images->count() }}
+                                                        {{-- {{ $product->images->count() }} --}}
                                                         {{ app()->getLocale() == 'ar' ? $product->name_ar : $product->name_en }}
                                                     </h5>
                                                 </div>

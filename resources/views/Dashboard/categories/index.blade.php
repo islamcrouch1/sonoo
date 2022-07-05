@@ -57,6 +57,7 @@
                                 </th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">{{ __('Name') }}
                                 </th>
+                                
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="phone">
                                     {{ __('Profit %') }}</th>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="email">
