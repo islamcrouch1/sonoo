@@ -17,6 +17,7 @@
                 @if ($stocks->count() > 0)
                     <table class="table table-sm table-striped fs--1 mb-0 overflow-hidden">
                         <thead class="bg-200 text-900">
+                      
                             <tr>
                                 <th class="sort pe-1 align-middle white-space-nowrap" data-sort="name">
                                     {{ __('Product Name') }}</th>
@@ -37,6 +38,7 @@
                         </thead>
                         <tbody class="list" id="table-customers-body">
                             @foreach ($stocks as $stock)
+                            @if($stock->product != null)
                                 <tr class="btn-reveal-trigger">
 
                                     <td class="name align-middle white-space-nowrap py-2">
@@ -77,6 +79,7 @@
 
 
                                 </tr>
+                            @endif
                             @endforeach
                         </tbody>
 

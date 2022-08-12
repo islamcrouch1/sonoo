@@ -80,7 +80,7 @@ class OrdersController extends Controller
             foreach ($order->products as $product) {
                 if ($product->pivot->product_type == '0') {
                     $product->stocks->find($product->pivot->stock_id)->update([
-                        'stock' => $product->stocks->find($product->pivot->stock_id)->quantity + $product->pivot->quantity
+                        'quantity' => $product->stocks->find($product->pivot->stock_id)->quantity + $product->pivot->quantity
                     ]);
                 }
                 // else {
@@ -112,7 +112,7 @@ class OrdersController extends Controller
             foreach ($order->products as $product) {
                 if ($product->pivot->product_type == '0') {
                     $product->stocks->find($product->pivot->stock_id)->update([
-                        'stock' => $product->stocks->find($product->pivot->stock_id)->quantity + $product->pivot->quantity
+                        'quantity' => $product->stocks->find($product->pivot->stock_id)->quantity + $product->pivot->quantity
                     ]);
                 }
                 // else {
