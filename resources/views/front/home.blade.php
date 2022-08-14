@@ -6,16 +6,16 @@
     <section class="py-0 overflow-hidden light" id="banner">
 
         <div class="bg-holder overlay"
-            style="background-image:url({{ asset('/assets/img/generic/bg-1.jpg') }});background-position: center ;">
+            style="background-image:url({{ asset('/assets/img/generic/bg-1.jpg') }}) ;">
         </div>
         <!--/.bg-holder-->
 
 
         <div class="container ">
-            <div class="row flex-center   pt-lg-7 pb-lg-7 pb-xl-0">
-                <div class="col-md-11 col-lg-8 col-xl-4 pb-3  pt-7 pb-xl-5 text-center text-xl-start"><a
+            <div class="row   pt-lg-7 pb-lg-7 pb-xl-0">
+                <div class="col-md-11 col-xl-4 pb-3  pt-7 pb-xl-5 text-center "><a
                         class="btn btn-outline-danger disabled ready mb-5 fs-1 first border-2 rounded-pill"><span
-                            class="me-2" role="img" aria-label="Gift"></span>{{ __('Catch Your Profit') }} !!</a>
+                            class="" role="img" aria-label="Gift"></span>{{ __('Catch Your Profit') }} !!</a>
                     <h1 class="text-white fw-light">{{ __('Faster') }} <span class="typed-text fw-bold"
                             data-typed-text='["{{ __('Delivery') }}","{{ __('Profit') }}","{{ __('Success') }}"]'></span>
                     </h1>
@@ -108,10 +108,10 @@
         </div>
         <div class="container ">
             <div class="row flex-center mt-3 ">
-                <div class=" me-10 col-md-4  col-lg-5  col-xl-4   order-md-2 "><img class="  px-6 px-md-0"
+                <div class="  col-md-4  col-lg-5  col-xl-4  order-md-2 "><img  style="width: 130%" class="  px-6 px-md-0"
                         src="../assets/img/icons/spot-illustrations/mobile.png" alt="" /></div>
                 <div class="col-md-4  col-lg-5 col-xl-4  mt-md-0">
-                    <h5 class="text-warning"><span class=" fs-4 far fa-lightbulb me-2"></span><span
+                    <h5 class="text-warning"><span class=" fs-4 far fa-lightbulb "></span><span
                             class="fs-4">{{ __('THINK') }}</span></h5>
                     <h3 class=" fs-6  fw-bolder ncolorr">{{ __('Who is Sonoo?') }}
                     </h3>
@@ -131,10 +131,10 @@
         </div>
         <div class="container ">
             <div class="row  flex-center ">
-                <div class="me-10 col-md-4  col-lg-5  col-xl-4   order-md-2"><img class=" px-6 px-md-0"
+                <div class=" col-md-4  col-lg-5  col-xl-4   order-md-2"><img style="width: 130%" class=" px-6 px-md-0"
                         src="../assets/img/icons/spot-illustrations/cart.png" alt="" /></div>
                 <div class="col-md-4  col-lg-5 col-xl-4  mt-md-0">
-                    <h5 class="text-info"> <span class=" fs-4 ready far fa-object-ungroup me-2"></span><span
+                    <h5 class="text-info"> <span class=" fs-4 ready far fa-object-ungroup "></span><span
                             class=" ready fs-4">{{ __("LET'S TRY") }}</span></h5>
                     <h3 class="fs-6  fw-bolder tcolor">{{ __('How did we make it so easy?') }}
                     </h3>
@@ -359,7 +359,7 @@
                 <div class="row text-center ">
 
 
-                    <div class="col-lg-6 my-4 mt-lg-5">
+                    <div class="col-lg-6 my-4 mt-lg-6">
                         <div class="card card-span border ">
                             <div class="card-span-img two"></div>
                             <div class="card-body px-5 pt-6 pb-4 ">
@@ -372,7 +372,7 @@
                         </div>
                     </div>
                     <div class="col-lg-6 my-3  mt-lg-0">
-                        <img class=" px-6 px-md-0" src="../assets/img/icons/spot-illustrations/Untitled design (44).png"
+                        <img style="width: 90%" class=" px-6 px-md-0" src="../assets/img/icons/spot-illustrations/Untitled design (44).png"
                             alt="" />
 
                     </div>
