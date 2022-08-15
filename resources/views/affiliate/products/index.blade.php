@@ -112,7 +112,7 @@
 
                                                 @foreach ($product->images as $image)
                                                     <div class="swiper-slide"><a class="d-block"
-                                                            href="{{ route('affiliate.products.product', ['product' => $product->id]) }}"><img
+                                                            href="{{ route('affiliate.products.product', ['product' => $product->id]) }}"><img style="height: 250px"
                                                                 class="rounded-top img-fluid"
                                                                 src="{{ asset('storage/images/products/' . $image->image) }}"
                                                                 alt="" /></a></div>
