@@ -106,13 +106,13 @@
                             <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
                                 <div class="overflow-hidden">
                                     <div class="position-relative rounded-top overflow-hidden">
-                                        <div style="height: 250px" class="swiper-container theme-slider"
+                                        <div style="height: 250px " class="swiper-container theme-slider"
                                             data-swiper='{"autoplay":true,"autoHeight":true,"spaceBetween":5,"loop":true,"loopedSlides":5,"navigation":{"nextEl":".swiper-button-next","prevEl":".swiper-button-prev"}}'>
                                             <div class="swiper-wrapper">
 
                                                 @foreach ($product->images as $image)
                                                     <div class="swiper-slide"><a class="d-block"
-                                                            href="{{ route('affiliate.products.product', ['product' => $product->id]) }}"><img style="height: 250px"
+                                                            href="{{ route('affiliate.products.product', ['product' => $product->id]) }}"><img style=" width:100% height: 250px"
                                                                 class="rounded-top img-fluid"
                                                                 src="{{ asset('storage/images/products/' . $image->image) }}"
                                                                 alt="" /></a></div>
