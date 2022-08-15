@@ -13,7 +13,7 @@
                             data-swiper='{"spaceBetween":{{ $count }},"loop":true,"loopedSlides":{{ $count }},"thumb":{"spaceBetween":{{ $count }},"slidesPerView":5,"freeMode":true,"grabCursor":true,"loopedSlides":{{ $count }},"centeredSlides":true,"slideToClickedSlide":true,"watchSlidesVisibility":true,"watchSlidesProgress":true,"parent":"#galleryTop"},"slideToClickedSlide":true}'>
                             <div id="allImages" class="swiper-wrapper h-100">
                                 @foreach ($product->images as $image)
-                                    <div class="swiper-slide"><a class="d-block" href="#!"><img
+                                    <div class="swiper-slide"><a class="d-block" href="#!"><img style="width: 500px"
                                                 class="rounded-top img-fluid"
                                                 src="{{ asset('storage/images/products/' . $image->image) }}"
                                                 alt="" /></a></div>

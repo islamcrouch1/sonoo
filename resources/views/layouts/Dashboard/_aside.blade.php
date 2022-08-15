@@ -130,6 +130,7 @@
                                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                                             class="fas fa-comments"></span></span><span
                                         class="nav-link-text ps-1">{{ __('Messages') }}</span>
+                                        <span class="badge badge-soft-primary">{{ \app\models\Products::all()->count() - 1 }}</span>
                                 </div>
                             </a>
                         @endif
@@ -149,6 +150,7 @@
                         <div class="row navbar-vertical-label-wrapper mt-3 mb-2">
                             <!-- users - roles - countries - settings -->
                             <div class="col-auto navbar-vertical-label">{{ __('Products') }}
+                             
                             </div>
                             <div class="col ps-0">
                                 <hr class="mb-0 navbar-vertical-divider" />
