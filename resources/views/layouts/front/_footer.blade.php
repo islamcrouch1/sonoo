@@ -79,7 +79,7 @@
                          <h4 class="fs-2   text-light mb-2">
                          </h4>
                          {{-- <p class="text-600 opacity-70">....................</p> --}}
-                         <a class=" text-600 opacity-70" href="tel:02-33050225"><span class=" fs-1 text-light ">{{ __('Phone Number') }}:</span> 02-33050225</a>
+                         <a class=" text-600 opacity-70" href="tel:33050225-02"><span class=" fs-1 text-light ">{{ __('Phone Number') }}:</span> 33050225-02</a>
                      </li>
                      <li>
                          <h4 class="fs-2 text-light  mb-0">
@@ -122,12 +122,12 @@
                              class="text-white opacity-85" href="https://sonoo.online.com"> {{ __('Sonooegy') }}</a>
                      </p>
                      <div class="icon-group justify-content-center  mt-4"><a class="icon-item bg-white text-facebook" href="#!"><span
-                        class="fab fa-facebook-f"></span></a><a class="icon-item bg-white text-twitter"
-                    href="#!"><span class="fab fa-twitter"></span></a><a
-                    class="icon-item bg-white text-google-plus" href="#!"><span
-                        class="fab fa-google-plus-g"></span></a><a class="icon-item bg-white text-linkedin"
-                    href="#!"><span class="fab fa-linkedin-in"></span></a><a class="icon-item bg-white"
-                    href="#!"><span class="fab fa-medium-m"></span></a></div>
+                        class="fab fa-facebook-f"></span></a><a class="icon-item bg-white text-tiktok"
+                    href="#!"><span  class="fab fa-tiktok"></span></a><a
+                    class="icon-item bg-white text-whatsapp" href="#!"><span
+                        class="fab fa-whatsapp"></span></a><a class="icon-item bg-white text-youtube"
+                    href="#!"><span class="fab fa-youtube"></span></a><a class="icon-item bg-white text-instagram"
+                    href="#!"><span class="fab fa-instagram-square"></span></a></div>
                  </div>
                  {{-- <div class="col-12 col-sm-auto text-center">
                      <p class="mb-0 text-600 opacity-85"></p>
