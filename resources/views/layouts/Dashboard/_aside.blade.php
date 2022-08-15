@@ -130,7 +130,7 @@
                                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                                             class="fas fa-comments"></span></span><span
                                         class="nav-link-text ps-1">{{ __('Messages') }}</span>
-                                        <span class="badge badge-soft-primary">{{ \app\models\Products::all()->count() - 1 }}</span>
+                                       
                                 </div>
                             </a>
                         @endif
