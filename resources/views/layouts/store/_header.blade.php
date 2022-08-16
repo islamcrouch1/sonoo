@@ -181,10 +181,10 @@
                                     </nav>
                                 </div>
                             </div> --}}
-                            <div class="brand-logo"><a href="{{ route('store.show', ['user' => $user->id]) }}"><img
+                            {{-- <div class="brand-logo"><a href="{{ route('store.show', ['user' => $user->id]) }}"><img
                                         src="{{ asset('assets/img/logo-blue.png') }}"
                                         class="img-fluid blur-up lazyload" alt="" style="width:160px"></a></div>
-                        </div>
+                        </div> --}}
                         <div class="menu-right pull-right">
                             <div>
                                 <nav id="main-nav">
