@@ -362,6 +362,11 @@ input:checked+.slider:before {
 }
 
 }
+@media only screen and (min-width: 300px){
+  .mobile{
+    padding-bottom: 150px !important;
+  }
+}
 
 
 
