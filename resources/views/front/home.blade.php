@@ -33,7 +33,7 @@
                     </div>
 
                 </div>
-                <div class="col-xl-7 mobile offset-xl-1 align-self-end mt-5 mt-xl-0"><a class="img-landing-banner rounded"
+                <div class="col-xl-7  offset-xl-1 align-self-end mt-5 mt-xl-0"><a class="img-landing-banner rounded"
                         href="{{ route('front.index') }}"><img class="img-fluid mb-10" src="../assets/img/generic/h1.png"
                             alt="" /></a></div>
             </div>
