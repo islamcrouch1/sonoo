@@ -6,10 +6,10 @@
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="header-contact">
-                            <ul>
+                            {{-- <ul>
                                 <li>{{ __('Welcome to Our store Sonoo') }}</li>
-                                {{-- <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li> --}}
-                            </ul>
+                                <li><i class="fa fa-phone" aria-hidden="true"></i>Call Us: 123 - 456 - 7890</li>
+                            </ul> --}}
                         </div>
                     </div>
                     {{-- <div class="col-lg-6 text-end">

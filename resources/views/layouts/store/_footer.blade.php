@@ -108,9 +108,9 @@
                             <div style="direction: ltr !important" class="col-12 col-sm-auto">
                                 <p class="mb-0 text-600">&copy; Sonooegy. All Rights Reserved <span
                                         class="d-none d-sm-inline-block">|
-                                    </span><br class="d-sm-none" /> 2022 <small style="font-size: 10px">Developed By
+                                    {{-- </span><br class="d-sm-none" /> 2022 <small style="font-size: 10px">Developed By
                                         <a style="color: red" href="http://red-gulf.com/"
-                                            target="_blank">RED</a></small></p>
+                                            target="_blank">RED</a></small></p> --}}
                             </div>
                             {{-- <p><i class="fa fa-copyright" aria-hidden="true"></i> 2022 Coponoo. All Rights Reserved
                                 - Developed By <a style="color: red" href="http://red-gulf.com/">RED</a>

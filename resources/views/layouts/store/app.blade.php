@@ -91,7 +91,7 @@
 <body class="theme-color-23 {{ app()->getLocale() == 'ar' ? 'rtl' : '' }} ">
 
 
-    @include('layouts.store._header')
+    {{-- @include('layouts.store._header') --}}
 
 
     @yield('content')
