@@ -276,7 +276,8 @@
                                                                         {!! $product->product->description_en !!}
                                                                     @endif
                                                                 </p>
-                                                                <h4>{{ $product->price . ' ' . $product->user->country->currency }}
+                                                                <h4>{{ $product->store_price }}
+                                                                    {{ ' ' . $product->product->country->currency }}
                                                                 </h4>
                                                                 <ul class="color-variant">
 
