@@ -124,8 +124,8 @@
                      <div class="icon-group justify-content-center  mt-4"><a class="icon-item bg-white text-facebook" href="#!"><span
                         class="fab fa-facebook-f"></span></a><a class="icon-item bg-white text-tiktok"
                     href="#!"><span  class="fab fa-tiktok"></span></a><a
-                    class="icon-item bg-white text-whatsapp" href="#!"><span
-                        class="fab fa-whatsapp"></span></a><a class="icon-item bg-white text-youtube"
+                    class=" " href="#!"><span
+                        class=""></span></a><a class="icon-item bg-white text-youtube"
                     href="#!"><span class="fab fa-youtube"></span></a><a class="icon-item bg-white text-instagram"
                     href="#!"><span class="fab fa-instagram-square"></span></a></div>
                  </div>

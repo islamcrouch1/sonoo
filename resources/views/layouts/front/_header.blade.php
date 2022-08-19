@@ -3,8 +3,8 @@
  <!-- ===============================================-->
  <nav class=" navbar navbar-standard navbar-expand-lg fixed-top navbar-dark"
      data-navbar-darken-on-scroll="data-navbar-darken-on-scroll">
-     <div class="container-fluid"> <a class="w-auto mx-auto ms-2 pt-3 " href="{{ route('front.index') }}"><img
-                 src="{{ asset('assets/logos/logo.png') }}" alt="img" height="60"></a>
+     <div class="container-fluid"> <a class="w-auto mx-auto logo  ms-2 pt-3 " href="{{ route('front.index') }}"><img 
+                 src="{{ asset('assets/logos/logo.png') }}" alt="img" height="60" ></a>
          <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
              data-bs-target="#navbarStandard" aria-controls="navbarStandard" aria-expanded="false"
              aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>

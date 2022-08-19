@@ -366,6 +366,9 @@ input:checked+.slider:before {
   .mobile{
     padding-bottom: 150px !important;
   }
+  .logo img { width: 150px !important;
+    
+  }
 }
 
 
