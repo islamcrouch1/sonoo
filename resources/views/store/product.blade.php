@@ -110,7 +110,7 @@
                         </div>
                     @endif
                     <div class="col-lg-6">
-                        <div class="product-slick">
+                        <div class="product-slick border rounded-1 ">
 
                             @foreach ($product->product->images as $index => $image)
                                 <div><img src="{{ asset('storage/images/products/' . $image->image) }}" alt=""

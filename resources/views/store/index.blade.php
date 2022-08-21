@@ -220,7 +220,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="product-wrapper-grid">
+                                    <div class="product-wrapper-grid ">
                                         <div class="row">
                                             @foreach ($products as $product)
                                                 @if ($product->product->images->count() != 0)
@@ -234,11 +234,11 @@
                                                 @endif
 
                                                 <div class="col-xl-3 col-6 col-grid-box">
-                                                    <div class="product-box">
-                                                        <div class="img-wrapper">
+                                                    <div class="product-box ">
+                                                        <div class="img-wrapper  d-flex flex-column justify-content-between pb-3 border rounded-1">
                                                             <div class="front">
                                                                 <a
-                                                                    href="{{ route('store.product', ['user' => $user->id, 'product' => $product]) }}"><img
+                                                                    href="{{ route('store.product', ['user' => $user->id, 'product' => $product]) }}"><img style=" height:100px width: 100px "
                                                                         src="{{ asset('storage/images/products/' . $url) }}"
                                                                         class="img-fluid blur-up lazyload bg-img"
                                                                         alt=""></a>
