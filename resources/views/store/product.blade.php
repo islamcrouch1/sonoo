@@ -113,7 +113,7 @@
                         <div class="product-slick border rounded-1 ">
 
                             @foreach ($product->product->images as $index => $image)
-                                <div><img src="{{ asset('storage/images/products/' . $image->image) }}" alt=""
+                                <div><img src="{{ asset('storage/images/products/' . $image->image) }}" alt="" style="height: 500px"
                                         class="img-fluid blur-up lazyload image_zoom_cls-{{ $index }}"></div>
                             @endforeach
 
