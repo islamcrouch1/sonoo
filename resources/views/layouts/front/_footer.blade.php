@@ -92,7 +92,7 @@
              </div>
              <div class="col-lg-3  text-center col-md-3">
                 <a class=" text-center " href="{{ route('front.index') }}"><img
-                    src="{{ asset('assets/logos/logo.png') }}" alt="img" height="100"></a>
+                    src="{{ asset('assets/logos/logo.png') }}" alt="img" height="50px"></a>
                     {{-- <h4 class=" text-center w-auto mx-auto ms-2 pt-3 ">{{ __('Your Success On Us') }}</h4> --}}
                 </div>
          </div>
@@ -121,13 +121,13 @@
                              class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy; <a
                              class="text-white opacity-85" href="https://sonoo.online.com"> {{ __('Sonooegy') }}</a>
                      </p>
-                     <div class="icon-group justify-content-center  mt-4"><a class="icon-item bg-white text-facebook" href="#!"><span
+                     <div class="icon-group justify-content-center  mt-4"><a class="icon-item bg-white text-facebook" href=" https://www.facebook.com/sonoo.online"><span
                         class="fab fa-facebook-f"></span></a><a class="icon-item bg-white text-tiktok"
-                    href="#!"><span  class="fab fa-tiktok"></span></a><a
+                    href=" https://www.tiktok.com/@sonoo.online"><span  class="fab fa-tiktok"></span></a><a
                     class=" " href="#!"><span
                         class=""></span></a><a class="icon-item bg-white text-youtube"
-                    href="#!"><span class="fab fa-youtube"></span></a><a class="icon-item bg-white text-instagram"
-                    href="#!"><span class="fab fa-instagram-square"></span></a></div>
+                    href="https://www.youtube.com/channel/UCv4NbsSF13SY-RmwhuTM2tw"><span class="fab fa-youtube"></span></a><a class="icon-item bg-white text-instagram"
+                    href="https://www.instagram.com/sonoo.online"><span class="fab fa-instagram-square"></span></a></div>
                  </div>
                  {{-- <div class="col-12 col-sm-auto text-center">
                      <p class="mb-0 text-600 opacity-85"></p>
