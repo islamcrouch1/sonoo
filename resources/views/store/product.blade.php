@@ -123,7 +123,7 @@
                                 <div class="slider-nav ">
 
                                     @foreach ($product->product->images as $index => $image)
-                                        <div><img style="height: 500px width:50%" src="{{ asset('storage/images/products/' . $image->image) }}" alt=""
+                                        <div><img style="height:500px width:50%" src="{{ asset('storage/images/products/' . $image->image) }}" alt=""
                                                 class="img-fluid blur-up  lazyload">
                                         </div>
                                     @endforeach
