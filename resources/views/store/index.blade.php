@@ -238,9 +238,9 @@
                                                         <div class="img-wrapper  d-flex flex-column justify-content-between pb-3 border rounded-1">
                                                             <div class="front">
                                                                 <a
-                                                                    href="{{ route('store.product', ['user' => $user->id, 'product' => $product]) }}"><img style=" height:100px width: 100px "
+                                                                    href="{{ route('store.product', ['user' => $user->id, 'product' => $product]) }}"><img style=""
                                                                         src="{{ asset('storage/images/products/' . $url) }}"
-                                                                        class="img-fluid blur-up lazyload bg-img"
+                                                                        class="img-fluid blur-up lazyload "
                                                                         alt=""></a>
                                                             </div>
                                                             {{-- <div class="cart-info cart-wrap">
