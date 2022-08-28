@@ -247,7 +247,7 @@
                     </h1>
                     <h3 class="first">
                         {{ __('Just register your private account with us from here. “Sonoo.Online”') }} <a
-                        class="ncolorr opacity-85" href="https://sonoo.online.com"> “Sonoo.Online”</a>
+                        class="ncolorr opacity-85" href="https://sonoo.online"> “Sonoo.Online”</a>
                     </h3>
 
                     <div class="swiper-container theme-slider"
