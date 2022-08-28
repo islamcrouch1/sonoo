@@ -8,6 +8,7 @@
     <meta name="description" content="Coponoo">
     <meta name="keywords" content="Coponoo">
     <meta name="author" content="Coponoo">
+    <meta name="facebook-domain-verification" content="5vh3fu2325piflbvgupua7alyuy469" />
 
     <!-- ===============================================-->
     <!--    Favicons-->
