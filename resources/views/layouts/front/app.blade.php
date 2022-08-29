@@ -131,6 +131,8 @@
         
         @include('layouts.front._whats')
 
+        @include('layouts.front._messenger')
+
         @include('layouts.front._footer')
 
     </main>
