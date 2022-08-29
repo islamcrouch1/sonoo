@@ -346,8 +346,8 @@ input:checked+.slider:before {
 	position:fixed;
 	width:60px;
 	height:60px;
-	bottom:50px;
-  right:40px;
+	bottom:100px;
+  right: 32px;
 	background-color:#25d366;
 	color:#FFF;
 	border-radius:50px;
