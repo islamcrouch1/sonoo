@@ -30,6 +30,15 @@
     <meta name="theme-color" content="#ffffff">
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <script src="{{ asset('vendors/overlayscrollbars/OverlayScrollbars.min.js') }}"></script>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-MR2ZBMRC65"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-MR2ZBMRC65');
+</script>
     <!-- Meta Pixel Code -->
     <script>
     !function(f,b,e,v,n,t,s)
