@@ -5,9 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Coponoo">
-    <meta name="keywords" content="Coponoo">
-    <meta name="author" content="Coponoo">
+    <meta name="description" content="sonoo">
+    <meta name="keywords" content="sonoo">
+    <meta name="author" content="sonoo">
     <meta name="facebook-domain-verification" content="5vh3fu2325piflbvgupua7alyuy469" />
 
     <!-- ===============================================-->
