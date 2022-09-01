@@ -174,6 +174,7 @@
                                 <div class="d-flex align-items-center"><span class="nav-link-icon"><span
                                             class="fas fa-box-open"></span></span><span
                                         class="nav-link-text ps-1">{{ __('Products') }}</span>
+                                        <span class="badge badge-soft-primary">{{ \App\Models\Product::all()->count()  }}</span>
                                 </div>
                             </a>
                         @endif

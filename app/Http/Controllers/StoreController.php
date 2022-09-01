@@ -141,6 +141,14 @@ class StoreController extends Controller
 
         $order = $this->attach_order($request, $user, $aproduct);
 
+        $title_ar = ' لديك طلب جديد ';
+        $body_ar = "       ";
+        $title_en = 'you have anew order';
+        $body_en  = "      " ;
+        $url = route('orders.affiliate.index');
+
+        addNoty($user, User::findOrFail(1), $url, $title_en, $title_ar, $body_en, $body_ar);
+
 
         if (app()->getLocale() == 'ar') {
 
